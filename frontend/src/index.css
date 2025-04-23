@@ -26,12 +26,13 @@
 
 body {
   font-family: var(--content-font);
+  letter-spacing: 1px;
   background-color: var(--light-white);
   color: var(--dark-black);
 }
 
 .navbar {
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .nav-link {
