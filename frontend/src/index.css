@@ -7,7 +7,7 @@
 
   /*Custom color*/
   --primary-color: #c3a07e;
-  --lighter-primary-color: #d6b285;
+  --light-primary-color: #d6b285;
   --light-white: #ffffff;
   --dark-white: #f0f0f0;
   --light-black: #2f2f2f;
@@ -32,7 +32,6 @@ body {
 }
 
 .navbar {
-  border-bottom: 1px solid #d0d0d0;
 }
 
 .nav-link {

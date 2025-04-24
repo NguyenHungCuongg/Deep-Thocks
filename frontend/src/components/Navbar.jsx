@@ -6,7 +6,7 @@ import Menubar from "./Menubar";
 function Navbar() {
   return (
     <div>
-      <nav class="bg-[var(--dark-black)] navbar text-[var(--primary-color)] fixed w-full z-20 top-0 start-0 border-b">
+      <nav class="bg-[var(--dark-black)] navbar text-[var(--primary-color)] fixed w-full z-20 top-0 start-0">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-5">
           <div id="left-navbar-section" className="hidden md:flex tracking-widest font-title">
             <p href="/login" class="block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:p-0">
@@ -28,14 +28,14 @@ function Navbar() {
           >
             <a
               href="/cart"
-              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--lighter-primary-color)] md:p-0"
+              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
               <span className="hidden md:block">Giỏ hàng</span>
             </a>
             <a
               href="/login"
-              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--lighter-primary-color)] md:p-0"
+              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
             >
               <PersonOutlineIcon sx={{ fontSize: 30 }} className="hover:" />
               <span className="hidden md:block">Đăng nhập</span>

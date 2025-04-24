@@ -49,7 +49,7 @@ function Menubar() {
           class={`items-center justify-between ${isMenuOpen ? "block" : "hidden"} w-full md:flex md:w-auto md:order-1`}
           id="navbar-sticky"
         >
-          <ul class="flex gap-5 flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[var(--dark-black)] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[var(--dark-black)]">
+          <ul class="flex gap-5 flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[var(--dark-black)] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:bg-[var(--dark-black)]">
             <li>
               <a
                 href="/"
