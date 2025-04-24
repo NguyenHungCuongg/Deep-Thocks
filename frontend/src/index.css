@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "swiper/css/bundle";
 
 :root {
   /*Custom font*/
@@ -81,6 +82,11 @@ body {
 
 .nav-link-grow-up:hover::before {
   height: 5px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
 /* Tạo các lớp tiện ích cho tailwind*/
