@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
-import Herobanner from "./components/Herobanner";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/products" element={<h1>Products</h1>} />
         <Route path="/cart" element={<h1>Cart</h1>} />
       </Routes>
+      <Footer />
     </div>
   );
 }

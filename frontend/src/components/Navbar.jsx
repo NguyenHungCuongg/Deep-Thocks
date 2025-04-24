@@ -6,7 +6,7 @@ import Menubar from "./Menubar";
 function Navbar() {
   return (
     <div>
-      <nav class="bg-[var(--dark-black)] navbar text-[var(--primary-color)] fixed w-full z-20 top-0 start-0">
+      <nav class="bg-[var(--dark-black)] navbar text-[var(--primary-color)] w-full z-20 top-0 start-0">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-5">
           <div id="left-navbar-section" className="hidden md:flex tracking-widest font-title">
             <p href="/login" class="block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:p-0">

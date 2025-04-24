@@ -16,7 +16,7 @@ function Menubar() {
   };
 
   return (
-    <div>
+    <div className="relative">
       <div id="hamburger-menu-section" class="flex justify-end p-2">
         <button
           data-collapse-toggle="navbar-sticky"
