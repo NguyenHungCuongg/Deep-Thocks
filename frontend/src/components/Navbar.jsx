@@ -34,7 +34,7 @@ function Navbar() {
               <span className="hidden md:block">Giỏ hàng</span>
             </a>
             <a
-              href="/login"
+              href="/account/login"
               class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
             >
               <PersonOutlineIcon sx={{ fontSize: 30 }} className="hover:" />
