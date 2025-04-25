@@ -147,6 +147,14 @@ function ProductDropDown() {
               href="/categories/prebuilt-keyboards/products"
               class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
             >
+              <div class="text-[var(--grey)]">Mods</div>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/categories/prebuilt-keyboards/products"
+              class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
+            >
               <div class="text-[var(--grey)]">Bàn Phím Prebuilt</div>
             </a>
           </li>

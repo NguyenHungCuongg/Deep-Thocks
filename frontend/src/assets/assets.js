@@ -6,6 +6,10 @@ import keyboard_introduction_slide_3 from "./keyboard-introduction-slide-3.png";
 import keyboard_introduction_slide_4 from "./keyboard-introduction-slide-4.png";
 import keyboard_introduction_slide_5 from "./keyboard-introduction-slide-5.png";
 import keyboard_introduction_slide_6 from "./keyboard-introduction-slide-6.png";
+import category_card_image_accessories from "./category-card-image-accessories.png";
+import category_card_image_kit from "./category-card-image-kit.png";
+import category_card_image_keycaps from "./category-card-image-keycaps.png";
+import category_card_image_switches from "./category-card-image-switches.png";
 
 export const assets = {
   hero_banner_image,
@@ -16,4 +20,8 @@ export const assets = {
   keyboard_introduction_slide_4,
   keyboard_introduction_slide_5,
   keyboard_introduction_slide_6,
+  category_card_image_accessories,
+  category_card_image_kit,
+  category_card_image_keycaps,
+  category_card_image_switches,
 };
