@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loginpage = () => {
+const Login = () => {
   return (
     <div class="min-h-screen flex fle-col items-center justify-center py-6 px-4">
       <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
@@ -124,4 +124,4 @@ const Loginpage = () => {
   );
 };
 
-export default Loginpage;
+export default Login;

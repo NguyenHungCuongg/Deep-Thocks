@@ -1,16 +1,16 @@
 import React from "react";
-import Herobanner from "../components/Herobanner";
+import HeroBanner from "../components/HeroBanner";
 import KeyboardIntroduction from "../components/KeyboardIntroduction";
 import TopCategories from "../components/TopCategories";
 
-function Homepage() {
+function Home() {
   return (
     <div className="bg-white flex flex-col">
-      <Herobanner />
+      <HeroBanner />
       <KeyboardIntroduction />
       <TopCategories />
     </div>
   );
 }
 
-export default Homepage;
+export default Home;

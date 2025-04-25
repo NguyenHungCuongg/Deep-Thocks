@@ -88,7 +88,7 @@ function Menubar() {
                 href="/about"
                 class="nav-link nav-link-ltr block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:hover:bg-transparent md:hover:text-[var(--lighter-primary-color)] md:p-0 "
               >
-                Chi tiết
+                Giới thiệu
               </a>
             </li>
             <li>

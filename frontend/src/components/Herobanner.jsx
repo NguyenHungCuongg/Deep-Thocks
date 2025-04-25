@@ -1,7 +1,7 @@
 import React from "react";
 import { assets } from "../assets/assets";
 
-function Herobanner() {
+function HeroBanner() {
   return (
     <div class="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen overflow-hidden">
       <div class="absolute inset-0">
@@ -29,4 +29,4 @@ function Herobanner() {
   );
 }
 
-export default Herobanner;
+export default HeroBanner;

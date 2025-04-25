@@ -33,7 +33,7 @@ function Footer() {
               </li>
               <li class="mb-6">
                 <a href="/about" class=" text-gray-600 hover:text-gray-900">
-                  Chi tiết
+                  Giới thiệu
                 </a>
               </li>
               <li class="mb-6">
