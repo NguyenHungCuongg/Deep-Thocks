@@ -11,6 +11,8 @@ import category_card_image_kit from "./category-card-image-kit.png";
 import category_card_image_keycaps from "./category-card-image-keycaps.png";
 import category_card_image_switches from "./category-card-image-switches.png";
 import about_banner_image from "./about-banner-image.png";
+import about_mission_image from "./about-mission-image.png";
+import about_why_image from "./about-why-image.png";
 
 export const assets = {
   hero_banner_image,
@@ -26,4 +28,6 @@ export const assets = {
   category_card_image_keycaps,
   category_card_image_switches,
   about_banner_image,
+  about_mission_image,
+  about_why_image,
 };
