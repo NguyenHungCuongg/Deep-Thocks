@@ -13,6 +13,8 @@ import category_card_image_switches from "./category-card-image-switches.png";
 import about_banner_image from "./about-banner-image.png";
 import about_mission_image from "./about-mission-image.png";
 import about_why_image from "./about-why-image.png";
+import momo_icon from "./momo-icon.png";
+import napas_icon from "./napas-icon.png";
 
 export const assets = {
   hero_banner_image,
@@ -30,4 +32,6 @@ export const assets = {
   about_banner_image,
   about_mission_image,
   about_why_image,
+  momo_icon,
+  napas_icon,
 };
