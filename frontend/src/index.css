@@ -32,9 +32,6 @@ body {
   color: var(--dark-black);
 }
 
-.navbar {
-}
-
 .nav-link {
   text-decoration: none;
   padding: 10px 0px 16px 0px;

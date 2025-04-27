@@ -63,15 +63,15 @@ function Menubar() {
                 id="mega-menu-full-dropdown-button"
                 data-collapse-toggle="mega-menu-full-dropdown"
                 class="nav-link nav-link-ltr cursor-pointer select-none flex justify-between md:justify-center font-semibold items-center py-2 px-3 text-[var(--primary-color)] rounded-sm md:hover:bg-transparent md:hover:text-[var(--lighter-primary-color)] md:p-0"
-                onClick={toggleProductsDropDown}
               >
-                Sản phẩm
+                <a href="/products">Sản phẩm</a>
                 <svg
                   class={`w-2.5 h-2.5 ms-2.5 ${isProductsDropDownOpen ? "transform scale-y-[-1]" : ""}`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 10 6"
+                  onClick={toggleProductsDropDown}
                 >
                   <path
                     stroke="currentColor"

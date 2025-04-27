@@ -10,7 +10,7 @@ function ProductCard() {
       <div class="px-5 pb-5 flex flex-col items-between justify-between gap-4">
         <h5 class="text-xl font-semibold tracking-tight text-[var(--dark-black)]">
           <a className="cursor-pointer hover:text-[var(--primary-color)] hover:underline">
-            Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+            Phím cơ GMMK PRO 75% (Gateron G Pro Brown Switch) - Hàng chính hãng
           </a>
         </h5>
         <span class="text-2xl font-semibold text-[var(--primary-color)] tracking-tight">1.000.000 VND</span>
