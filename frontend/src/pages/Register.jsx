@@ -1,6 +1,14 @@
 import React from "react";
+import Checkbox from "@mui/material/Checkbox";
 
 function Register() {
+  const customCheckboxStyle = {
+    color: "#2f2f2f",
+    "&.Mui-checked": {
+      color: "#c3a07e",
+    },
+  };
+
   return (
     <div class="min-h-screen flex fle-col items-center justify-center py-6 px-4">
       <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
@@ -66,12 +74,7 @@ function Register() {
             </div>
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] rounded"
-                />
+                <Checkbox sx={customCheckboxStyle} />
                 <label for="remember-me" class="ml-3 block text-sm text-gray-700">
                   Ghi nhớ tài khoản
                 </label>

@@ -24,7 +24,7 @@ function CartItem() {
       <div class="flex flex-col items-end justify-between md:h-24 h-48">
         <DeleteOutlineOutlinedIcon
           sx={{ fontSize: 24 }}
-          className="hover:text-[var(--primary-color)] hover:scale-110 cursor-pointer transition-colors duration-200 ease-in-out"
+          className="hover:text-[var(--primary-color)] hover:scale-110 active:scale-98 cursor-pointer transition-colors duration-200 ease-in-out"
         />
         <QuantityInputSpinner />
       </div>
