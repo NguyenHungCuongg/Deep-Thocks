@@ -31,7 +31,7 @@ function BuyNowForm() {
           type="button"
           class="text-sm px-4 py-2.5 w-full font-medium tracking-wide bg-slate-50 hover:bg-slate-100 text-slate-900 border rounded-md"
         >
-          Tiếp tục mua hàng
+          <a href="/products">Tiếp tục mua hàng</a>
         </button>
       </div>
 

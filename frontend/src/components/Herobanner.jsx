@@ -20,9 +20,9 @@ function HeroBanner() {
         </p>
         <a
           href="/products"
-          class="bg-[var(--primary-color)] text-gray-900 hover:bg-[var(--light-primary-color)] py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+          class="bg-[var(--primary-color)] text-gray-900 hover:bg-[var(--light-primary-color)] py-4 px-8 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
         >
-          Get Started
+          Khám phá ngay!
         </a>
       </div>
     </div>

@@ -1,44 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Menubar from "./Menubar";
+import SearchBarOverlay from "./SearchBarOverlay";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 function Navbar() {
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   return (
     <div>
+      <SearchBarOverlay isOpen={showSearchBar} onClose={() => setShowSearchBar(false)} />
       <nav class="bg-[var(--dark-black)] navbar text-[var(--primary-color)] w-full z-20 top-0 start-0">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-5">
-          <div id="left-navbar-section" className="hidden md:flex tracking-widest font-title">
-            <p href="/login" class="block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:p-0">
-              Hotline tư vấn: <span className="font-bold">0987547235</span>
+        <div class="max-w-screen-xl lg:grid lg:grid-cols-3 flex justify-between items-center mx-auto px-2 py-6">
+          <div class="flex tracking-widest font-title justify-start">
+            <p class="hidden md:block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:p-0">
+              Hotline tư vấn: <span class="font-bold">0987547235</span>
             </p>
           </div>
-          <div id="middle-navbar-section" className="tracking-widest font-title flex items-center justify-center">
-            <a
-              id="logo-navbar-section"
-              href="/"
-              class="flex justify-self-center items-center space-x-3 rtl:space-x-reverse text-2xl md:text-3xl font-bold whitespace-nowrap text-[var(--primary-color)] font-title"
-            >
+          <div class="flex items-center justify-center">
+            <a href="/" class="text-3xl sm:text-4xl font-bold whitespace-nowrap text-[var(--primary-color)] font-title">
               DEEP THOCKS
             </a>
           </div>
-          <div
-            id="right-navbar-section"
-            className="tracking-widest font-title flex items-center justify-end gap-2 md:gap-4"
-          >
+          <div class="flex items-right justify-end gap-2 md:gap-4">
+            <a
+              onClick={() => setShowSearchBar(true)}
+              class="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+            >
+              <SearchOutlinedIcon sx={{ fontSize: 30 }} />
+              <span class="hidden md:block">Tìm kiếm</span>
+            </a>
             <a
               href="/cart"
-              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+              class="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
-              <span className="hidden md:block">Giỏ hàng</span>
+              <span class="hidden md:block">Giỏ hàng</span>
             </a>
             <a
               href="/account/login"
-              class="flex md:gap-2 items-center font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+              class="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
             >
-              <PersonOutlineIcon sx={{ fontSize: 30 }} className="hover:" />
-              <span className="hidden md:block">Đăng nhập</span>
+              <PersonOutlineIcon sx={{ fontSize: 30 }} />
+              <span class="hidden md:block">Đăng nhập</span>
             </a>
           </div>
         </div>
