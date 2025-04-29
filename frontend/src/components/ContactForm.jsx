@@ -1,8 +1,16 @@
 import React from "react";
+import { assets } from "../assets/assets";
 
 function ContactForm() {
   return (
-    <div class="bg-[var(--dark-black)] px-4 py-12 md:py-[8%] md:px-[10%]">
+    <div
+      class="bg-[var(--dark-black)] px-4 py-12 md:py-[8%] md:px-[10%]"
+      style={{
+        backgroundImage: `url(${assets.contact_banner_image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div class="grid lg:grid-cols-2 items-center gap-14 sm:p-8">
         <div>
           <h1 class="text-4xl font-bold text-[var(--primary-color)] font-title">Liên hệ với chúng tôi</h1>
