@@ -28,7 +28,7 @@ function Register() {
           </p>
         </div>
 
-        <form class="max-w-md md:ml-auto w-full">
+        <form class="max-w-md md:ml-auto w-full py-8">
           <h3 class="text-slate-900 lg:text-3xl text-2xl font-bold mb-8 font-title">Form đăng ký</h3>
 
           <div class="space-y-6">
@@ -40,6 +40,26 @@ function Register() {
                 required
                 class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
                 placeholder="Nhập Email"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-slate-800 font-medium mb-2 block">Số điện thoại</label>
+              <input
+                name="phonenumber"
+                type="number"
+                required
+                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
+                placeholder="Nhập số điện thoại"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-slate-800 font-medium mb-2 block">Họ và tên</label>
+              <input
+                name="fullname"
+                type="fullname"
+                required
+                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
+                placeholder="Nhập họ và tên"
               />
             </div>
             <div>

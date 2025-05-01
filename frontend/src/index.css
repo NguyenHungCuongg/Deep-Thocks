@@ -96,3 +96,11 @@ body {
     font-family: var(--content-font);
   }
 }
+
+/* Tắt spinner trong input số - <input type="number" >*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
