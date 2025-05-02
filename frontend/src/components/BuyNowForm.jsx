@@ -6,13 +6,7 @@ function BuyNowForm() {
     <div class="bg-white rounded-md px-4 py-6 h-max shadow border">
       <ul class="text-slate-500 font-medium space-y-4">
         <li class="flex flex-wrap gap-4 text-sm">
-          Giá trị đơn hàng <span class="ml-auto font-semibold text-slate-900">$200.00</span>
-        </li>
-        <li class="flex flex-wrap gap-4 text-sm">
-          Phí vận chuyển <span class="ml-auto font-semibold text-slate-900">$2.00</span>
-        </li>
-        <li class="flex flex-wrap gap-4 text-sm">
-          Voucher giảm giá <span class="ml-auto font-semibold text-slate-900">$0.00</span>
+          Số lượng đơn hàng <span class="ml-auto font-semibold text-slate-900">2</span>
         </li>
         <hr class="border-slate-300" />
         <li class="flex flex-wrap gap-4 text-sm font-semibold text-slate-900">
