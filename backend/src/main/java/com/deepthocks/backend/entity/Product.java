@@ -31,10 +31,10 @@ public class Product {
     private int stockQuantity;
 
     @Column(name = "base_price")
-    private Double basePrice;
+    private double basePrice;
 
     @Column(name = "sale_price")
-    private Double salePrice;
+    private double salePrice;
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> imageList;

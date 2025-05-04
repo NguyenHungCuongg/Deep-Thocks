@@ -18,12 +18,19 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
+    @Column
     private String fullname;
+
+    @Column
     private String username;
 
     @Column(name = "password_hash")
     private String passwordHash;
+
+    @Column
     private String email;
+
+    @Column
     private String phone;
 
     @Column(name = "created_at")

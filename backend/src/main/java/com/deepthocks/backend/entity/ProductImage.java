@@ -21,6 +21,7 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column
     private String url;
 
     @Column(name="alt_text")

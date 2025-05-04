@@ -15,11 +15,18 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
-    private Integer addressId;
+    private int addressId;
 
+    @Column
     private String city;
+
+    @Column
     private String district;
+
+    @Column
     private String ward;
+
+    @Column
     private String street;
 
     @OneToMany(mappedBy = "address")

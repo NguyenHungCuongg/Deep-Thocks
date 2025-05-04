@@ -30,14 +30,15 @@ public class Order {
     private LocalDateTime createdAt;
 
     @Column(name = "shipping_fee")
-    private Double shippingFee;
+    private double shippingFee;
 
     @Column(name = "discount_amount")
-    private Double discountAmount;
+    private double discountAmount;
 
     @Column(name = "total_amount")
-    private Double totalAmount;
+    private double totalAmount;
 
+    @Column
     private String status;
 
     @OneToMany(mappedBy = "order")

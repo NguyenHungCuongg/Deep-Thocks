@@ -24,10 +24,10 @@ public class Discount {
     private String discountType;
 
     @Column(name = "discount_value")
-    private Double discountValue;
+    private double discountValue;
 
     @Column(name = "min_order_amount")
-    private Double minOrderAmount;
+    private double minOrderAmount;
 
     @Column(name = "remain_uses")
     private int remainUses;

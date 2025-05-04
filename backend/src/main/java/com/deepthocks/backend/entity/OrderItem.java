@@ -23,8 +23,9 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column
     private int quantity;
 
     @Column(name = "unit_price")
-    private Double unitPrice;
+    private double unitPrice;
 }
