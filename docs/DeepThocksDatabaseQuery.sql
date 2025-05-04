@@ -79,7 +79,7 @@ CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
 	address_id INT REFERENCES addresses(address_id) ON DELETE CASCADE,
-    order_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	shipping_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
     discount_amount DECIMAL(10, 2) DEFAULT 0,
     total_amount DECIMAL(12, 2) NOT NULL,
