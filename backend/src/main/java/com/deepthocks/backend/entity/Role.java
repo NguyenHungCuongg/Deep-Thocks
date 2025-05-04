@@ -20,6 +20,6 @@ public class Role {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roleSet")
     private Set<User> userSet;
 }
