@@ -121,14 +121,6 @@ function ProductDropDown() {
               href="/categories/keycaps/gmk-ws-keycaps/products"
               class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
             >
-              <div class="text-[var(--grey)]">GMK/WS Keycap</div>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/categories/keycaps/gmk-ws-keycaps/products"
-              class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
-            >
               <div class="text-[var(--grey)]">Artisan Keycap</div>
             </a>
           </li>

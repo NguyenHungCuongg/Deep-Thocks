@@ -1,3 +1,5 @@
+--------------------- Tạo bảng ------------------------
+
 -- Bảng Users
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
@@ -27,6 +29,11 @@ CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(100) UNIQUE NOT NULL,
     category_description TEXT
+	parent_id INT, 
+    CONSTRAINT fk_parent_category
+        FOREIGN KEY (parent_id)
+        REFERENCES categories(category_id)
+        ON DELETE SET NULL
 );
 
 -- Bảng Products
@@ -107,3 +114,31 @@ CREATE TABLE discounts (
     end_date TIMESTAMP NOT NULL
 );
 
+--------------------- Thêm dữ liệu ------------------------
+-- Thêm các Categories cha
+INSERT INTO categories (category_name, category_description)
+VALUES 
+('Kits', 'Các loại kits'),
+('Switches', 'Các loại switches'),
+('Keycaps', 'Các loại keycaps'),
+('Others','Các sản phẩm khác')
+
+-- Thêm các Categories con
+INSERT INTO categories (category_name, category_description, parent_id)
+VALUES ('Layout 60%-65%', 'Các kits có layout 60%-65%', 1),
+       ('Layout 75%', 'Các kits có layout 75%', 1),
+	   ('Layout TKL', 'Các kits có layout TKL', 1),
+	   ('Layout Fullsize', 'Các kits có Fullsize', 1),
+	   ('Clacky Switch', 'Các switches clacky', 2),
+	   ('Tackle Switch', 'Các switches tackle', 2),
+	   ('Linear Switch', 'Các switches linear', 2),
+	   ('Silent Switch', 'Các switches silent', 2),
+	   ('Profile Cherry Keycap', 'Các keycaps có Cherry profile', 3),
+	   ('Profile SA Keycap', 'Các keycaps có SA profile', 3),
+	   ('Profile OEM Keycap', 'Các keycaps có OEM profile', 3),
+	   ('Profile XDA Keycap', 'Các keycaps có XDA profile', 3),
+	   ('Các Profile Khác', 'Các keycaps có các profile khác', 3),
+	   ('Artisan Keycap', 'Các keycaps artisan', 3),
+	   ('Phụ Kiện Bàn Phím', 'Các phụ kiện bàn phím', 4),
+	   ('Mods', 'Các dụng cụ, nguyên liệu dùng để mod phím', 4),
+	   ('Bàn Phím Prebuilt', 'Các bàn phím đã được pre-built', 4)
