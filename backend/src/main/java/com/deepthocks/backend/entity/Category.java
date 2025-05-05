@@ -2,6 +2,8 @@ package com.deepthocks.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,4 +26,13 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Product> productList;
+
+    //Thêm danh sách category cha
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parentCategory;
+
+    //Thêm danh sách category con
+    @OneToMany(mappedBy = "parentCategory")
+    private List<Category> childrenCategories = new ArrayList<>();
 }
