@@ -11,7 +11,7 @@ function ProductList() {
     axios
       .get(backendURL + "/api/products")
       .then((response) => {
-        setProducts(response.data._embedded.products || []);
+        setProducts(response.data || []);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);

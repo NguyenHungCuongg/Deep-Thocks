@@ -1,11 +1,10 @@
 import React from "react";
-import { assets } from "../assets/assets";
 
 function ProductCard(props) {
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-4">
       <a href="#">
-        <img className="p-8 rounded-t-lg" src={assets.about_mission_image} alt="product image" />
+        <img className="p-8 rounded-t-lg" src={props.product.thumbnailUrl} alt="product image" />
       </a>
       <div className="px-5 pb-5 flex flex-col items-between justify-between gap-4">
         <h5 className="text-xl font-semibold tracking-tight text-[var(--dark-black)]">

@@ -1,12 +1,12 @@
 package com.deepthocks.backend.config;
 
+import com.deepthocks.backend.entity.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
@@ -14,7 +14,7 @@ public class RestConfig implements RepositoryRestConfigurer {
     @Autowired
     private EntityManager entityManager;
 
-    private String frontendURL = "http://localhost:5173";
+    private final String frontendURL = "http://localhost:5173";
 
     //Configuration để các dữ liệu JSON trả về từ REST DATA có chứa ID(nếu không config thì ID sẽ bị hidden)
     @Override
@@ -36,6 +36,7 @@ public class RestConfig implements RepositoryRestConfigurer {
         corsRegistry.addMapping("/**") // Cho phép tất cả các route (REST API)
                 .allowedOrigins(frontendURL) // Cho phép truy cập từ frontend URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Cho phép các HTTP method
-                .allowedHeaders("*"); // Cho phép tất cả các header
+                .allowedHeaders("*") // Cho phép tất cả các header
+                .allowCredentials(true); // Cho phép gửi cookie từ frontend
     }
 }
