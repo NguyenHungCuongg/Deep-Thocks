@@ -19,6 +19,8 @@ public class RestConfig implements RepositoryRestConfigurer {
     //Configuration để các dữ liệu JSON trả về từ REST DATA có chứa ID(nếu không config thì ID sẽ bị hidden)
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry corsRegistry) {
+        //Thêm prefix /api cho tất cả endpoints
+        config.setBasePath("/api");
 
         //Config để JSON data trả về hiển thị ID(khóa chính)
         config.exposeIdsFor(

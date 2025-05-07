@@ -2,115 +2,115 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer class="w-full">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
-          <div class="col-span-full mb-10 lg:col-span-2 lg:mb-0">
+    <footer className="w-full">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
+          <div className="col-span-full mb-10 lg:col-span-2 lg:mb-0">
             <a
               href="/"
-              class="flex justify-center lg:justify-start rtl:space-x-reverse text-2xl md:text-3xl font-bold whitespace-nowrap text-[var(--primary-color)] font-title"
+              className="flex justify-center lg:justify-start rtl:space-x-reverse text-2xl md:text-3xl font-bold whitespace-nowrap text-[var(--primary-color)] font-title"
             >
               DEEP THOCKS
             </a>
-            <p class="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">
+            <p className="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">
               Khách hàng hài lòng là niềm tự hào của chúng tôi – Hãy cùng kiến tạo chiếc bàn phím mơ ước của bạn!
             </p>
             <a
               href="/contact"
-              class="py-2.5 px-5 h-9 block w-fit bg-[var(--primary-color)] rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-[var(--light-primary-color)] lg:mx-0"
+              className="py-2.5 px-5 h-9 block w-fit bg-[var(--primary-color)] rounded-full shadow-sm text-xs text-white mx-auto transition-all  duration-500 hover:bg-[var(--light-primary-color)] lg:mx-0"
             >
               Liên hệ
             </a>
           </div>
 
-          <div class="lg:mx-auto text-left ">
-            <h4 class="text-lg text-gray-900 font-medium mb-7">Deep Thocks</h4>
-            <ul class="text-sm  transition-all duration-500">
-              <li class="mb-6">
-                <a href="/" class="text-gray-600 hover:text-gray-900">
+          <div className="lg:mx-auto text-left ">
+            <h4 className="text-lg text-gray-900 font-medium mb-7">Deep Thocks</h4>
+            <ul className="text-sm  transition-all duration-500">
+              <li className="mb-6">
+                <a href="/" className="text-gray-600 hover:text-gray-900">
                   Trang chủ
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="/about" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="/about" className=" text-gray-600 hover:text-gray-900">
                   Giới thiệu
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="/products" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="/products" className=" text-gray-600 hover:text-gray-900">
                   Sản phẩm
                 </a>
               </li>
               <li>
-                <a href="/contact" class=" text-gray-600 hover:text-gray-900">
+                <a href="/contact" className=" text-gray-600 hover:text-gray-900">
                   Liên hệ
                 </a>
               </li>
             </ul>
           </div>
 
-          <div class="lg:mx-auto text-left ">
-            <h4 class="text-lg text-gray-900 font-medium mb-7">Disclaimer</h4>
-            <ul class="text-sm  transition-all duration-500">
-              <li class="mb-6">
-                <a href="javascript:;" class="text-gray-600 hover:text-gray-900">
+          <div className="lg:mx-auto text-left ">
+            <h4 className="text-lg text-gray-900 font-medium mb-7">Disclaimer</h4>
+            <ul className="text-sm  transition-all duration-500">
+              <li className="mb-6">
+                <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
                   Deep Thocks là dự án cá nhân
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Các sản phẩm không có sẵn để mua
                 </a>
               </li>
             </ul>
           </div>
 
-          <div class="lg:mx-auto text-left">
-            <h4 class="text-lg text-gray-900 font-medium mb-7">Resources</h4>
-            <ul class="text-sm  transition-all duration-500">
-              <li class="mb-6">
-                <a href="javascript:;" class="text-gray-600 hover:text-gray-900">
+          <div className="lg:mx-auto text-left">
+            <h4 className="text-lg text-gray-900 font-medium mb-7">Resources</h4>
+            <ul className="text-sm  transition-all duration-500">
+              <li className="mb-6">
+                <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
                   FAQs
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Bắt đầu
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Tài liệu
                 </a>
               </li>
               <li>
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Hướng dẫn
                 </a>
               </li>
             </ul>
           </div>
 
-          <div class="lg:mx-auto text-left">
-            <h4 class="text-lg text-gray-900 font-medium mb-7">Credit</h4>
-            <ul class="text-sm  transition-all duration-500">
-              <li class="mb-6">
-                <a href="javascript:;" class="text-gray-600 hover:text-gray-900">
+          <div className="lg:mx-auto text-left">
+            <h4 className="text-lg text-gray-900 font-medium mb-7">Credit</h4>
+            <ul className="text-sm  transition-all duration-500">
+              <li className="mb-6">
+                <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
                   Thiết kế và phát triển bởi Nguyễn Hùng Cường
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Tailwind & ReactJS
                 </a>
               </li>
-              <li class="mb-6">
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+              <li className="mb-6">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Spring Boot
                 </a>
               </li>
               <li>
-                <a href="javascript:;" class=" text-gray-600 hover:text-gray-900">
+                <a href="javascript:;" className=" text-gray-600 hover:text-gray-900">
                   Lấy cảm hứng từ: dribbble.com
                 </a>
               </li>
@@ -118,17 +118,17 @@ function Footer() {
           </div>
         </div>
 
-        <div class="py-7 border-t border-gray-200">
-          <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-            <span class="text-sm text-gray-500 ">
+        <div className="py-7 border-t border-gray-200">
+          <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
+            <span className="text-sm text-gray-500 ">
               ©<a href="/">Deep Thocks</a> 2025, All rights reserved.
             </span>
-            <div id="social-media-footer-section" class="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
+            <div id="social-media-footer-section" className="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
               <a
                 id="x-icon"
                 href="https://x.com/Whisper30554598"
                 target="_blank"
-                class="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
+                className="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <g id="Social Media">
@@ -144,10 +144,10 @@ function Footer() {
                 id="facebook-icon"
                 href="https://www.facebook.com/cuong.nguyen.813584/"
                 target="_blank"
-                class="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
+                className="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
               >
                 <svg
-                  class="w-[1.25rem] h-[1.125rem] text-white"
+                  className="w-[1.25rem] h-[1.125rem] text-white"
                   viewBox="0 0 15 15"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -162,10 +162,10 @@ function Footer() {
                 id="linkedin-icon"
                 href="https://www.linkedin.com/in/c%C6%B0%E1%BB%9Dng-nguy%E1%BB%85n-76153a333/"
                 target="_blank"
-                class="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
+                className="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
               >
                 <svg
-                  class="w-[1rem] h-[1rem] text-white"
+                  className="w-[1rem] h-[1rem] text-white"
                   viewBox="0 0 13 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -180,17 +180,17 @@ function Footer() {
                 id="youtube-icon"
                 href="https://www.youtube.com/@cuongnguyen38535"
                 target="_blank"
-                class="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
+                className="w-9 h-9 rounded-full bg-[var(--light-black)] flex justify-center items-center hover:bg-[var(--primary-color)]"
               >
                 <svg
-                  class="w-[1.25rem] h-[0.875rem] text-white"
+                  className="w-[1.25rem] h-[0.875rem] text-white"
                   viewBox="0 0 16 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M13.9346 1.13529C14.5684 1.30645 15.0665 1.80588 15.2349 2.43896C15.5413 3.58788 15.5413 5.98654 15.5413 5.98654C15.5413 5.98654 15.5413 8.3852 15.2349 9.53412C15.0642 10.1695 14.5661 10.669 13.9346 10.8378C12.7886 11.1449 8.19058 11.1449 8.19058 11.1449C8.19058 11.1449 3.59491 11.1449 2.44657 10.8378C1.81277 10.6666 1.31461 10.1672 1.14622 9.53412C0.839844 8.3852 0.839844 5.98654 0.839844 5.98654C0.839844 5.98654 0.839844 3.58788 1.14622 2.43896C1.31695 1.80353 1.81511 1.30411 2.44657 1.13529C3.59491 0.828125 8.19058 0.828125 8.19058 0.828125C8.19058 0.828125 12.7886 0.828125 13.9346 1.13529ZM10.541 5.98654L6.72178 8.19762V3.77545L10.541 5.98654Z"
                     fill="currentColor"
                   />
