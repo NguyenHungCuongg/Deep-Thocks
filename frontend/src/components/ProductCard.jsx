@@ -4,17 +4,27 @@ function ProductCard(props) {
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-4">
       <a href="#">
-        <img className="p-8 rounded-t-lg" src={props.product.thumbnailUrl} alt="product image" />
+        <img
+          className="p-8 rounded-t-lg object-cover overflow-hidden h-72 w-full"
+          src={props.product.thumbnailUrl}
+          alt="product image"
+        />
       </a>
-      <div className="px-5 pb-5 flex flex-col items-between justify-between gap-4">
-        <h5 className="text-xl font-semibold tracking-tight text-[var(--dark-black)]">
+      <div className="px-5 pb-5 flex flex-col flex-1 items-between justify-between">
+        <h5 className="text-xl font-semibold tracking-tight text-[var(--dark-black)] pb-4">
           <a className="cursor-pointer hover:text-[var(--primary-color)] hover:underline">
             {props.product.productName}
           </a>
         </h5>
-        <span className="text-2xl font-semibold text-[var(--primary-color)] tracking-tight">
-          {props.product.salePrice.toLocaleString()}
-        </span>
+        <div className="flex flex-col gap-0 pb-4">
+          <span className="text-sm font-medium text-gray-400 line-through">
+            {props.product.basePrice.toLocaleString()}
+          </span>
+          <span className="text-xl font-semibold text-[var(--primary-color)] tracking-tight">
+            {props.product.salePrice.toLocaleString()} VND
+          </span>
+        </div>
+
         <a
           className="cursor-pointer text-white bg-[var(--dark-black)] hover:bg-[var(--light-black)] active:bg-[var(--dark-black)] 
           active:scale-98 transition-all 

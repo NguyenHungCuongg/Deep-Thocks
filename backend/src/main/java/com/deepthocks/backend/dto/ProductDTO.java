@@ -12,4 +12,8 @@ public class ProductDTO {
     private double basePrice;
     private double salePrice;
     private String thumbnailUrl;
+
+    public String getThumbnailUrl() {
+        return "http://localhost:8080/" + thumbnailUrl; // Thêm URL đầy đủ
+    }
 }
