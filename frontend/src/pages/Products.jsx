@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductList from "../components/ProductList";
 import Pagination from "../components/Pagination";
@@ -7,19 +8,33 @@ import SidebarFilter from "../components/SidebarFilter";
 function Products() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // Number of items per page
+  const [endpoint, setEndpoint] = useState("/api/products");
+  const { categorySlug, parentSlug, childSlug } = useParams(); //Truy xuất cá tham số động từ URL bên phía App.jsx
+  const itemsPerPage = 9;
   const backendURL = "http://localhost:8080";
 
   useEffect(() => {
+    if (parentSlug && childSlug) {
+      setEndpoint(`/api/categories/${parentSlug}/${childSlug}/products`);
+    } else if (categorySlug) {
+      setEndpoint(`/api/categories/${categorySlug}/products`);
+    } else {
+      setEndpoint("/api/products");
+    }
+  }, [categorySlug, parentSlug, childSlug]);
+
+  useEffect(() => {
+    const url = backendURL + endpoint;
+    console.log("Fetching products from:", url); // Log the URL for debugging
     axios
-      .get(backendURL + "/api/products")
+      .get(url)
       .then((response) => {
         setProducts(response.data || []);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, []);
+  }, [endpoint]);
 
   const lastPageIndex = currentPage * itemsPerPage;
   const firstPageIndex = lastPageIndex - itemsPerPage;

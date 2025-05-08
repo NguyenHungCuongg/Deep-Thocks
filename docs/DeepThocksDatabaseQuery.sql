@@ -130,24 +130,26 @@ VALUES
 ('Others','Các sản phẩm khác')
 
 -- Thêm các Categories con
+SELECT * FROM CATEGORIES
+
 INSERT INTO categories (category_name, category_description, parent_id)
-VALUES ('Layout 60%-65%', 'Các kits có layout 60%-65%', 1),
-       ('Layout 75%', 'Các kits có layout 75%', 1),
-	   ('Layout TKL', 'Các kits có layout TKL', 1),
-	   ('Layout Fullsize', 'Các kits có Fullsize', 1),
-	   ('Clacky Switch', 'Các switches clacky', 2),
-	   ('Tackle Switch', 'Các switches tackle', 2),
-	   ('Linear Switch', 'Các switches linear', 2),
-	   ('Silent Switch', 'Các switches silent', 2),
-	   ('Profile Cherry Keycap', 'Các keycaps có Cherry profile', 3),
-	   ('Profile SA Keycap', 'Các keycaps có SA profile', 3),
-	   ('Profile OEM Keycap', 'Các keycaps có OEM profile', 3),
-	   ('Profile XDA Keycap', 'Các keycaps có XDA profile', 3),
-	   ('Các Profile Khác', 'Các keycaps có các profile khác', 3),
-	   ('Artisan Keycap', 'Các keycaps artisan', 3),
-	   ('Phụ Kiện Bàn Phím', 'Các phụ kiện bàn phím', 4),
-	   ('Mods', 'Các dụng cụ, nguyên liệu dùng để mod phím', 4),
-	   ('Bàn Phím Prebuilt', 'Các bàn phím đã được pre-built', 4)
+VALUES ('layout 60 65', 'Các kits có layout 60%-65%', 1),
+       ('layout 75', 'Các kits có layout 75%', 1),
+	   ('layout tkl', 'Các kits có layout TKL', 1),
+	   ('layout fullsize', 'Các kits có Fullsize', 1),
+	   ('clacky switches', 'Các switches clacky', 2),
+	   ('tackle switches', 'Các switches tackle', 2),
+	   ('linear switches', 'Các switches linear', 2),
+	   ('silent switches', 'Các switches silent', 2),
+	   ('cherry profile keycaps', 'Các keycaps có Cherry profile', 3),
+	   ('sa profile keycaps', 'Các keycaps có SA profile', 3),
+	   ('oem profile keycaps', 'Các keycaps có OEM profile', 3),
+	   ('xda profile keycaps', 'Các keycaps có XDA profile', 3),
+	   ('other profile keycaps', 'Các keycaps có các profile khác', 3),
+	   ('artisan Keycap', 'Các keycaps artisan', 3),
+	   ('accessories', 'Các phụ kiện bàn phím', 4),
+	   ('mods', 'Các dụng cụ, nguyên liệu dùng để mod phím', 4),
+	   ('prebuilt keyboards', 'Các bàn phím đã được pre-built', 4)
 	   
 -- Thêm các Products
 

@@ -18,6 +18,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
+        {/*Sử dụng dấu ":" để tạo các tham số động -> về sau sẽ truy xuất các tham số này bằng useParams()*/}
+        {/*Hiển thị sản phẩm theo 1 level category*/}
+        <Route path="/categories/:categorySlug/products" element={<Products />} />
+        {/*Hiển thị sản phẩm theo 2 level category (parent → child)*/}
+        <Route path="/categories/:parentSlug/:childSlug/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/account/login" element={<Login />} />
         <Route path="/account/register" element={<Register />} />

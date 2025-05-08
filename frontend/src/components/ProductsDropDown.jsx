@@ -118,7 +118,7 @@ function ProductDropDown() {
           </li>
           <li>
             <a
-              href="/categories/keycaps/gmk-ws-keycaps/products"
+              href="/categories/keycaps/artisan-keycaps/products"
               class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
             >
               <div class="text-[var(--grey)]">Artisan Keycap</div>
@@ -135,10 +135,7 @@ function ProductDropDown() {
             </a>
           </li>
           <li>
-            <a
-              href="/categories/prebuilt-keyboards/products"
-              class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
-            >
+            <a href="/categories/mods/products" class="block p-2 rounded-lg hover:bg-[var(--light-black)]">
               <div class="text-[var(--grey)]">Mods</div>
             </a>
           </li>
