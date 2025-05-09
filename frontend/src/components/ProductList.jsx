@@ -2,8 +2,6 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 function ProductList(props) {
-  console.log("Day la mang 3: " + props.currentProductListPage);
-
   return (
     <section className="py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col">

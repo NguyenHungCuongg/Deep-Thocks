@@ -1,6 +1,7 @@
 package com.deepthocks.backend.controller;
 
 import com.deepthocks.backend.dto.ProductDTO;
+import com.deepthocks.backend.dto.ProductImageDTO;
 import com.deepthocks.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,5 +54,12 @@ public class ProductController {
     @GetMapping("/products")
     public List<ProductDTO> getAllProducts() {
         return  productService.getAllProductsWithThumbnails();
+    }
+
+    @GetMapping("/products/{productId}/images")
+    public List<ProductImageDTO> getProductImagesByProductId(
+            @PathVariable int productId
+    ){
+        return productService.getProductImagesByProductId(productId);
     }
 }

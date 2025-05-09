@@ -1,6 +1,7 @@
 package com.deepthocks.backend.service;
 
 import com.deepthocks.backend.dto.ProductDTO;
+import com.deepthocks.backend.dto.ProductImageDTO;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,13 @@ public class ProductService {
                 .getResultList();
     }
 
-    public ProductDTO getProductById(int productId) {
-
+    public List<ProductImageDTO> getProductImagesByProductId(int productId) {
+        String query ="SELECT new com.deepthocks.backend.dto.ProductImageDTO(pi.url, pi.altText, pi.displayOrder) " +
+                "FROM ProductImage pi "+
+                "JOIN Product p ON pi.product.productId = p.productId "+
+                "WHERE pi.product.productId = :productId";
+        return entityManager.createQuery(query,ProductImageDTO.class)
+                .setParameter("productId", productId)
+                .getResultList();
     }
 }
