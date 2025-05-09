@@ -17,7 +17,7 @@ function TopCategories() {
         <CategoryCard categoryCardImage={kit_image} categoryName="Kits" />
         <CategoryCard categoryCardImage={keycaps_image} categoryName="Keycaps" />
         <CategoryCard categoryCardImage={switches_image} categoryName="Switches" />
-        <CategoryCard categoryCardImage={accessories_image} categoryName="Accessories" />
+        <CategoryCard categoryCardImage={accessories_image} categoryName="Others" />
       </div>
     </div>
   );

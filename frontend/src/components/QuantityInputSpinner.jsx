@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
 function QuantityInputSpinner() {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
   };
 
   const handleDecrement = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
   };
 
   return (
-    <form class="max-w-xs mx-auto">
+    <form class="max-w-xs">
       <div class="relative flex items-center">
         <button
           type="button"
@@ -37,7 +37,7 @@ function QuantityInputSpinner() {
           class="shrink-0 text-gray-900  border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
           placeholder=""
           value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
+          onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
           required
         />
         <button

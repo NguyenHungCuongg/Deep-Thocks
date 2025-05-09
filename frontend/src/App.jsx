@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Products from "./pages/Products";
+import ProductView from "./components/ProductView";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductView />} />
         {/*Sử dụng dấu ":" để tạo các tham số động -> về sau sẽ truy xuất các tham số này bằng useParams()*/}
         {/*Hiển thị sản phẩm theo 1 level category*/}
         <Route path="/categories/:categorySlug/products" element={<Products />} />
