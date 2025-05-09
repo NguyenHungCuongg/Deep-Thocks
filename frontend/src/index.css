@@ -104,3 +104,9 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Tùy chỉnh arrow cho Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--dark-black) !important;
+}

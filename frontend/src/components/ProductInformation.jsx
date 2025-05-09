@@ -10,7 +10,7 @@ function ProductInformation(props) {
       </div>
       <div className="mt-8">
         <div className="flex flex-col flex-wrap gap-2">
-          <p className="text-[var(--dark-black)] md:text-4xl text-2xl font-semibold">
+          <p className="text-[var(--primary-color)] md:text-4xl text-2xl font-semibold">
             {props.currentProduct.salePrice
               ? props.currentProduct.salePrice.toLocaleString() + " VND"
               : "Đang cập nhật"}
