@@ -18,7 +18,7 @@ function ProductCard(props) {
         </h5>
         <div className="flex flex-col gap-0 pb-4">
           <span className="text-sm font-medium text-gray-400 line-through">
-            {props.product.basePrice.toLocaleString()}
+            {props.product.basePrice != props.product.salePrice ? props.product.basePrice.toLocaleString() + "VND" : ""}
           </span>
           <span className="text-xl font-semibold text-[var(--primary-color)] tracking-tight">
             {props.product.salePrice.toLocaleString()} VND

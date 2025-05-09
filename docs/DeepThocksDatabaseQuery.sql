@@ -130,8 +130,6 @@ VALUES
 ('Others','Các sản phẩm khác')
 
 -- Thêm các Categories con
-SELECT * FROM CATEGORIES
-
 INSERT INTO categories (category_name, category_description, parent_id)
 VALUES ('layout 60 65', 'Các kits có layout 60%-65%', 1),
        ('layout 75', 'Các kits có layout 75%', 1),
@@ -146,7 +144,7 @@ VALUES ('layout 60 65', 'Các kits có layout 60%-65%', 1),
 	   ('oem profile keycaps', 'Các keycaps có OEM profile', 3),
 	   ('xda profile keycaps', 'Các keycaps có XDA profile', 3),
 	   ('other profile keycaps', 'Các keycaps có các profile khác', 3),
-	   ('artisan Keycap', 'Các keycaps artisan', 3),
+	   ('artisan keycaps', 'Các keycaps artisan', 3),
 	   ('accessories', 'Các phụ kiện bàn phím', 4),
 	   ('mods', 'Các dụng cụ, nguyên liệu dùng để mod phím', 4),
 	   ('prebuilt keyboards', 'Các bàn phím đã được pre-built', 4)
@@ -346,7 +344,3 @@ VALUES
 (51,'/images/keyboards/keyboards-yunzii-al68-2.png','keyboards-yunzii-al68-2',2),
 (51,'/images/keyboards/keyboards-yunzii-al68-3.png','keyboards-yunzii-al68-3',3),
 (51,'/images/keyboards/keyboards-yunzii-al68-4.png','keyboards-yunzii-al68-4',4)
-
-
-SELECT pr.product_name, pi.url FROM products pr
-JOIN product_images pi ON pr.product_id = pi.product_id;

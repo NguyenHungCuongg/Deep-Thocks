@@ -126,22 +126,25 @@ function ProductDropDown() {
           </li>
         </ul>
         <ul id="others-menu-header">
-          <a href="/categories/other-products/products" class="cursor-pointer">
+          <a href="/categories/others/products" class="cursor-pointer">
             <h3 className="font-bold font-title pr-3 border-b-2 inline py-1">SẢN PHẨM KHÁC</h3>
           </a>
           <li>
-            <a href="/categories/accessories/products" class="block p-2 rounded-lg hover:bg-[var(--light-black)]">
+            <a
+              href="/categories/others/accessories/products"
+              class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
+            >
               <div class="text-[var(--grey)]">Phụ Kiện Bàn Phím</div>
             </a>
           </li>
           <li>
-            <a href="/categories/mods/products" class="block p-2 rounded-lg hover:bg-[var(--light-black)]">
+            <a href="/categories/others/mods/products" class="block p-2 rounded-lg hover:bg-[var(--light-black)]">
               <div class="text-[var(--grey)]">Mods</div>
             </a>
           </li>
           <li>
             <a
-              href="/categories/prebuilt-keyboards/products"
+              href="/categories/others/prebuilt-keyboards/products"
               class="block p-2 rounded-lg hover:bg-[var(--light-black)]"
             >
               <div class="text-[var(--grey)]">Bàn Phím Prebuilt</div>

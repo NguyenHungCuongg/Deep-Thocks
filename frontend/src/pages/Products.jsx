@@ -25,7 +25,7 @@ function Products() {
 
   useEffect(() => {
     const url = backendURL + endpoint;
-    console.log("Fetching products from:", url); // Log the URL for debugging
+    console.log("Fetching products from:", url);
     axios
       .get(url)
       .then((response) => {
@@ -46,7 +46,7 @@ function Products() {
         <div className="md:w-[20%] w-full">
           <SidebarFilter />
         </div>
-        <div className="md:w-[80%] w-full flex flex-col gap-6 justify-center">
+        <div className="md:w-[80%] w-full flex flex-col gap-6 justify-start">
           <ProductList currentProductListPage={currentProductListPage} />
           <div className="flex justify-center">
             <Pagination totalItems={products.length} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} />
