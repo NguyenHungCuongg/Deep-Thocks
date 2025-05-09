@@ -6,7 +6,7 @@ function ProductInformation(props) {
     <div>
       <div>
         <h2 className="text-3xl font-bold text-[var(--dark-black)]">{props.currentProduct.productName}</h2>
-        <p className="text-sm text-slate-500 mt-2">TÊN THỂ LOẠI</p>
+        <p className="text-sm text-slate-500 mt-2">FROM DEEP THOCKS</p>
       </div>
       <div className="mt-8">
         <div className="flex flex-col flex-wrap gap-2">
@@ -14,7 +14,6 @@ function ProductInformation(props) {
             {props.currentProduct.salePrice
               ? props.currentProduct.salePrice.toLocaleString() + " VND"
               : "Đang cập nhật"}
-            VND
           </p>
           <p className="text-gray-500 text-sm">
             Giá thị trường:{" "}

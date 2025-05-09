@@ -3,7 +3,7 @@ import React from "react";
 function ProductCard(props) {
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-4">
-      <a href="#">
+      <a href={`/products/${props.product.productId}`}>
         <img
           className="p-8 rounded-t-lg object-cover overflow-hidden h-72 w-full"
           src={props.product.thumbnailUrl}
@@ -12,7 +12,10 @@ function ProductCard(props) {
       </a>
       <div className="px-5 pb-5 flex flex-col flex-1 items-between justify-between">
         <h5 className="text-xl font-semibold tracking-tight text-[var(--dark-black)] pb-4">
-          <a className="cursor-pointer hover:text-[var(--primary-color)] hover:underline">
+          <a
+            href={`/products/${props.product.productId}`}
+            className="cursor-pointer hover:text-[var(--primary-color)] hover:underline"
+          >
             {props.product.productName}
           </a>
         </h5>
