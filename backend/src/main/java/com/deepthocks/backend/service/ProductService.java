@@ -42,4 +42,8 @@ public class ProductService {
                 .setParameter("childSlug", childSlug)
                 .getResultList();
     }
+
+    public ProductDTO getProductById(int productId) {
+
+    }
 }
