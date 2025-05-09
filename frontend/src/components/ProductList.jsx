@@ -10,7 +10,7 @@ function ProductList(props) {
         </h2>
         <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {props.currentProductListPage && props.currentProductListPage.length > 0 ? (
-            props.currentProductListPage.map((product) => <ProductCard key={product.productId} product={product} />)
+            props.currentProductListPage.map((product, index) => <ProductCard key={index} product={product} />)
           ) : (
             <div className="flex justify-center items-center h-64 w-full text-gray-500">Không có sản phẩm nào</div>
           )}

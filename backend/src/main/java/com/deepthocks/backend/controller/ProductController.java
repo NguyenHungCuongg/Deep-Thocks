@@ -62,4 +62,11 @@ public class ProductController {
     ){
         return productService.getProductImagesByProductId(productId);
     }
+
+    @GetMapping("/products/{productId}")
+    public ProductDTO getProductByProductId(
+            @PathVariable int productId
+    ){
+        return productService.getProductByProductId(productId);
+    }
 }

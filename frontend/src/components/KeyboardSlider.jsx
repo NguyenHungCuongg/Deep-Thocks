@@ -34,8 +34,8 @@ function KeyboardSlider() {
         }}
         className="mySwiper"
       >
-        {slideImages.map((item) => (
-          <SwiperSlide key={item}>
+        {slideImages.map((item, index) => (
+          <SwiperSlide key={index}>
             <div className="relative w-[100%] h-[300px] overflow-hidden rounded-lg shadow-lg">
               <img src={item} alt="keyboard-introduction" className="absolute w-full h-full object-cover" />
             </div>

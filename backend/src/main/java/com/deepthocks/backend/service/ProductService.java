@@ -53,4 +53,14 @@ public class ProductService {
                 .setParameter("productId", productId)
                 .getResultList();
     }
+
+    public ProductDTO getProductByProductId(int productId) {
+        String query = "SELECT new com.deepthocks.backend.dto.ProductDTO(p.productId, p.productName, p.productDescription, p.stockQuantity, p.basePrice, p.salePrice, pi.url) " +
+                "FROM Product p " +
+                "JOIN ProductImage pi ON pi.product.productId = p.productId " +
+                "WHERE p.productId = :productId " +
+                "AND pi.displayOrder = 1";
+        return entityManager.createQuery(query, ProductDTO.class)
+                .setParameter("productId", productId).getSingleResult();
+    }
 }
