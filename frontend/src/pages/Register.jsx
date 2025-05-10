@@ -1,12 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import InputBar from "../components/InputBar";
+import GoogleAuthOption from "../components/GoogleAuthOption";
+import axios from "axios";
 
 function Register() {
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const BackendURL = "http://localhost:8080";
+
   const customCheckboxStyle = {
     color: "#2f2f2f",
     "&.Mui-checked": {
       color: "#c3a07e",
     },
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Mật khẩu và mật khẩu xác thực không khớp");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${BackendURL}/api/auth/register`, {
+        email,
+        phoneNumber,
+        fullName,
+        userName,
+        password,
+      });
+      if (response.status === 200) {
+        alert("Đăng ký thành công!");
+        window.location.href = "/account/login";
+      } else {
+        alert("Đăng ký không thành công. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Lỗi trong quá trình đăng ký: ", error);
+      alert("Đăng ký không thành công. Vui lòng thử lại.");
+    }
   };
 
   return (
@@ -28,70 +66,58 @@ function Register() {
           </p>
         </div>
 
-        <form class="max-w-md md:ml-auto w-full py-8">
+        <form class="max-w-md md:ml-auto w-full py-8" onSubmit={handleRegister}>
           <h3 class="text-slate-900 lg:text-3xl text-2xl font-bold mb-8 font-title">Form đăng ký</h3>
 
           <div class="space-y-6">
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Email</label>
-              <input
-                name="email"
-                type="email"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập Email"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Số điện thoại</label>
-              <input
-                name="phonenumber"
-                type="number"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập số điện thoại"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Họ và tên</label>
-              <input
-                name="fullname"
-                type="fullname"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập họ và tên"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Tên đăng nhập</label>
-              <input
-                name="username"
-                type="username"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập tên đăng nhập"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Mật khẩu</label>
-              <input
-                name="password"
-                type="password"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập mật khẩu"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Mật khẩu xác thực</label>
-              <input
-                name="password"
-                type="password"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập mật khẩu xác thực"
-              />
-            </div>
+            <InputBar
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="Nhập Email"
+            />
+            <InputBar
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              label="Số điện thoại"
+              name="phonenumber"
+              type="number"
+              placeholder="Nhập số điện thoại"
+            />
+            <InputBar
+              value={fullName}
+              onChange={setFullName}
+              label="Họ và tên"
+              name="fullname"
+              type="text"
+              placeholder="Nhập họ và tên"
+            />
+            <InputBar
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              label="Tên đăng nhập"
+              name="username"
+              type="text"
+              placeholder="Nhập tên đăng nhập"
+            />
+            <InputBar
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              label="Mật khẩu"
+              name="password"
+              type="password"
+              placeholder="Nhập mật khẩu"
+            />
+            <InputBar
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              label="Mật khẩu xác thực"
+              name="password"
+              type="password"
+              placeholder="Nhập mật khẩu xác thực"
+            />
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center">
                 <Checkbox sx={customCheckboxStyle} />
@@ -112,7 +138,7 @@ function Register() {
 
           <div class="!mt-12">
             <button
-              type="button"
+              type="submit"
               class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[var(--primary-color)] hover:bg-[var(--light-primary-color)] focus:outline-none"
             >
               Đăng nhập
@@ -126,41 +152,7 @@ function Register() {
           </div>
 
           <div class="space-x-6 flex justify-center">
-            <button type="button" class="border-none outline-none mx-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
-                <path
-                  fill="#fbbd00"
-                  d="M120 256c0-25.367 6.989-49.13 19.131-69.477v-86.308H52.823C18.568 144.703 0 198.922 0 256s18.568 111.297 52.823 155.785h86.308v-86.308C126.989 305.13 120 281.367 120 256z"
-                  data-original="#fbbd00"
-                />
-                <path
-                  fill="#0f9d58"
-                  d="m256 392-60 60 60 60c57.079 0 111.297-18.568 155.785-52.823v-86.216h-86.216C305.044 385.147 281.181 392 256 392z"
-                  data-original="#0f9d58"
-                />
-                <path
-                  fill="#31aa52"
-                  d="m139.131 325.477-86.308 86.308a260.085 260.085 0 0 0 22.158 25.235C123.333 485.371 187.62 512 256 512V392c-49.624 0-93.117-26.72-116.869-66.523z"
-                  data-original="#31aa52"
-                />
-                <path
-                  fill="#3c79e6"
-                  d="M512 256a258.24 258.24 0 0 0-4.192-46.377l-2.251-12.299H256v120h121.452a135.385 135.385 0 0 1-51.884 55.638l86.216 86.216a260.085 260.085 0 0 0 25.235-22.158C485.371 388.667 512 324.38 512 256z"
-                  data-original="#3c79e6"
-                />
-                <path
-                  fill="#cf2d48"
-                  d="m352.167 159.833 10.606 10.606 84.853-84.852-10.606-10.606C388.668 26.629 324.381 0 256 0l-60 60 60 60c36.326 0 70.479 14.146 96.167 39.833z"
-                  data-original="#cf2d48"
-                />
-                <path
-                  fill="#eb4132"
-                  d="M256 120V0C187.62 0 123.333 26.629 74.98 74.98a259.849 259.849 0 0 0-22.158 25.235l86.308 86.308C162.883 146.72 206.376 120 256 120z"
-                  data-original="#eb4132"
-                />
-              </svg>
-            </button>
-            <a className="cursor-pointer hover:underline ml-1">Xác thực bằng tài khoản Google</a>
+            <GoogleAuthOption />
           </div>
         </form>
       </div>
