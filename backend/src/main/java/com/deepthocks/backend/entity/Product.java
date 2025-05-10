@@ -2,7 +2,6 @@ package com.deepthocks.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.*;
 import java.util.*;
 
 @Entity

@@ -3,13 +3,16 @@ package com.deepthocks.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "userSet")
 @Builder
 public class Role {
     @Id
@@ -21,5 +24,5 @@ public class Role {
     private String roleName;
 
     @ManyToMany(mappedBy = "roleSet")
-    private Set<User> userSet;
+    private Set<User> userSet = new HashSet<>();
 }
