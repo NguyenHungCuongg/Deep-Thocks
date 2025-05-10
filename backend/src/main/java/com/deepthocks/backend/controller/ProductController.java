@@ -4,10 +4,8 @@ import com.deepthocks.backend.dto.ProductDTO;
 import com.deepthocks.backend.dto.ProductImageDTO;
 import com.deepthocks.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -63,10 +61,25 @@ public class ProductController {
         return productService.getProductImagesByProductId(productId);
     }
 
+    @GetMapping("/products/search")
+    //@RequestParam dùng để truy xuất giá trị keyword trong Url -> vd: /search?keyword=switches-akko -> keyword = switches-akko
+    //Trả về Object ResponseEntity (là một Object để xác định Response thành công(status:200) hay thất bại(status:400,500,...))
+    public ResponseEntity<?> searchProducts(@RequestParam String keyword) {
+        try {
+            List<ProductDTO> products = productService.searchProducts(keyword);
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            System.err.println("Không thể Search: " +e.getMessage());
+            return ResponseEntity.status(500).body("Error occurred while searching for products: " + e.getMessage());
+        }
+    }
+
+    //Để Endpoint "/products/search" trước Endpoint "/products/{productId}" để tránh xung đột
     @GetMapping("/products/{productId}")
     public ProductDTO getProductByProductId(
             @PathVariable int productId
     ){
         return productService.getProductByProductId(productId);
     }
+
 }

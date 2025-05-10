@@ -4,14 +4,33 @@ import axios from "axios";
 import ProductList from "../components/ProductList";
 import Pagination from "../components/Pagination";
 import SidebarFilter from "../components/SidebarFilter";
+import { useLocation } from "react-router-dom";
 
 function Products() {
+  const location = useLocation(); //Sử dụng để truy xuất thông tin trong URL hiện tại của trang web
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [endpoint, setEndpoint] = useState("/api/products");
   const { categorySlug, parentSlug, childSlug } = useParams(); //Truy xuất cá tham số động từ URL bên phía App.jsx
   const itemsPerPage = 9;
   const backendURL = "http://localhost:8080";
+
+  //Lấy giá trị keyword từ URL
+  const queryParams = new URLSearchParams(location.search); // Truy xuất các tham số trong URL
+  const keyword = queryParams.get("keyword"); //Lấy giá trị của tham số "keyword"
+
+  useEffect(() => {
+    if (keyword) {
+      axios
+        .get(`${backendURL}/api/products/search?keyword=${keyword}`)
+        .then((response) => {
+          setProducts(response.data || []);
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+        });
+    }
+  }, [keyword]);
 
   useEffect(() => {
     if (parentSlug && childSlug) {

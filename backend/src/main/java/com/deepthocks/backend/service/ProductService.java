@@ -63,4 +63,18 @@ public class ProductService {
         return entityManager.createQuery(query, ProductDTO.class)
                 .setParameter("productId", productId).getSingleResult();
     }
+
+    public List<ProductDTO> searchProducts(String keyword){
+        String query = "SELECT new com.deepthocks.backend.dto.ProductDTO(p.productId, p.productName, p.productDescription, p.stockQuantity, p.basePrice, p.salePrice, pi.url)" +
+                "FROM Product p " +
+                "JOIN ProductImage pi ON pi.product.productId = p.productId " +
+                "JOIN p.category c " + // join category (bạn cần mapping đúng trong entity)
+                "WHERE pi.displayOrder = 1 " +
+                "AND (LOWER(p.productName) LIKE CONCAT('%', LOWER(:keyword), '%') " +
+                "OR LOWER(p.productDescription) LIKE CONCAT('%', LOWER(:keyword), '%') " +
+                "OR LOWER(c.categoryName) LIKE CONCAT('%', LOWER(:keyword), '%'))";
+        return entityManager.createQuery(query, ProductDTO.class)
+                .setParameter("keyword", keyword).getResultList();
+
+    }
 }
