@@ -29,21 +29,21 @@ function Register() {
 
     try {
       const response = await axios.post(`${BackendURL}/api/auth/register`, {
-        email,
-        phoneNumber,
-        fullName,
-        userName,
-        password,
+        email: email,
+        phone: phoneNumber,
+        fullname: fullName,
+        username: userName,
+        password: password,
       });
       if (response.status === 200) {
-        alert("Đăng ký thành công!");
+        alert(response.data);
         window.location.href = "/account/login";
       } else {
-        alert("Đăng ký không thành công. Vui lòng thử lại.");
+        alert(response.data);
       }
     } catch (error) {
       console.error("Lỗi trong quá trình đăng ký: ", error);
-      alert("Đăng ký không thành công. Vui lòng thử lại.");
+      alert("Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.");
     }
   };
 
@@ -88,10 +88,10 @@ function Register() {
             />
             <InputBar
               value={fullName}
-              onChange={setFullName}
+              onChange={(e) => setFullName(e.target.value)}
               label="Họ và tên"
               name="fullname"
-              type="text"
+              type="fullname"
               placeholder="Nhập họ và tên"
             />
             <InputBar
@@ -141,7 +141,7 @@ function Register() {
               type="submit"
               class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[var(--primary-color)] hover:bg-[var(--light-primary-color)] focus:outline-none"
             >
-              Đăng nhập
+              Đăng ký
             </button>
           </div>
 

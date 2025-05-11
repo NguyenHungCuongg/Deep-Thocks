@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class RegisterUserDTO {
+    private String email;
+    private String phone;
     private String fullname;
     private String username;
     private String password;
-    private String email;
-    private String phone;
 }
