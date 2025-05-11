@@ -15,6 +15,6 @@ public class ProductDTO {
     private String thumbnailUrl;
 
     public String getThumbnailUrl() {
-        return "http://localhost:8080/" + thumbnailUrl; // Thêm URL đầy đủ
+        return "http://localhost:8080" + thumbnailUrl; // Thêm URL đầy đủ
     }
 }

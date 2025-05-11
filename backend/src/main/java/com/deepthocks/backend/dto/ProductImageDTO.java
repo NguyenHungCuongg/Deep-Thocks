@@ -11,6 +11,6 @@ public class ProductImageDTO {
     private int displayOrder;
 
     public String getURL(){
-        return "http://localhost:8080/" + url;
+        return "http://localhost:8080" + url;
     }
 }

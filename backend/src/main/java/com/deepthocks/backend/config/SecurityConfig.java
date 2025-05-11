@@ -2,9 +2,11 @@ package com.deepthocks.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,6 +31,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // Kích hoạt cấu hình CORS riêng
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register").permitAll() // Cho phép truy cập endpoint đăng ký
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/products").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/categories/**/products").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/products/search/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -37,6 +44,11 @@ public class SecurityConfig {
                 .logout(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/images/**");
     }
 
     @Bean
