@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import com.deepthocks.backend.security.SecurityEndpoints;
 
 import java.util.List;
 
@@ -30,12 +31,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults()) // Kích hoạt cấu hình CORS riêng
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register").permitAll() // Cho phép truy cập endpoint đăng ký
-                        .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/products").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/categories/**/products").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/products/search/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, SecurityEndpoints.PUBLIC_POST_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_POST_ENDPOINTS(trong file SecurityEndpoints) được POST mà không cần xác thực
+                        .requestMatchers(HttpMethod.GET,SecurityEndpoints.PUBLIC_GET_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_GET_ENDPOINTS(trong file SecurityEndpoints) được GET mà không cần xác thực
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -54,7 +51,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Cho phép frontend truy cập
+        configuration.setAllowedOrigins(List.of(SecurityEndpoints.frontendURL)); // Cho phép frontend truy cập
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Các phương thức HTTP được phép
         configuration.setAllowedHeaders(List.of("*")); // Cho phép tất cả các header
         configuration.setAllowCredentials(true); // Cho phép gửi cookie hoặc thông tin xác thực
