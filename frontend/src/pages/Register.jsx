@@ -11,7 +11,7 @@ function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const BackendURL = "http://localhost:8080";
+  const backendURL = "http://localhost:8080";
 
   const customCheckboxStyle = {
     color: "#2f2f2f",
@@ -28,7 +28,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post(`${BackendURL}/api/auth/register`, {
+      const response = await axios.post(`${backendURL}/api/auth/register`, {
         email: email,
         phone: phoneNumber,
         fullname: fullName,

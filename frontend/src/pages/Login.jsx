@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import Checkbox from "@mui/material/Checkbox";
+import InputBar from "../components/InputBar";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const backendURL = "http://localhost:8080";
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${backendURL}/api/auth/login`, {
+        username: username,
+        password: password,
+      });
+      if (response.status === 200) {
+        alert("Đăng nhập thành công!");
+        localStorage.setItem("token", response.data); //response.data ở đây là jwtToken đã được truyền thông qua ResponseEntity.ok(jwtToken)
+        console.log("Token: ", response.data);
+        window.location.href = "/";
+      } else {
+        alert("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin tài khoản.");
+      }
+    } catch (error) {
+      console.error("Lỗi trong quá trình đăng nhập: ", error);
+      alert("Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.");
+    }
+  };
+
   const customCheckboxStyle = {
     color: "#2f2f2f",
     "&.Mui-checked": {
@@ -26,31 +53,25 @@ const Login = () => {
             </a>
           </p>
         </div>
-
-        <form class="max-w-md md:ml-auto w-full">
+        <form class="max-w-md md:ml-auto w-full" onSubmit={handleLogin}>
           <h3 class="text-slate-900 lg:text-3xl text-2xl font-bold mb-8 font-title">Form đăng nhập</h3>
-
           <div class="space-y-6">
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Email</label>
-              <input
-                name="email"
-                type="email"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập Email"
-              />
-            </div>
-            <div>
-              <label class="text-sm text-slate-800 font-medium mb-2 block">Mật khẩu</label>
-              <input
-                name="password"
-                type="password"
-                required
-                class="bg-[var(--dark-white)] w-full text-sm px-4 py-3 rounded-md outline-none border focus:border-[var(--primary-color)] focus:bg-transparent"
-                placeholder="Nhập mật khẩu"
-              />
-            </div>
+            <InputBar
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              type="text"
+              placeholder="Nhập tên tài khoản"
+              label="Tên tài khoản"
+            />
+            <InputBar
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              type="password"
+              placeholder="Nhập mật khẩu"
+              label="Mật khẩu"
+            />
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center">
                 <Checkbox sx={customCheckboxStyle} />
@@ -71,7 +92,7 @@ const Login = () => {
 
           <div class="!mt-12">
             <button
-              type="button"
+              type="submit"
               class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[var(--primary-color)] hover:bg-[var(--light-primary-color)] focus:outline-none"
             >
               Đăng nhập
