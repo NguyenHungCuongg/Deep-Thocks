@@ -1,5 +1,6 @@
 package com.deepthocks.backend.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,16 +11,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.deepthocks.backend.security.SecurityEndpoints;
+import com.deepthocks.backend.security.JwtAuthenticationFilter;
 
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFitler;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -35,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,SecurityEndpoints.PUBLIC_GET_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_GET_ENDPOINTS(trong file SecurityEndpoints) được GET mà không cần xác thực
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(jwtAuthenticationFitler, UsernamePasswordAuthenticationFilter.class) //Thêm filter JwtAuthenticationFilter vào trước filter UsernamePasswordAuthenticationFilter
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(Customizer.withDefaults())

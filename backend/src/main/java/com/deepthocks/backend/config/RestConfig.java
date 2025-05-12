@@ -1,6 +1,5 @@
 package com.deepthocks.backend.config;
 
-import com.deepthocks.backend.entity.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.Type;
 import org.springframework.beans.factory.annotation.Autowired;
