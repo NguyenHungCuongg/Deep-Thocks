@@ -21,6 +21,7 @@ const Login = () => {
         alert("Đăng nhập thành công!");
         const jwtToken = response.data; //response.data ở đây là jwtToken đã được truyền thông qua ResponseEntity.ok(jwtToken)
         login(username, jwtToken); // Lưu token vào localStorage
+        console.log("Người dùng: ", username);
         console.log("Token: ", response.data);
         window.location.href = "/";
       } else {

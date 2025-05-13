@@ -25,6 +25,7 @@ public class JwtService {
 
     public String generateToken(String username){
         Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("username", username); //Phải thêm thông tin "username" vào payload để ta có thể trích xuất về sau
         return buildToken(username,extraClaims);
     }
 

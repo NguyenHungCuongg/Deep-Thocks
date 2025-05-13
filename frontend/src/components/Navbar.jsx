@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Menubar from "./Menubar";
@@ -7,6 +8,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 function Navbar() {
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const { authState, logout } = useContext(AuthContext);
 
   return (
     <div>
@@ -41,13 +43,23 @@ function Navbar() {
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
               <span className="hidden md:block">Giỏ hàng</span>
             </a>
-            <a
-              href="/account/login"
-              className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
-            >
-              <PersonOutlineIcon sx={{ fontSize: 30 }} />
-              <span className="hidden md:block">Đăng nhập</span>
-            </a>
+            {authState.isAuthenticated ? (
+              <button
+                onClick={logout}
+                className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+              >
+                <PersonOutlineIcon sx={{ fontSize: 30 }} />
+                <span className="hidden md:block">{authState.user}</span>
+              </button>
+            ) : (
+              <a
+                href="/account/login"
+                className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+              >
+                <PersonOutlineIcon sx={{ fontSize: 30 }} />
+                <span className="hidden md:block">Đăng nhập</span>
+              </a>
+            )}
           </div>
         </div>
         <Menubar />

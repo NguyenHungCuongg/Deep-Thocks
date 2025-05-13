@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
     user: null,
@@ -15,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       //giải mã Jwt Token để lấy thông tin người dùng
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
       //decodedToken có các thuộc tính thông tin từ token như username, roles, exp, iat,...
-
+      console.log("Decoded token: ", decodedToken);
       const currentTime = Date.now() / 1000; // Thời gian hiện tại tính bằng giây
       if (decodedToken.exp < currentTime) {
         localStorage.removeItem("token"); // Xóa token nếu đã hết hạn
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token"); // Xóa token khỏi localStorage
     setAuthState({ isAuthenticated: false, user: null, loading: false });
+    navigate("/");
   };
 
   return (
