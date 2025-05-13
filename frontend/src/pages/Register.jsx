@@ -3,6 +3,8 @@ import Checkbox from "@mui/material/Checkbox";
 import InputBar from "../components/InputBar";
 import GoogleAuthOption from "../components/GoogleAuthOption";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -12,6 +14,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const backendURL = "http://localhost:8080";
+  const navigate = useNavigate();
 
   const customCheckboxStyle = {
     color: "#2f2f2f",
@@ -36,14 +39,17 @@ function Register() {
         password: password,
       });
       if (response.status === 200) {
-        alert(response.data);
-        window.location.href = "/account/login";
+        toast.success("Đăng ký thành công!");
+        navigate("/account/login");
       } else {
-        alert(response.data);
+        toast.error(response.data);
       }
     } catch (error) {
-      console.error("Lỗi trong quá trình đăng ký: ", error);
-      alert("Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.");
+      if (error.response && error.response.data) {
+        toast.error(error.response.data); // Thông báo lỗi từ backend
+      } else {
+        toast.error("Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.");
+      }
     }
   };
 

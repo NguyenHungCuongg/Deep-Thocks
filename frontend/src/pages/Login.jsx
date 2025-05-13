@@ -3,12 +3,15 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import Checkbox from "@mui/material/Checkbox";
 import InputBar from "../components/InputBar";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const backendURL = "http://localhost:8080";
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,18 +21,22 @@ const Login = () => {
         password: password,
       });
       if (response.status === 200) {
-        alert("Đăng nhập thành công!");
         const jwtToken = response.data; //response.data ở đây là jwtToken đã được truyền thông qua ResponseEntity.ok(jwtToken)
         login(username, jwtToken); // Lưu token vào localStorage
         console.log("Người dùng: ", username);
         console.log("Token: ", response.data);
-        window.location.href = "/";
+        toast.success("Đăng nhập thành công!");
+        navigate("/");
       } else {
-        alert("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin tài khoản.");
+        toast.error(response.data);
       }
     } catch (error) {
-      console.error("Lỗi trong quá trình đăng nhập: ", error);
-      alert("Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.");
+      if (error.response && error.response.data) {
+        toast.error(error.response.data); // Thông báo lỗi từ backend
+      } else {
+        //Nếu lỗi này không được trả về từ backend, ta tự định nghĩa lỗi
+        toast.error("Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.");
+      }
     }
   };
 

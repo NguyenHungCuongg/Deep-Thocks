@@ -6,7 +6,7 @@ public class SecurityEndpoints {
     public static final String[] PUBLIC_GET_ENDPOINTS = {
             "/api/products",
             "/api/products/**",
-            "/api/categories/**/products",
+            "/api/categories/{parentSlug}/{childSlug}/products",
             "/api/products/search/**"
     };
 

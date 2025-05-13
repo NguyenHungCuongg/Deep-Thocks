@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 
@@ -40,6 +41,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token"); // Xóa token khỏi localStorage
     setAuthState({ isAuthenticated: false, user: null, loading: false });
+    toast.success("Đăng xuất thành công!");
     navigate("/");
   };
 

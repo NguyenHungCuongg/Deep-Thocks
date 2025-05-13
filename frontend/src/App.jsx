@@ -10,11 +10,13 @@ import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 import ProductView from "./components/ProductView";
 import { AuthProvider } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast"; // Thông báo cho người dùng khi có sự kiện xảy ra
 
 function App() {
   return (
     <div>
       <AuthProvider>
+        <Toaster position="top-center" reverseOrder={false} />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
