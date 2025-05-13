@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import Checkbox from "@mui/material/Checkbox";
 import InputBar from "../components/InputBar";
@@ -7,6 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const backendURL = "http://localhost:8080";
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,7 +19,8 @@ const Login = () => {
       });
       if (response.status === 200) {
         alert("Đăng nhập thành công!");
-        localStorage.setItem("token", response.data); //response.data ở đây là jwtToken đã được truyền thông qua ResponseEntity.ok(jwtToken)
+        const jwtToken = response.data; //response.data ở đây là jwtToken đã được truyền thông qua ResponseEntity.ok(jwtToken)
+        login(username, jwtToken); // Lưu token vào localStorage
         console.log("Token: ", response.data);
         window.location.href = "/";
       } else {
