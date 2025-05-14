@@ -5,10 +5,15 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Menubar from "./Menubar";
 import SearchBarOverlay from "./SearchBarOverlay";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import ConfirmDialog from "./ConfirmDialog";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const { authState, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -36,21 +41,54 @@ function Navbar() {
               <SearchOutlinedIcon sx={{ fontSize: 30 }} />
               <span className="hidden md:block">Tìm kiếm</span>
             </a>
-            <a
-              href="/cart"
-              className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
-            >
-              <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
-              <span className="hidden md:block">Giỏ hàng</span>
-            </a>
             {authState.isAuthenticated ? (
-              <button
-                onClick={logout}
+              <a
+                href="/cart"
                 className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
               >
-                <PersonOutlineIcon sx={{ fontSize: 30 }} />
-                <span className="hidden md:block">{authState.user}</span>
-              </button>
+                <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                <span className="hidden md:block">Giỏ hàng</span>
+              </a>
+            ) : (
+              <div>
+                <button
+                  onClick={() => setShowConfirmDialog(true)}
+                  className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
+                >
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                  <span className="hidden md:block">Giỏ hàng</span>
+                </button>
+                <ConfirmDialog
+                  title="Xác nhận đăng nhập"
+                  content="Bạn cần đăng nhập để xem giỏ hàng cá nhân của mình!"
+                  open={showConfirmDialog}
+                  onClose={() => setShowConfirmDialog(false)}
+                  onConfirm={() => {
+                    navigate("/account/login");
+                    setShowConfirmDialog(false);
+                  }}
+                />
+              </div>
+            )}
+
+            {authState.isAuthenticated ? (
+              <div>
+                <button className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0">
+                  <PersonOutlineIcon sx={{ fontSize: 30 }} />
+                  <span className="hidden md:block">{authState.user}</span>
+                  <LogoutOutlinedIcon onClick={() => setShowConfirmDialog(true)} sx={{ fontSize: 30 }} />
+                </button>
+                <ConfirmDialog
+                  title="Xác nhận đăng xuất"
+                  content="Bạn có chắc chắn muốn đăng xuất không?"
+                  open={showConfirmDialog}
+                  onClose={() => setShowConfirmDialog(false)}
+                  onConfirm={() => {
+                    logout();
+                    setShowConfirmDialog(false);
+                  }}
+                />
+              </div>
             ) : (
               <a
                 href="/account/login"
