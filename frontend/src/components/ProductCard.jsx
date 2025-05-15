@@ -1,6 +1,32 @@
 import React from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function ProductCard(props) {
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:8080/api/cart/add",
+        { productId: props.product.productId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+      } else {
+        toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
+      }
+    } catch (error) {
+      toast.error("Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng, vui lòng thử lại");
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-4">
       <a href={`/products/${props.product.productId}`}>
@@ -37,6 +63,7 @@ function ProductCard(props) {
           focus:ring-2 
           focus:ring-[var(--light-black)] 
           focus:ring-opacity-50  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          onClick={handleAddToCart}
         >
           Thêm vào giỏ hàng
         </a>

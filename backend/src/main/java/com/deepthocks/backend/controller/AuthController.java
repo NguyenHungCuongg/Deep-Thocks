@@ -8,12 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterUserDTO registerUserDTO) {
         String result = authService.registerUser(registerUserDTO);
         if (result.equals("Đăng ký người dùng thành công!")) {
@@ -23,7 +23,7 @@ public class AuthController {
         }
     }
     
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDTO loginUserDTO) {
         try{
             String jwtToken = authService.loginUser(loginUserDTO);
