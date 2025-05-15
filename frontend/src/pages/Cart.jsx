@@ -12,7 +12,12 @@ function Cart() {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/cart`);
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`http://localhost:8080/api/cart`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.status === 200) {
           setCartItems(response.data);
         }
@@ -28,7 +33,7 @@ function Cart() {
       <h1 class="text-xl font-semibold text-slate-900">Giỏ hàng của bạn</h1>
       <div class="grid lg:grid-cols-3 lg:gap-x-8 gap-x-6 gap-y-8 mt-6">
         <div class="lg:col-span-2 space-y-6">
-          {cartItems.length > 0
+          {Array.isArray(cartItems) && cartItems.length > 0
             ? cartItems.map((item, index) => (
                 <CartItem
                   key={index}

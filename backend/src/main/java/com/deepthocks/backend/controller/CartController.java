@@ -33,6 +33,7 @@ public class CartController {
   @GetMapping("/cart")
   public List<CartItemDTO>  getCartItems() {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    return cartService.getCartItemsByUsername(username);
+    List<CartItemDTO> cartItems = cartService.getCartItemsByUsername(username);
+    return cartItems != null ? cartItems : List.of();
   }
 }

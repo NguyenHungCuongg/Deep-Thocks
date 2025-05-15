@@ -3,11 +3,13 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import QuantityInputSpinner from "./QuantityInputSpinner";
 
 function CartItem(props) {
+  const backendUrl = "http://localhost:8080";
+
   return (
     <div class="flex gap-4 bg-white px-4 py-6 rounded-md shadow border justify-between items-center">
       <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
         <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
-          <img src={props.thumbnailUrl} class="w-full h-full object-contain" />
+          <img src={backendUrl + props.thumbnailUrl} class="w-full h-full object-contain" />
         </div>
         <div class="flex flex-col gap-4">
           <div>
