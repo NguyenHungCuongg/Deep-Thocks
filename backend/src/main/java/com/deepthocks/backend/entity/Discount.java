@@ -8,7 +8,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "discounts")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

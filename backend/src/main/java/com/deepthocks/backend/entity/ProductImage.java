@@ -7,7 +7,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "product_images")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
