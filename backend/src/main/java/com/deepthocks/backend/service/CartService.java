@@ -54,7 +54,14 @@ public class CartService {
 
   public String addToCart(String username, int productId) {
     User user = userRepository.findByUsername(username);
+    if(user == null){
+      return "Người dùng không tồn tại, vui lòng thử lại!";
+    }
     Product product = productRepository.findById(productId).orElse(null);
+    if (product == null) {
+      return "Sản phẩm không tồn tại, vui lòng thử lại!";
+      
+    }
     //Lấy giỏ hàng của người dùng, nếu không có thì thêm dữ liệu mới vào bảng giỏ hàng
     Cart cart = cartRepository.findByUser(user)
         .orElseGet(() -> {
@@ -81,5 +88,25 @@ public class CartService {
       cartItemRepository.save(cartItem);
     }
     return "Thêm sản phẩm vào giỏ hàng thành công!";
+  }
+
+  public String removeFromCart(String username, int productId){
+    User user = userRepository.findByUsername(username);
+    if(user == null){
+      return "Người dùng không tồn tại, vui lòng thử lại!";
+    }
+    Product product = productRepository.findById(productId).orElse(null);
+    if (product == null) {
+      return "Sản phẩm không tồn tại, vui lòng thử lại!";
+      
+    }
+    Cart cart = cartRepository.findByUser(user)
+        .orElse(null);
+    CartItem cartItem = cartItemRepository.findByCartAndProduct(cart,product).orElse(null);
+    if(cartItem == null){
+      return "Sản phẩm này không tồn tại trong giỏ hàng, vui lòng thử lại!";
+    }
+    cartItemRepository.delete(cartItem);
+    return "Xóa sản phẩm khỏi giỏ hàng thành công!";
   }
 }

@@ -8,12 +8,12 @@ import axios from "axios";
 function Cart() {
   const { authState } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
-
+  const backendUrl = "http://localhost:8080";
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:8080/api/cart`, {
+        const response = await axios.get(`${backendUrl}/api/cart`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -22,7 +22,7 @@ function Cart() {
           setCartItems(response.data);
         }
       } catch (error) {
-        console.error("Error fetching cart items:", error);
+        console.error("Đã xảy ra lỗi trong quá trình lấy Cart Items:", error);
       }
     };
     if (authState.isAuthenticated) fetchCartItems();
@@ -37,10 +37,12 @@ function Cart() {
             ? cartItems.map((item, index) => (
                 <CartItem
                   key={index}
+                  productId={item.productId}
                   name={item.productName}
                   price={item.price}
                   quantity={item.quantity}
                   thumbnailUrl={item.productThumbnail}
+                  onDelete={() => setCartItems(cartItems.filter((ci) => ci.productId !== item.productId))}
                 />
               ))
             : null}
