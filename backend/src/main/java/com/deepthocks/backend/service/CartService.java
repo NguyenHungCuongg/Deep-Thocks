@@ -52,7 +52,7 @@ public class CartService {
     return cartItems;
   }
 
-  public String addToCart(String username, int productId) {
+  public String addToCart(String username, int productId, int quantity) {
     User user = userRepository.findByUsername(username);
     if(user == null){
       return "Người dùng không tồn tại, vui lòng thử lại!";
@@ -74,16 +74,16 @@ public class CartService {
 
     //Kiểm tra xem sản phẩm này đã có trong giỏ hàng chưa
     Optional<CartItem> existingCartItem = cartItemRepository.findByCartAndProduct(cart, product);
-    //Nếu đã có trong giỏ hàng thì tăng số lượng lên 1
+    //Nếu đã có trong giỏ hàng thì tăng số lượng lên thêm một lượng "quantity"
     if (existingCartItem.isPresent()) {
       CartItem cartItem = existingCartItem.get();
-      cartItem.setQuantity(cartItem.getQuantity() + 1);
+      cartItem.setQuantity(cartItem.getQuantity() + quantity);
       cartItemRepository.save(cartItem);
     } else {
       CartItem cartItem = CartItem.builder()
           .cart(cart)
           .product(product)
-          .quantity(1)
+          .quantity(quantity)
           .build();
       cartItemRepository.save(cartItem);
     }

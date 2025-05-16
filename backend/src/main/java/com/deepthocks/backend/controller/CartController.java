@@ -23,9 +23,11 @@ public class CartController {
           @RequestBody Map<String, Integer> body
   ) {
     int productId = body.get("productId");
+    int quantity = body.get("quantity");
+    System.out.println("Quantity: " + quantity);
     //Lấy tên người dùng từ SecurityContext(được lấy từ JWT token)
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    String result = cartService.addToCart(username, productId);
+    String result = cartService.addToCart(username, productId, quantity);
     return ResponseEntity.ok(result);
   }
 

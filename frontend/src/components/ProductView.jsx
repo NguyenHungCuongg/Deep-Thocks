@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ProductInformation from "./ProductInformation";
@@ -6,8 +6,8 @@ import ProductImageSlider from "./ProductImageSlider";
 
 function ProductView() {
   const { id } = useParams();
-  const [productImages, setProductImages] = React.useState([]);
-  const [currentProduct, setCurrentProduct] = React.useState({});
+  const [productImages, setProductImages] = useState([]);
+  const [currentProduct, setCurrentProduct] = useState({});
   const backendURL = "http://localhost:8080";
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function ProductView() {
           <ProductImageSlider slideImages={productImages} />
         </div>
         <div className="col-span-2 py-6 px-8 max-lg:max-w-2xl">
-          <ProductInformation currentProduct={currentProduct} />
+          <ProductInformation currentProduct={currentProduct} productId={id} />
         </div>
       </div>
     </div>

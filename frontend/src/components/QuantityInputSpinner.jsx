@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
-function QuantityInputSpinner() {
-  const [quantity, setQuantity] = useState(1);
+function QuantityInputSpinner(props) {
+  const [quantity, setQuantity] = useState(props.quantity || 1);
   const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
+    setQuantity((prev) => {
+      props.onQuantityChange(prev + 1);
+      return prev + 1;
+    });
   };
 
   const handleDecrement = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+    setQuantity((prev) => {
+      props.onQuantityChange(prev > 1 ? prev - 1 : 1);
+      return prev > 1 ? prev - 1 : 1;
+    });
   };
 
   return (

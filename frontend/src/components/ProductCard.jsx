@@ -9,7 +9,10 @@ function ProductCard(props) {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${backendUrl}/api/cart/add`,
-        { productId: props.product.productId },
+        {
+          productId: props.product.productId,
+          quantity: 1,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,

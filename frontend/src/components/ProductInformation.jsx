@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import QuantityInputSpinner from "./QuantityInputSpinner";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function ProductInformation(props) {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+
+  const backendUrl = "http://localhost:8080";
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Quantity:", quantity);
+      const response = await axios.post(
+        `${backendUrl}/api/cart/add`,
+        {
+          productId: props.productId,
+          quantity: quantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+      } else {
+        toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
+      }
+    } catch (error) {
+      toast.error("Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng, vui lòng thử lại");
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -41,12 +78,13 @@ function ProductInformation(props) {
           </p>
           <div className="space-y-4 flex items-center justify-start gap-4 text-[var(--dark-black)] font-semibold">
             Chọn số lượng:
-            <QuantityInputSpinner />
+            <QuantityInputSpinner onQuantityChange={handleQuantityChange} />
           </div>
         </div>
       </div>
       <div className="mt-12 space-y-4">
         <button
+          onClick={handleAddToCart}
           type="button"
           className="w-full px-4 py-2.5 cursor-pointer border border-slate-800 bg-transparent hover:bg-slate-50 active:bg-gray-200 text-[var(--dark-black)] text-sm font-medium rounded-md"
         >
