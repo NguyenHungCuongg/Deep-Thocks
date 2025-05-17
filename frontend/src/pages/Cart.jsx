@@ -8,7 +8,10 @@ import axios from "axios";
 function Cart() {
   const { authState } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const backendUrl = "http://localhost:8080";
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -19,6 +22,14 @@ function Cart() {
           },
         });
         if (response.status === 200) {
+          let countQuantity = 0;
+          let countPrice = 0;
+          for (let i = 0; i < response.data.length; i++) {
+            countQuantity += response.data[i].quantity;
+            countPrice += response.data[i].quantity * response.data[i].price;
+          }
+          setTotalQuantity(countQuantity);
+          setTotalPrice(countPrice);
           setCartItems(response.data);
         }
       } catch (error) {
@@ -48,7 +59,7 @@ function Cart() {
             : null}
         </div>
 
-        <BuyNowForm class="lg:col-span-1" />
+        <BuyNowForm class="lg:col-span-1" totalQuantity={totalQuantity} totalPrice={totalPrice} />
       </div>
     </div>
   );

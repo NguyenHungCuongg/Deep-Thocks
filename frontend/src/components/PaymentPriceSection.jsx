@@ -1,0 +1,38 @@
+import React from "react";
+import { assets } from "../assets/assets";
+
+function PaymentPriceSection() {
+  return (
+    <div className="mt-6 grow sm:mt-8 lg:mt-0">
+      <div className="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 ">
+        <div className="space-y-2">
+          <dl className="flex items-center justify-between gap-4">
+            <dt className="text-base font-normal text-gray-500">Tổng tiền hàng</dt>
+            <dd className="text-base font-medium text-gray-900 ">$6,592.00</dd>
+          </dl>
+          <dl className="flex items-center justify-between gap-4">
+            <dt className="text-base font-normal text-gray-500">Phí ship</dt>
+            <dd className="text-base font-medium text-gray-900 ">$6,592.00</dd>
+          </dl>
+
+          <dl className="flex items-center justify-between gap-4">
+            <dt className="text-base font-normal text-gray-500">Giảm giá</dt>
+            <dd className="text-base font-medium text-green-500">-$299.00</dd>
+          </dl>
+        </div>
+
+        <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+          <dt className="text-base font-bold text-gray-900 ">Tổng thanh toán</dt>
+          <dd className="text-base font-bold text-gray-900 ">$7,191.00</dd>
+        </dl>
+      </div>
+
+      <div className="mt-6 flex items-center justify-center gap-4">
+        <img src={assets.momo_icon} alt="card1" className="w-10 object-contain" />
+        <img src={assets.napas_icon} alt="card2" className="w-10 object-contain border rounded" />
+      </div>
+    </div>
+  );
+}
+
+export default PaymentPriceSection;
