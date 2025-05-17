@@ -22,14 +22,6 @@ function Cart() {
           },
         });
         if (response.status === 200) {
-          let countQuantity = 0;
-          let countPrice = 0;
-          for (let i = 0; i < response.data.length; i++) {
-            countQuantity += response.data[i].quantity;
-            countPrice += response.data[i].quantity * response.data[i].price;
-          }
-          setTotalQuantity(countQuantity);
-          setTotalPrice(countPrice);
           setCartItems(response.data);
         }
       } catch (error) {
@@ -38,6 +30,17 @@ function Cart() {
     };
     if (authState.isAuthenticated) fetchCartItems();
   }, [authState.isAuthenticated]);
+
+  useEffect(() => {
+    let countQuantity = 0;
+    let countPrice = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      countQuantity += cartItems[i].quantity;
+      countPrice += cartItems[i].quantity * cartItems[i].price;
+    }
+    setTotalQuantity(countQuantity);
+    setTotalPrice(countPrice);
+  }, [cartItems]);
 
   return (
     <div class="max-w-5xl max-lg:max-w-2xl mx-auto px-8 py-12 md:px-12 md:py-[4%]">

@@ -24,7 +24,6 @@ public class CartController {
   ) {
     int productId = body.get("productId");
     int quantity = body.get("quantity");
-    System.out.println("Quantity: " + quantity);
     //Lấy tên người dùng từ SecurityContext(được lấy từ JWT token)
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
     String result = cartService.addToCart(username, productId, quantity);

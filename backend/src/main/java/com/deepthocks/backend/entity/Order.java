@@ -42,6 +42,9 @@ public class Order {
     @Column
     private String status;
 
+    @Column(name = "payment_method")
+    private String paymentMethod;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItemList;
 }

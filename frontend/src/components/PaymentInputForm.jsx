@@ -11,10 +11,12 @@ function PaymentInputForm() {
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
     setSelectedDistrict("");
+    setSelectedWard("");
   };
 
   const handleDistrictChange = (e) => {
     setSelectedDistrict(e.target.value);
+    setSelectedWard("");
   };
 
   const handleWardChange = (e) => {
