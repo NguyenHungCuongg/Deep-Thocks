@@ -16,6 +16,7 @@ import about_why_image from "./about-why-image.png";
 import momo_icon from "./momo-icon.png";
 import napas_icon from "./napas-icon.png";
 import contact_banner_image from "./contact-banner-image.png";
+import cod_icon from "./cod-icon.png";
 
 export const assets = {
   hero_banner_image,
@@ -36,4 +37,5 @@ export const assets = {
   momo_icon,
   napas_icon,
   contact_banner_image,
+  cod_icon,
 };
