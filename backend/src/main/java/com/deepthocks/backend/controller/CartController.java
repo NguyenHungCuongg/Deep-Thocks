@@ -26,8 +26,14 @@ public class CartController {
     int quantity = body.get("quantity");
     //Lấy tên người dùng từ SecurityContext(được lấy từ JWT token)
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    String result = cartService.addToCart(username, productId, quantity);
-    return ResponseEntity.ok(result);
+    try{
+      String result = cartService.addToCart(username, productId, quantity);
+      return ResponseEntity.ok(result);
+    }
+    catch (Exception e){
+      return ResponseEntity.badRequest().build();
+    }
+
   }
 
   @DeleteMapping("/{productId}")
@@ -35,8 +41,13 @@ public class CartController {
          @PathVariable int productId
   ){
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    String result = cartService.removeFromCart(username, productId);
-    return ResponseEntity.ok(result);
+    try{
+      String result = cartService.removeFromCart(username, productId);
+      return ResponseEntity.ok(result);
+    }
+    catch (Exception e){
+      return ResponseEntity.badRequest().build();
+    }
   }
 
   @GetMapping

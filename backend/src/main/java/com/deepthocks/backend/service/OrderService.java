@@ -97,7 +97,7 @@ public class OrderService {
         order.setDiscountAmount(discountAmount);
         order.setTotalAmount(totalAmount);
         order.setPaymentMethod(paymentMethod);
-        order.setStatus("pending");
+        order.setStatus(paymentMethod.equals("cod")? "pending" : "paid");
         order.setOrderItemList(new ArrayList<>()); //Đặt ArrayList mởi để tránh NullPointerException trước
         orderRepository.save(order);
 
@@ -143,5 +143,13 @@ public class OrderService {
         orderResponseDTO.setStatus(order.getStatus());
         orderResponseDTO.setCreatedAt(order.getCreatedAt());
         return orderResponseDTO;
+    }
+
+    public String changeStatusToPaid(int orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order == null) {throw new RuntimeException("Không tìm thấy hóa đơn! vui lòng thử lại!");}
+        order.setStatus("paid");
+        orderRepository.save(order);
+        return "Đã thay đổi trạng thái hóa đơn!";
     }
 }

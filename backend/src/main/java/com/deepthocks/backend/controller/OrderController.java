@@ -7,10 +7,7 @@ import com.deepthocks.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -21,7 +18,24 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        OrderResponseDTO orderResponseDTO = orderService.createOrder(orderRequestDTO, username);
-        return ResponseEntity.ok(orderResponseDTO);
+        try{
+            OrderResponseDTO orderResponseDTO = orderService.createOrder(orderRequestDTO, username);
+            return ResponseEntity.ok(orderResponseDTO);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
+    @PostMapping("/paid")
+    public  ResponseEntity<?> paidOrder(@RequestParam int orderId) {
+        try{
+            String result = orderService.changeStatusToPaid(orderId);
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

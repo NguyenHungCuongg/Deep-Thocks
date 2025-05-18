@@ -347,4 +347,3 @@ VALUES
 (51,'/images/keyboards/keyboards-yunzii-al68-4.png','keyboards-yunzii-al68-4',4)
 
 
-SELECT * FROM Products

@@ -17,6 +17,8 @@ import momo_icon from "./momo-icon.png";
 import napas_icon from "./napas-icon.png";
 import contact_banner_image from "./contact-banner-image.png";
 import cod_icon from "./cod-icon.png";
+import momo_qr from "./momo-qr.png";
+import napas_qr from "./napas-qr.png";
 
 export const assets = {
   hero_banner_image,
@@ -38,4 +40,6 @@ export const assets = {
   napas_icon,
   contact_banner_image,
   cod_icon,
+  momo_qr,
+  napas_qr,
 };

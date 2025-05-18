@@ -156,6 +156,14 @@ function PaymentInputForm(props) {
             <img src={assets.napas_icon} alt="napas" className="hidden sm:block w-10 object-contain border rounded" />
           </button>
         </div>
+        <div className="col-span-3 lg:col-span-3 flex w-full">
+          {paymentMethod === "momo" && (
+            <img src={assets.momo_qr} alt="momo" className="hidden sm:block w-full object-contain" />
+          )}
+          {paymentMethod === "napas" && (
+            <img src={assets.napas_qr} alt="napas" className="hidden sm:block w-full object-contain" />
+          )}
+        </div>
       </div>
 
       <button
