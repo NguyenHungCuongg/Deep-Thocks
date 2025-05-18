@@ -125,7 +125,6 @@ function PaymentInputForm(props) {
             type="text"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-500 focus:border-primary-500 focus:ring-primary-500  "
             placeholder="Nhập mã giảm giá"
-            required
           />
         </div>
         <label for="card-number-input" className="mb-2 block text-sm font-medium text-gray-500 ">

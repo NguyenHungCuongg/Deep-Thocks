@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "total_amount")
     private double totalAmount;
 
-    @Column
+    @Column(name = "status")
     private String status;
 
     @Column(name = "payment_method")

@@ -42,7 +42,7 @@ public class OrderService {
         User user = userRepository.findByUsername(username);
         if (user == null) throw new RuntimeException("Người dùng không tồn tại, vui lòng thử lại!");
         Cart cart = cartRepository.findByUser(user).orElse(null);
-        if (user == null) throw new RuntimeException("Giỏ hàng không tồn tại, vui lòng thử lại!");
+        if (cart == null) throw new RuntimeException("Giỏ hàng không tồn tại, vui lòng thử lại!");
         List<CartItem> cartItems = cartItemRepository.findByCart(cart);
 
         //Tạo các đối tượng cần có trong Order(chưa có)
