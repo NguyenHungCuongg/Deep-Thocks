@@ -5,6 +5,7 @@ import com.deepthocks.backend.dto.OrderRequestDTO;
 import com.deepthocks.backend.dto.OrderResponseDTO;
 import com.deepthocks.backend.entity.*;
 import com.deepthocks.backend.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class OrderService {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Transactional
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO, String username) {
         //Lấy các đối tượng cần thiết (đã có)
         User user = userRepository.findByUsername(username);
@@ -95,7 +97,7 @@ public class OrderService {
         order.setDiscountAmount(discountAmount);
         order.setTotalAmount(totalAmount);
         order.setPaymentMethod(paymentMethod);
-        order.setStatus(paymentMethod.equals("cod")?"pending":"paid");
+        order.setStatus("pending");
         order.setOrderItemList(new ArrayList<>()); //Đặt ArrayList mởi để tránh NullPointerException trước
         orderRepository.save(order);
 

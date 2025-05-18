@@ -10,7 +10,7 @@ function CartItem(props) {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`${backendUrl}/api/cart/${props.productId}`, {
+      const response = await axios.delete(`${backendUrl}/api/carts/${props.productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

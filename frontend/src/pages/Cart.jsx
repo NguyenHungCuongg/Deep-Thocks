@@ -4,19 +4,25 @@ import { AuthContext } from "../context/AuthContext";
 import CartItem from "../components/CartItem";
 import BuyNowForm from "../components/BuyNowForm";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { authState } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
   const backendUrl = "http://localhost:8080";
+
+  const handleBuyNow = () => {
+    navigate("/payment", { state: { cartItems, totalPrice } });
+  };
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendUrl}/api/cart`, {
+        const response = await axios.get(`${backendUrl}/api/carts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -62,7 +68,12 @@ function Cart() {
             : null}
         </div>
 
-        <BuyNowForm class="lg:col-span-1" totalQuantity={totalQuantity} totalPrice={totalPrice} />
+        <BuyNowForm
+          class="lg:col-span-1"
+          totalQuantity={totalQuantity}
+          totalPrice={totalPrice}
+          onBuyNow={handleBuyNow}
+        />
       </div>
     </div>
   );

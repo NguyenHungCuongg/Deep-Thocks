@@ -16,6 +16,7 @@ function BuyNowForm(props) {
 
       <div className="mt-8 space-y-4">
         <button
+          onClick={props.onBuyNow}
           type="button"
           className="text-sm px-4 py-2.5 w-full font-medium tracking-wide bg-[var(--primary-color)] hover:bg-[var(--light-primary-color)] active:scale-98 transition-all duration-100 text-white rounded-md"
         >

@@ -13,12 +13,12 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/carts")
 public class CartController {
   @Autowired
   private CartService cartService;
 
-  @PostMapping("/cart/add")
+  @PostMapping("/add")
   public ResponseEntity<?> addToCart(
           @RequestBody Map<String, Integer> body
   ) {
@@ -30,7 +30,7 @@ public class CartController {
     return ResponseEntity.ok(result);
   }
 
-  @DeleteMapping("/cart/{productId}")
+  @DeleteMapping("/{productId}")
   public ResponseEntity<?> deleteFromCart(
          @PathVariable int productId
   ){
@@ -39,7 +39,7 @@ public class CartController {
     return ResponseEntity.ok(result);
   }
 
-  @GetMapping("/cart")
+  @GetMapping
   public List<CartItemDTO>  getCartItems() {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
     List<CartItemDTO> cartItems = cartService.getCartItemsByUsername(username);

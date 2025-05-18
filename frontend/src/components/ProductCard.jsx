@@ -8,7 +8,7 @@ function ProductCard(props) {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `${backendUrl}/api/cart/add`,
+        `${backendUrl}/api/carts/add`,
         {
           productId: props.product.productId,
           quantity: 1,

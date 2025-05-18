@@ -91,6 +91,7 @@ CREATE TABLE orders (
     discount_amount DECIMAL(10, 2) DEFAULT 0,
     total_amount DECIMAL(12, 2) NOT NULL,
 	status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'paid'))
+	payment_method VARCHAR(100) NOT NULL CHECK (payment_method IN ('cod', 'napas', 'momo')) DEFAULT 'cod'
 );
 
 -- Bảng Order_Items
