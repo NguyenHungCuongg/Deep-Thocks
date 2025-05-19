@@ -52,7 +52,7 @@ function Profile() {
   return (
     <div className="py-12 px-6 sm:px-6 lg:px-8">
       <ProfileInformationSection user={user} />
-      <OrderHistoryList orders={orderHistory} />
+      <OrderHistoryList orders={orderHistory} setOrders={setOrderHistory} />
     </div>
   );
 }

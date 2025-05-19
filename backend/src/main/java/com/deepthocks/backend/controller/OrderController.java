@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -43,7 +44,8 @@ public class OrderController {
     }
 
     @PostMapping("/paid")
-    public  ResponseEntity<?> paidOrder(@RequestParam int orderId) {
+    public  ResponseEntity<?> paidOrder(@RequestBody Map<String, Integer> body) {
+        int orderId = body.get("orderId");
         try{
             String result = orderService.changeStatusToPaid(orderId);
             return ResponseEntity.ok(result);
