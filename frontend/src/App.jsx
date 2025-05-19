@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 import Payment from "./pages/Payment";
 import ProductView from "./components/ProductView";
+import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast"; // Thông báo cho người dùng khi có sự kiện xảy ra
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/account/login" element={<Login />} />
           <Route path="/account/register" element={<Register />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </AuthProvider>

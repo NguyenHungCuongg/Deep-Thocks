@@ -75,7 +75,9 @@ function Navbar() {
               <div>
                 <button className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0">
                   <PersonOutlineIcon sx={{ fontSize: 30 }} />
-                  <span className="hidden md:block">{authState.user}</span>
+                  <a className="hidden md:block" href="/profile">
+                    {authState.user}
+                  </a>
                   <LogoutOutlinedIcon onClick={() => setShowConfirmDialog(true)} sx={{ fontSize: 30 }} />
                 </button>
                 <ConfirmDialog
