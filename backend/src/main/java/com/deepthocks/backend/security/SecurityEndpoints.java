@@ -7,6 +7,7 @@ public class SecurityEndpoints {
             "/api/products",
             "/api/products/**",
             "/api/categories/{parentSlug}/{childSlug}/products",
+            "/api/categories/{categorySlug}/products",
             "/api/products/search/**"
     };
 
