@@ -1,35 +1,53 @@
-import React from "react";
 import ProfileInformationSection from "../components/ProfileInformationSection";
 import OrderHistoryList from "../components/OrderHistoryList";
+import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Profile() {
-  const user = {
-    fullName: "Nguyen Van A",
-    email: "nguyenvana@example.com",
-    phoneNumber: "0123 456 789",
-    createdAt: "15/03/2022",
-  };
+  const { authState } = useContext(AuthContext);
+  const [user, setUser] = useState(null);
+  const [orderHistory, setOrderHistory] = useState([]);
+  const backendURL = "http://localhost:8080";
 
-  const orderHistory = [
-    {
-      orderId: "123456",
-      createdAt: "15/03/2022",
-      totalAmount: "1.000.000 VND",
-      status: "Đang giao hàng",
-    },
-    {
-      orderId: "123456",
-      createdAt: "15/03/2022",
-      totalAmount: "1.000.000 VND",
-      status: "Đang giao hàng",
-    },
-    {
-      orderId: "123456",
-      createdAt: "15/03/2022",
-      totalAmount: "1.000.000 VND",
-      status: "Đang giao hàng",
-    },
-  ];
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${backendURL}/api/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          console.log("Thông tin người dùng:", response.data);
+          setUser(response.data);
+        }
+      } catch (error) {
+        console.error("Đã xảy ra lỗi trong quá trình lấy thông tin người dùng:", error);
+      }
+    };
+    if (authState.isAuthenticated) fetchUser();
+  }, [authState.isAuthenticated]);
+
+  useEffect(() => {
+    const fetchOrderHistory = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${backendURL}/api/orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          setOrderHistory(response.data);
+        }
+      } catch (error) {
+        console.error("Đã xảy ra lỗi trong quá trình lấy thông tin hóa đơn của người dùng:", error);
+      }
+    };
+    if (authState.isAuthenticated) fetchOrderHistory();
+  }, [authState.isAuthenticated]);
 
   return (
     <div className="py-12 px-6 sm:px-6 lg:px-8">

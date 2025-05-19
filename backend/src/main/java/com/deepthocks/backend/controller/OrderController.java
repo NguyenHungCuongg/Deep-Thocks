@@ -9,11 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    @GetMapping
+    public ResponseEntity<?> getOrders(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        try{
+            List<OrderResponseDTO> orderList = orderService.getOrders(username);
+            return ResponseEntity.ok(orderList);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {

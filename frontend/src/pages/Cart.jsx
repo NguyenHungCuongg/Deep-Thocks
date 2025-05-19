@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import CartItem from "../components/CartItem";
 import BuyNowForm from "../components/BuyNowForm";

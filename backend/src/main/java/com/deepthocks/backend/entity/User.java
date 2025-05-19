@@ -1,5 +1,7 @@
 package com.deepthocks.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,9 +40,11 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Cart cart;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -49,5 +53,6 @@ public class User {
     private Set<Role> roleSet;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Order> orderList;
 }

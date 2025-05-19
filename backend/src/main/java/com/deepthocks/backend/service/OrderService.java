@@ -37,6 +37,22 @@ public class OrderService {
     private AddressRepository addressRepository;
 
     @Transactional
+    public List<OrderResponseDTO> getOrders(String username){
+        User user = userRepository.findByUsername(username);
+        if(user == null) throw new RuntimeException("Người dùng không tồn tại, vui lòng thử lại!");
+        List<Order> orderList = orderRepository.findByUser(user);
+        List<OrderResponseDTO> orderResponseDTOList = orderList.stream().map(order -> new OrderResponseDTO(
+                order.getOrderId(),
+                order.getShippingFee(),
+                order.getDiscountAmount(),
+                order.getTotalAmount(),
+                order.getStatus(),
+                order.getCreatedAt()
+        )).toList();
+        return orderResponseDTOList;
+    }
+
+    @Transactional
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO, String username) {
         //Lấy các đối tượng cần thiết (đã có)
         User user = userRepository.findByUsername(username);

@@ -22,19 +22,25 @@ function OrderHistoryList(props) {
             </th>
 
             <th className="px-4 py-4 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
-              Hành động
+              Trạng thái
             </th>
           </tr>
         </thead>
 
         <tbody className="bg-white divide-y divide-gray-200 whitespace-nowrap">
-          {props.orders.map((order) => (
-            <tr>
+          {props.orders.map((order, index) => (
+            <tr key={index}>
               <td className="px-4 py-4 text-sm text-slate-900 font-medium">{order.orderId}</td>
-              <td className="px-4 py-4 text-sm text-slate-600 font-medium">{order.createdAt}</td>
-              <td className="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount}</td>
+              <td className="px-4 py-4 text-sm text-slate-600 font-medium">
+                {new Date(order.createdAt).toLocaleString("vi-VN")}
+              </td>
+              <td className="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount.toLocaleString()} VND</td>
               <td className="px-4 py-4 text-sm">
-                <button className="cursor-pointer text-red-600 font-medium">{order.status}</button>
+                {order.status === "pending" ? (
+                  <button className="cursor-pointer text-red-600 font-medium">Chưa thanh toán</button>
+                ) : (
+                  <button className="cursor-pointer text-green-600 font-medium">Đã thanh toán</button>
+                )}
               </td>
             </tr>
           ))}

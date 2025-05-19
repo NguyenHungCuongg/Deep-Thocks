@@ -44,9 +44,9 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(jwtAuthenticationFitler, UsernamePasswordAuthenticationFilter.class) //Thêm filter JwtAuthenticationFilter vào trước filter UsernamePasswordAuthenticationFilter
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(Customizer.withDefaults())
-                .logout(Customizer.withDefaults());
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//                .formLogin(Customizer.withDefaults())
+//                .logout(Customizer.withDefaults());
 
         return http.build();
     }
