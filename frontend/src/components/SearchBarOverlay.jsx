@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function SearchBarOverlay(props) {
   const [keyword, setKeyword] = React.useState("");
   const navigate = useNavigate();
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   // Đóng overlay khi nhấn phím ESC
   useEffect(() => {

@@ -8,7 +8,7 @@ function ProductView() {
   const { id } = useParams();
   const [productImages, setProductImages] = useState([]);
   const [currentProduct, setCurrentProduct] = useState({});
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     axios

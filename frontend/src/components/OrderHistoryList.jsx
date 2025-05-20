@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 function OrderHistoryList(props) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleOrderStatusChange = async (orderId) => {
     const token = localStorage.getItem("token");

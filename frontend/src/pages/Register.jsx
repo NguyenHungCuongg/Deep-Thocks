@@ -13,7 +13,7 @@ function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const customCheckboxStyle = {

@@ -13,7 +13,7 @@ function Products() {
   const [endpoint, setEndpoint] = useState("/api/products");
   const { categorySlug, parentSlug, childSlug } = useParams(); //Truy xuất cá tham số động từ URL bên phía App.jsx
   const itemsPerPage = 9;
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   //Lấy giá trị keyword từ URL
   const queryParams = new URLSearchParams(location.search); // Truy xuất các tham số trong URL

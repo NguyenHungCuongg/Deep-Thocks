@@ -5,12 +5,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 function CartItem(props) {
-  const backendUrl = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`${backendUrl}/api/carts/${props.productId}`, {
+      const response = await axios.delete(`${backendURL}/api/carts/${props.productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ function CartItem(props) {
       <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
         <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
           <a href={`/products/${props.productId}`} class="cursor-pointer">
-            <img src={backendUrl + props.thumbnailUrl} class="w-full h-full object-contain" />
+            <img src={backendURL + props.thumbnailUrl} class="w-full h-full object-contain" />
           </a>
         </div>
         <div class="flex flex-col gap-4">

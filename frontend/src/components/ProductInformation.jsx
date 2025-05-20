@@ -10,13 +10,13 @@ function ProductInformation(props) {
     setQuantity(newQuantity);
   };
 
-  const backendUrl = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem("token");
       console.log("Quantity:", quantity);
       const response = await axios.post(
-        `${backendUrl}/api/carts/add`,
+        `${backendURL}/api/carts/add`,
         {
           productId: props.productId,
           quantity: quantity,

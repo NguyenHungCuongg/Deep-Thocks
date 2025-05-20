@@ -8,7 +8,7 @@ function Profile() {
   const { authState } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const [orderHistory, setOrderHistory] = useState([]);
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchUser = async () => {

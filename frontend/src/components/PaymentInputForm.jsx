@@ -20,7 +20,7 @@ function PaymentInputForm(props) {
     setPaymentMethod,
   } = props;
   const navigate = useNavigate();
-  const backendURL = "http://localhost:8080";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);

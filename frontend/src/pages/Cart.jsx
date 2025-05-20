@@ -11,7 +11,7 @@ function Cart() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
-  const backendUrl = "http://localhost:8080";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleBuyNow = () => {
     navigate("/payment", { state: { cartItems, totalPrice } });
