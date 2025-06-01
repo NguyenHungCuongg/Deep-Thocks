@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Sidebar() {
+function Sidebar(props) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
   const toggleSideBar = () => {
@@ -14,44 +14,45 @@ function Sidebar() {
 
   return (
     <div className="relative">
-      <div id="hamburger-menu-section" className="md:hidden flex justify-start p-2">
-        <button
-          data-collapse-toggle="navbar-sticky"
-          type="button"
-          className=" inline-flex p-2 w-10 h-10 justify-center text-sm text-[var(--primary-color)] rounded-lg hover:bg-[var(--light-black)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
-          aria-controls="navbar-sticky"
-          aria-expanded={isSideBarOpen}
-          onClick={toggleSideBar}
-        >
-          <svg
-            className="w-5 h-5 text-[var(--primary-color)]"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
+      {!isSideBarOpen && (
+        <div id="hamburger-menu-section" className="flex justify-start p-2 h-screen">
+          <button
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            className=" inline-flex p-2 w-10 h-10 justify-center text-sm text-[var(--primary-color)] rounded-lg hover:ring-2 hover:ring-[var(--light-primary-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+            aria-controls="navbar-sticky"
+            aria-expanded={isSideBarOpen}
+            onClick={toggleSideBar}
           >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            />
-          </svg>
-        </button>
-      </div>
+            <svg
+              className="w-5 h-5 text-[var(--primary-color)]"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {isSideBarOpen && (
         <nav className="bg-white shadow-md border-r border-gray-200 h-screen block max-w-[10%] top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <ul>
             <li>
-              <a
-                href="javascript:void(0)"
+              <button
                 onClick={handleDashboardClick}
                 className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
               >
                 Danh mục
-              </a>
+              </button>
             </li>
           </ul>
 
@@ -59,44 +60,44 @@ function Sidebar() {
             <h6 className="text-[var(--primary-color)] text-sm font-semibold px-4">Quản lý</h6>
             <ul className="mt-2 space-y-1">
               <li>
-                <a
-                  href="javascript:void(0)"
+                <button
+                  onClick={() => props.setSelectedForm("product")}
                   className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
                 >
                   Quản lý sản phẩm
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="javascript:void(0)"
+                <button
+                  onClick={() => props.setSelectedForm("user")}
                   className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
                 >
                   Quản lý người dùng
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="javascript:void(0)"
+                <button
+                  onClick={() => props.setSelectedForm("bill")}
                   className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
                 >
                   Quản lý hóa đơn
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="javascript:void(0)"
+                <button
+                  onClick={() => props.setSelectedForm("sale")}
                   className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
                 >
                   Quản lý khuyến mãi
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="javascript:void(0)"
+                <button
+                  onClick={() => props.setSelectedForm("income")}
                   className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
                 >
                   Quản lý doanh thu
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -105,20 +106,14 @@ function Sidebar() {
             <h6 className="text-[var(--primary-color)] text-sm font-semibold px-4">Hành động</h6>
             <ul className="mt-2 space-y-1">
               <li>
-                <a
-                  href="javascript:void(0)"
-                  className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
-                >
+                <button className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
                   Tài khoản cá nhân
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="javascript:void(0)"
-                  className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
-                >
+                <button className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
                   Đăng xuất
-                </a>
+                </button>
               </li>
             </ul>
           </div>
