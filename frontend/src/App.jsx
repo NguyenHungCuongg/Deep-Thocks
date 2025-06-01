@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/customer/Home";
@@ -11,35 +12,39 @@ import Products from "./pages/customer/Products";
 import Payment from "./pages/customer/Payment";
 import ProductView from "./components/ProductView";
 import Profile from "./pages/customer/Profile";
-import { AuthProvider } from "./context/AuthContext";
-import { Toaster } from "react-hot-toast"; // Thông báo cho người dùng khi có sự kiện xảy ra
+import Dashboard from "./pages/admin/Dashboard"; // Giả sử bạn có trang Dashboard cho quản trị viên
+import { AuthContext } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
+// Giả sử bạn có trang Dashboard cho quản trị viên
 
 function App() {
+  const authState = useContext(AuthContext);
+
+  const isAdmin = authState.role?.includes("ADMIN");
+
   return (
     <div>
-      <AuthProvider>
-        <Toaster position="top-center" reverseOrder={false} />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductView />} />
-          {/*Sử dụng dấu ":" để tạo các tham số động -> về sau sẽ truy xuất các tham số này bằng useParams()*/}
-          {/*Hiển thị sản phẩm theo 1 level category*/}
-          <Route path="/categories/:categorySlug/products" element={<Products />} />
-          {/*Hiển thị sản phẩm theo 2 level category (parent → child)*/}
-          <Route path="/categories/:parentSlug/:childSlug/products" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/account/login" element={<Login />} />
-          <Route path="/account/register" element={<Register />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<h1>Dashboard</h1>} />
-        </Routes>
-        <Footer />
-      </AuthProvider>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductView />} />
+        {/*Sử dụng dấu ":" để tạo các tham số động -> về sau sẽ truy xuất các tham số này bằng useParams()*/}
+        {/*Hiển thị sản phẩm theo 1 level category*/}
+        <Route path="/categories/:categorySlug/products" element={<Products />} />
+        {/*Hiển thị sản phẩm theo 2 level category (parent → child)*/}
+        <Route path="/categories/:parentSlug/:childSlug/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/account/login" element={<Login />} />
+        <Route path="/account/register" element={<Register />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/profile" element={<Profile />} />
+        {isAdmin && <Route path="/dashboard" element={<Dashboard />} />}
+      </Routes>
+      <Footer />
     </div>
   );
 }
