@@ -15,7 +15,7 @@ import Profile from "./pages/customer/Profile";
 import Dashboard from "./pages/admin/Dashboard"; // Giả sử bạn có trang Dashboard cho quản trị viên
 import { AuthContext } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
-// Giả sử bạn có trang Dashboard cho quản trị viên
+import AdminRoute from "./context/AdminRoute"; // Giả sử bạn có một component AdminRoute để bảo vệ các route dành cho quản trị viên
 
 function App() {
   const authState = useContext(AuthContext);
@@ -25,7 +25,7 @@ function App() {
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-      <Navbar />
+      {isAdmin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -42,9 +42,16 @@ function App() {
         <Route path="/account/register" element={<Register />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/profile" element={<Profile />} />
-        {isAdmin && <Route path="/dashboard" element={<Dashboard />} />}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
       </Routes>
-      <Footer />
+      {isAdmin && <Footer />}
     </div>
   );
 }
