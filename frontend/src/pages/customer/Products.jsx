@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ProductList from "../components/ProductList";
-import Pagination from "../components/Pagination";
-import SidebarFilter from "../components/SidebarFilter";
+import ProductList from "../../components/ProductList";
+import Pagination from "../../components/Pagination";
+import SidebarFilter from "../../components/SidebarFilter";
 import { useLocation } from "react-router-dom";
 
 function Products() {

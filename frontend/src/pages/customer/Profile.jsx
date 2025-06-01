@@ -1,8 +1,8 @@
-import ProfileInformationSection from "../components/ProfileInformationSection";
-import OrderHistoryList from "../components/OrderHistoryList";
+import ProfileInformationSection from "../../components/ProfileInformationSection";
+import OrderHistoryList from "../../components/OrderHistoryList";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function Profile() {
   const { authState } = useContext(AuthContext);

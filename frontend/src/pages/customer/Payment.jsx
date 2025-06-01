@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import PaymentInputForm from "../components/PaymentInputForm";
-import PaymentPriceSection from "../components/PaymentPriceSection";
+import PaymentInputForm from "../../components/PaymentInputForm";
+import PaymentPriceSection from "../../components/PaymentPriceSection";
 
 const Payment = () => {
   const location = useLocation();

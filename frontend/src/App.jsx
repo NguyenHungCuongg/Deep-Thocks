@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import Home from "./pages/customer/Home";
 import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Cart from "./pages/Cart";
-import Products from "./pages/Products";
-import Payment from "./pages/Payment";
+import Login from "./pages/customer/Login";
+import Register from "./pages/customer/Register";
+import About from "./pages/customer/About";
+import Contact from "./pages/customer/Contact";
+import Cart from "./pages/customer/Cart";
+import Products from "./pages/customer/Products";
+import Payment from "./pages/customer/Payment";
 import ProductView from "./components/ProductView";
-import Profile from "./pages/Profile";
+import Profile from "./pages/customer/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast"; // Thông báo cho người dùng khi có sự kiện xảy ra
 
@@ -36,6 +36,7 @@ function App() {
           <Route path="/account/register" element={<Register />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<h1>Dashboard</h1>} />
         </Routes>
         <Footer />
       </AuthProvider>

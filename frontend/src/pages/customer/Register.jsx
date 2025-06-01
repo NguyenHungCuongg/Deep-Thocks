@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import InputBar from "../components/InputBar";
-import GoogleAuthOption from "../components/GoogleAuthOption";
+import InputBar from "../../components/InputBar";
+import GoogleAuthOption from "../../components/GoogleAuthOption";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
