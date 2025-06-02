@@ -29,10 +29,26 @@ function ProductManagementForm() {
     <div className="bg-[var(--light-white)] rounded-xl h-full flex flex-col">
       <div
         id="table-header"
-        className="flex flex-col gap-2 px-5 py-4 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+        className="flex gap-2 px-5 py-4 mb-4 flex-col md:flex-row md:items-center md:justify-between md:px-6"
       >
-        <div>
-          <h3 class="text-lg font-title font-semibold text-gray-800">Danh sách sản phẩm</h3>
+        <h3 class="text-lg font-title font-semibold text-gray-800">Danh sách sản phẩm</h3>
+        <div className="flex gap-2 md:flex-row flex-col">
+          <input
+            placeholder="Tìm kiếm..."
+            className="block w-full px-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm"
+          />
+          <button
+            type="button"
+            class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-[var(--dark-black)] text-sm tracking-wider font-medium bg-[var(--grey)] hover:bg-[var(--dark-white)] hover:ring-1 active:bg-[var(--grey)]"
+          >
+            Xem tất cả
+          </button>
+          <button
+            type="button"
+            class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium border border-current outline-none bg-[var(--primary-color)] hover:ring-1 hover:bg-[var(--light-primary-color)] active:bg-[var(--primary-color)]"
+          >
+            Thêm sản phẩm
+          </button>
         </div>
       </div>
 
