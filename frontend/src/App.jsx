@@ -25,7 +25,7 @@ function App() {
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-      {isAdmin && <Navbar />}
+      {!isAdmin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

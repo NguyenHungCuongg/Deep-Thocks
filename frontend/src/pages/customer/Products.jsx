@@ -44,7 +44,6 @@ function Products() {
 
   useEffect(() => {
     const url = backendURL + endpoint;
-    console.log("Fetching products from:", url);
     axios
       .get(url)
       .then((response) => {

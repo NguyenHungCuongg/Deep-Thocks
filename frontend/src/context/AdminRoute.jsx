@@ -10,7 +10,7 @@ function AdminRoute({ children }) {
 
   if (!authState.isAuthenticated) {
     toast.error("Bạn cần đăng nhập để truy cập trang này.");
-    navigate("/login");
+    navigate("/account/login");
     return null;
   }
 

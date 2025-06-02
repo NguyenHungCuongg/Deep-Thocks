@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import ConfirmDialog from "./ConfirmDialog";
 
 function Sidebar(props) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const { logout } = useContext(AuthContext);
 
   const toggleSideBar = () => {
     //Nếu menu đang mở thì đóng lại, nếu không thì mở ra
@@ -111,9 +115,22 @@ function Sidebar(props) {
                 </button>
               </li>
               <li>
-                <button className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                <button
+                  onClick={() => setShowConfirmDialog(true)}
+                  className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all"
+                >
                   Đăng xuất
                 </button>
+                <ConfirmDialog
+                  title="Xác nhận đăng xuất"
+                  content="Bạn có chắc chắn muốn đăng xuất không?"
+                  open={showConfirmDialog}
+                  onClose={() => setShowConfirmDialog(false)}
+                  onConfirm={() => {
+                    logout();
+                    setShowConfirmDialog(false);
+                  }}
+                />
               </li>
             </ul>
           </div>
