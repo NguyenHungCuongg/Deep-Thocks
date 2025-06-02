@@ -5,11 +5,17 @@ import Pagination from "../../components/Pagination";
 function ProductManagementForm() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [products, setProducts] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
+
   const itemsPerPage = 6;
   const lastPageIndex = currentPage * itemsPerPage;
   const firstPageIndex = lastPageIndex - itemsPerPage;
-  const currentProductListPage = products.slice(firstPageIndex, lastPageIndex);
+  const currentProductListPage = filteredProducts.slice(firstPageIndex, lastPageIndex);
 
   const endpoint = "/api/products";
 
@@ -35,10 +41,16 @@ function ProductManagementForm() {
         <div className="flex gap-2 md:flex-row flex-col">
           <input
             placeholder="Tìm kiếm..."
+            value={searchKeyword}
+            onChange={(e) => {
+              setSearchKeyword(e.target.value);
+              setCurrentPage(1);
+            }}
             className="block w-full px-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm"
           />
           <button
             type="button"
+            onClick={() => setSearchKeyword("")}
             class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-[var(--dark-black)] text-sm tracking-wider font-medium bg-[var(--grey)] hover:bg-[var(--dark-white)] hover:ring-1 active:bg-[var(--grey)]"
           >
             Xem tất cả
