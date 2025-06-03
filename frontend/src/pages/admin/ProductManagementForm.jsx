@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../components/Pagination";
+import AddProductDialog from "../../components/AddProductDialog";
 
 function ProductManagementForm() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [products, setProducts] = useState([]);
+  const [showAddProductDialog, setShowAddProductDialog] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -57,10 +59,16 @@ function ProductManagementForm() {
           </button>
           <button
             type="button"
+            onClick={() => setShowAddProductDialog(true)}
             class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium border border-current outline-none bg-[var(--primary-color)] hover:ring-1 hover:bg-[var(--light-primary-color)] active:bg-[var(--primary-color)]"
           >
             Thêm sản phẩm
           </button>
+          <AddProductDialog
+            open={showAddProductDialog}
+            onClose={() => setShowAddProductDialog(false)}
+            onConfirm={() => setShowAddProductDialog(false)}
+          />
         </div>
       </div>
 

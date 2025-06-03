@@ -1,9 +1,9 @@
 import React from "react";
 
-function AddressOptionForm(props) {
+function CategoryOptionForm(props) {
   return (
     <form class="mx-auto">
-      <label for="adress" class="block mb-2 text-sm font-medium text-gray-500">
+      <label for="categories" class="block mb-2 text-sm font-medium text-gray-900">
         {props.label}
       </label>
       <select
@@ -12,7 +12,7 @@ function AddressOptionForm(props) {
         onChange={props.onChange}
         disabled={props.disabled}
       >
-        <option selected>Chọn...</option>
+        <option selected>Chọn thể loại...</option>
         {props.options ? (
           props.options.map((option, index) => (
             <option key={index} value={option}>
@@ -27,4 +27,4 @@ function AddressOptionForm(props) {
   );
 }
 
-export default AddressOptionForm;
+export default CategoryOptionForm;
