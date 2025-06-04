@@ -20,4 +20,12 @@ public class SecurityEndpoints {
             "api/users",
             "api/users/**",
     };
+
+    public static final String[] ADMIN_POST_ENDPOINTS = {
+            "/api/products",
+            "/api/products/**",
+            "/api/upload/images",
+            "/api/upload/images/**",
+            "/api/upload/**",
+    };
 }

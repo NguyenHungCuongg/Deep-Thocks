@@ -6,14 +6,73 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CategoryOptionForm from "./CategoryOptionForm";
 import Button from "@mui/material/Button";
+import toast from "react-hot-toast";
+import axios from "axios";
 import { categories } from "../data/categories";
 
 function AddProductDialog(props) {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productCategory, setProductCategory] = useState("");
+  const [productCategoryId, setProductCategoryId] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
   const [basePrice, setBasePrice] = useState("");
   const [salePrice, setSalePrice] = useState("");
+  const [productImage, setProductImage] = useState([]);
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
+  //Hàm này sẽ được gọi khi người dùng chọn file ảnh
+  //Nó sẽ upload từng file ảnh lên server và lưu lại URL của ảnh đã upload
+  const handleImageFileChange = async (e) => {
+    const token = localStorage.getItem("token");
+    const files = Array.from(e.target.files);
+    const uploadedImages = [];
+    for (let i = 0; i < files.length; i++) {
+      const formData = new FormData();
+      formData.append("file", files[i]); //Thêm từng file vào formData, Đặt tên cho trường của form-data là "file"
+      //Từng file sẽ được gửi đi riêng lẻ -> mỗi ảnh sẽ là một request riêng
+      const response = await axios.post(`${backendURL}/api/upload/images`, formData, {
+        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` },
+      });
+      uploadedImages.push({
+        url: response.data, //Backend sẽ trả về URL của ảnh đã upload
+        altText: files[i].name, //Tên ảnh sẽ là altText
+        displayOrder: i + 1,
+      });
+    }
+    setProductImage(uploadedImages);
+  };
+
+  const handleAddingProduct = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const productCreateDTO = {
+      productName,
+      productDescription,
+      categoryId: productCategoryId,
+      stockQuantity: parseInt(stockQuantity),
+      basePrice: parseFloat(basePrice),
+      salePrice: parseFloat(salePrice),
+      images: productImage,
+    };
+    try {
+      const response = await axios.post(`${backendURL}/api/products`, productCreateDTO, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.status === 200) {
+        toast.success("Thêm sản phẩm thành công!");
+        setProductName("");
+        setProductDescription("");
+        setProductCategoryId("");
+        setBasePrice("");
+        setSalePrice("");
+        setProductImage([]);
+        props.onClose(); //Đóng dialog sau khi thêm sản phẩm thành công
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
+      toast.error("Thêm sản phẩm thất bại! Vui lòng thử lại.");
+    }
+  };
 
   const customCancelButtonStyle = {
     color: "#2f2f2f",
@@ -41,7 +100,7 @@ function AddProductDialog(props) {
       fullWidth
     >
       <DialogTitle id="alert-dialog-title">Thêm sản phẩm</DialogTitle>
-      <form>
+      <form onSubmit={handleAddingProduct}>
         <DialogContent>
           <div className="flex flex-col gap-4">
             <div>
@@ -71,8 +130,19 @@ function AddProductDialog(props) {
               <CategoryOptionForm
                 label="Thể loại"
                 options={categories}
-                value={productCategory}
-                onChange={(e) => setProductCategory(e.target.value)}
+                value={productCategoryId}
+                onChange={(e) => setProductCategoryId(e.target.value)}
+              />
+            </div>
+            <div>
+              <label class="block mb-2 text-sm font-medium text-[var(--dark-black)]">Số lượng</label>
+              <input
+                id="stock-quantity"
+                value={stockQuantity}
+                onChange={(e) => setStockQuantity(e.target.value)}
+                class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                placeholder="Số lượng tồn kho"
+                required
               />
             </div>
             <div>
@@ -102,6 +172,8 @@ function AddProductDialog(props) {
                 type="file"
                 multiple
                 accept="image/*"
+                onChange={handleImageFileChange}
+                required
                 class="w-full text-slate-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-[var(--dark-black)] file:hover:bg-[var(--light-black)] file:text-white rounded"
               />
             </div>
@@ -111,7 +183,7 @@ function AddProductDialog(props) {
           <Button sx={customCancelButtonStyle} onClick={props.onClose}>
             Hủy
           </Button>
-          <Button sx={customConfirmButtonStyle} onClick={props.onConfirm} autoFocus>
+          <Button type="submit" sx={customConfirmButtonStyle} onClick={props.onConfirm} autoFocus>
             Thêm sản phẩm
           </Button>
         </DialogActions>

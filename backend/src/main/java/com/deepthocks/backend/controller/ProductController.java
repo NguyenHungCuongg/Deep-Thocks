@@ -1,5 +1,6 @@
 package com.deepthocks.backend.controller;
 
+import com.deepthocks.backend.dto.ProductCreateDTO;
 import com.deepthocks.backend.dto.ProductDTO;
 import com.deepthocks.backend.dto.ProductImageDTO;
 import com.deepthocks.backend.service.ProductService;
@@ -81,5 +82,17 @@ public class ProductController {
     ){
         return productService.getProductByProductId(productId);
     }
+
+    @PostMapping("/products")
+    public ResponseEntity<?> createProduct(@RequestBody ProductCreateDTO productCreateDTO) {
+        try{
+            String result = productService.createProductWithImages(productCreateDTO);
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e){
+            return  ResponseEntity.status(500).body("Error occurred while creating product: " + e.getMessage());
+        }
+    }
+
 
 }

@@ -1,8 +1,11 @@
 package com.deepthocks.backend.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +42,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             //Nếu token hợp lệ thì tạo một đối tượng Authentication
             if (jwtService.isTokenValid(token, username)) {
+                // Lấy roles từ token
+                List<String> roles = jwtService.extractRoles(token); // Bạn cần viết hàm này trong JwtService
+
+                List<SimpleGrantedAuthority> authorities = roles.stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                        .toList();
 
               //Constructor cua UsernamePasswordAuthenticationToken cần 3 tham số
               //3 tham số: tên người dùng, mật khẩu, danh sách quyền
               UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                  username, null, null);
+                  username, null, authorities);
 
               //Thiết lập thông tin chi tiết cho đối tượng Authentication và thêm vào SecurityContextHolder
               authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
               SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+              System.out.println("Authorities: " + authorities);
             }
           }
         }
-        
         //Gọi phương thức doFilter để tiếp tục chuỗi lọc (nếu không có request thì không làm gì cả)
         filterChain.doFilter(request, response);
   }

@@ -2,8 +2,11 @@ package com.deepthocks.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class ProductImageDTO {
     private String url;
@@ -12,5 +15,8 @@ public class ProductImageDTO {
 
     public String getURL(){
         return "http://localhost:8080" + url;
+    }
+    public String getOriginalURL(){
+        return url;
     }
 }

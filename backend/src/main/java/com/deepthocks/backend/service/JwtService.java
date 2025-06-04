@@ -3,6 +3,7 @@ package com.deepthocks.backend.service;
 import com.deepthocks.backend.entity.Role;
 import com.deepthocks.backend.entity.User;
 import com.deepthocks.backend.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -57,13 +59,20 @@ public class JwtService {
                 .compact();
     }
 
-    //Trích xuất username từ Jwt Token
-    public String extractUsername(String token){
+    private Claims extractAllClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(getSigningKey())
-                .build().parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public String extractUsername(String token){
+        return extractAllClaims(token).getSubject();
+    }
+
+    public List<String> extractRoles(String token) {
+        return extractAllClaims(token).get("roles", List.class);
     }
 
     //Kiểm tra Token có hợp lệ hay không (so sánh Username trong Request và Username được trích từ JWT Token)
