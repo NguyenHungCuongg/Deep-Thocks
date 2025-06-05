@@ -115,6 +115,15 @@ CREATE TABLE discounts (
     end_date TIMESTAMP NOT NULL
 );
 
+-- Bảng Revenue
+CREATE TABLE revenue(
+	revenue_id SERIAL PRIMARY KEY,
+	revenue_month INT,
+	revenue_year INT,
+	income DECIMAL(12,2) DEFAULT 0,
+	outcome DECIMAL(12,2) DEFAULT 0
+);
+
 --------------------- Thêm dữ liệu ------------------------
 -- Thêm các Roles
 INSERT INTO roles(role_name)
