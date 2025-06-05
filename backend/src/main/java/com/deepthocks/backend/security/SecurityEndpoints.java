@@ -34,4 +34,10 @@ public class SecurityEndpoints {
             "/api/products/",
             "/api/products/{productId}",
     };
+
+    public static final String[] ADMIN_PUT_ENDPOINTS = {
+            "/api/products/**",
+            "/api/products/",
+            "/api/products/{productId}",
+    };
 }

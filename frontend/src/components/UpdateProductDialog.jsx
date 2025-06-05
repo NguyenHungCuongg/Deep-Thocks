@@ -44,16 +44,16 @@ function UpdateProductDialog(props) {
       salePrice: parseFloat(salePrice),
     };
     try {
-      const response = await axios.post(`${backendURL}/api/products`, productCreateDTO, {
+      const response = await axios.put(`${backendURL}/api/products/${props.product.productId}`, productCreateDTO, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {
-        toast.success("Thêm sản phẩm thành công!");
-        props.onClose(); //Đóng dialog sau khi thêm sản phẩm thành công
+        toast.success("Cập nhật sản phẩm thành công!");
+        props.onClose();
       }
     } catch (error) {
-      console.error("Error adding product:", error);
-      toast.error("Thêm sản phẩm thất bại! Vui lòng thử lại.");
+      console.error("Error updating product:", error);
+      toast.error("Cập nhật sản phẩm thất bại! Vui lòng thử lại.");
     }
   };
 
@@ -155,7 +155,7 @@ function UpdateProductDialog(props) {
           <Button sx={customCancelButtonStyle} onClick={props.onClose}>
             Hủy
           </Button>
-          <Button type="submit" sx={customConfirmButtonStyle} onClick={props.onConfirm} autoFocus>
+          <Button type="submit" sx={customConfirmButtonStyle} autoFocus>
             Sửa thông tin sản phẩm
           </Button>
         </DialogActions>

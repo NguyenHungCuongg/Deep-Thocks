@@ -107,5 +107,17 @@ public class ProductController {
         }
     }
 
-
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<?> updateProduct(
+            @PathVariable int productId,
+            @RequestBody ProductCreateDTO productCreateDTO
+    ){
+        try{
+            String result = productService.updateProductById(productId, productCreateDTO);
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(500).body("Error occurred while updating product: " + e.getMessage());
+        }
+    }
 }

@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,SecurityEndpoints.PUBLIC_GET_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_GET_ENDPOINTS(trong file SecurityEndpoints) được GET mà không cần xác thực
                         .requestMatchers(HttpMethod.POST,SecurityEndpoints.ADMIN_POST_ENDPOINTS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,SecurityEndpoints.ADMIN_DELETE_ENDPOINTS).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,SecurityEndpoints.ADMIN_PUT_ENDPOINTS).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFitler, UsernamePasswordAuthenticationFilter.class) //Thêm filter JwtAuthenticationFilter vào trước filter UsernamePasswordAuthenticationFilter

@@ -134,4 +134,18 @@ public class ProductService {
         productRepository.delete(product);
         return "Xóa sản phẩm thành công";
     }
+
+    public String updateProductById(int productId, ProductCreateDTO productCreateDTO) {
+        Product product = productRepository.findById(productId).orElse(null);
+        if(product == null) {
+            return "Không tìm thấy sản phẩm";
+        }
+        product.setProductName(productCreateDTO.getProductName());
+        product.setProductDescription(productCreateDTO.getProductDescription());
+        product.setStockQuantity(productCreateDTO.getStockQuantity());
+        product.setBasePrice(productCreateDTO.getBasePrice());
+        product.setSalePrice(productCreateDTO.getSalePrice());
+        productRepository.save(product);
+        return "Cập nhật sản phẩm thành công";
+    }
 }
