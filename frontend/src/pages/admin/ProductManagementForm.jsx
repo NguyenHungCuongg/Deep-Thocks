@@ -4,14 +4,16 @@ import Pagination from "../../components/Pagination";
 import AddProductDialog from "../../components/AddProductDialog";
 import UpdateProductDialog from "../../components/UpdateProductDialog";
 import toast from "react-hot-toast";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 function ProductManagementForm() {
   const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const [products, setProducts] = useState([]);
   const [showAddProductDialog, setShowAddProductDialog] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [deletingProduct, setDeletingProduct] = useState(null);
 
   const filteredProducts = products.filter((product) =>
     product.productName.toLowerCase().includes(searchKeyword.toLowerCase())
@@ -41,6 +43,7 @@ function ProductManagementForm() {
       });
       if (response.status === 200) {
         toast.success("Xóa sản phẩm thành công!");
+        setProducts(products.filter((product) => product.productId !== productId));
       }
     } catch (error) {
       toast.error("Xóa sản phẩm thất bại! Vui lòng thử lại.");
@@ -133,7 +136,7 @@ function ProductManagementForm() {
                       </button>
 
                       <button
-                        onClick={() => handleDeleteProduct(product.productId)}
+                        onClick={() => setDeletingProduct(product)}
                         type="button"
                         class="w-[50%] px-2 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium border border-current outline-none bg-red-700 hover:bg-red-800 active:bg-red-700"
                       >
@@ -153,6 +156,16 @@ function ProductManagementForm() {
           open={!!editingProduct}
           onClose={() => setEditingProduct(null)}
           onConfirm={() => setEditingProduct(null)}
+        />
+        <ConfirmDialog
+          title="Xác nhận xóa sản phẩm"
+          content={`Bạn có chắc chắn muốn xóa sản phẩm "${deletingProduct?.productName}"?`}
+          open={!!deletingProduct}
+          onClose={() => setDeletingProduct(null)}
+          onConfirm={() => {
+            handleDeleteProduct(deletingProduct.productId);
+            setDeletingProduct(null);
+          }}
         />
         <div className="flex justify-center p-8">
           <Pagination totalItems={products.length} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} />
