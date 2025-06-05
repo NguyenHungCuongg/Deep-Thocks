@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../components/Pagination";
 import AddProductDialog from "../../components/AddProductDialog";
+import UpdateProductDialog from "../../components/UpdateProductDialog";
 import toast from "react-hot-toast";
 
 function ProductManagementForm() {
   const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const [products, setProducts] = useState([]);
   const [showAddProductDialog, setShowAddProductDialog] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -123,11 +125,13 @@ function ProductManagementForm() {
                   <td class="px-6 py-4">
                     <div class="flex flex-col justify-items-center gap-2">
                       <button
+                        onClick={() => setEditingProduct(product)}
                         type="button"
                         class="w-[50%] px-2 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium border border-current outline-none bg-green-700 hover:bg-green-800 active:bg-green-700"
                       >
                         Sửa
                       </button>
+
                       <button
                         onClick={() => handleDeleteProduct(product.productId)}
                         type="button"
@@ -144,6 +148,12 @@ function ProductManagementForm() {
             <div className="flex justify-center items-center h-64 w-full text-gray-500">Không có sản phẩm nào</div>
           )}
         </table>
+        <UpdateProductDialog
+          product={editingProduct}
+          open={!!editingProduct}
+          onClose={() => setEditingProduct(null)}
+          onConfirm={() => setEditingProduct(null)}
+        />
         <div className="flex justify-center p-8">
           <Pagination totalItems={products.length} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} />
         </div>

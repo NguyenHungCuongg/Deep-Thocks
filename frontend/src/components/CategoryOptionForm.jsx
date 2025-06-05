@@ -12,7 +12,7 @@ function CategoryOptionForm(props) {
         onChange={props.onChange}
         disabled={props.disabled}
       >
-        <option selected>Chọn thể loại...</option>
+        <option value="">Chọn thể loại...</option>
         {props.options ? (
           props.options.map((option, index) => (
             <option key={index} value={option.categoryId}>
