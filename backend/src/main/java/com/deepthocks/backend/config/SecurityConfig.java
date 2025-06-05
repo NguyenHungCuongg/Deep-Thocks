@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, SecurityEndpoints.PUBLIC_POST_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_POST_ENDPOINTS(trong file SecurityEndpoints) được POST mà không cần xác thực
                         .requestMatchers(HttpMethod.GET,SecurityEndpoints.PUBLIC_GET_ENDPOINTS).permitAll() //Cho phép các Endpoint có trong mảng PUBLIC_GET_ENDPOINTS(trong file SecurityEndpoints) được GET mà không cần xác thực
+                        .requestMatchers(HttpMethod.GET, SecurityEndpoints.ADMIN_GET_ENDPOINS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,SecurityEndpoints.ADMIN_POST_ENDPOINTS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,SecurityEndpoints.ADMIN_DELETE_ENDPOINTS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,SecurityEndpoints.ADMIN_PUT_ENDPOINTS).hasRole("ADMIN")

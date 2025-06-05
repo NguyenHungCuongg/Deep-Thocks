@@ -15,9 +15,15 @@ function ProductManagementForm() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [deletingProduct, setDeletingProduct] = useState(null);
 
-  const filteredProducts = products.filter((product) =>
-    product.productName.toLowerCase().includes(searchKeyword.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const keyword = searchKeyword.toLowerCase();
+    return (
+      product.productName.toLowerCase().includes(keyword) ||
+      product.stockQuantity.toString().includes(keyword) ||
+      product.salePrice.toString().includes(keyword) ||
+      product.basePrice.toString().includes(keyword)
+    );
+  });
 
   const itemsPerPage = 6;
   const lastPageIndex = currentPage * itemsPerPage;
