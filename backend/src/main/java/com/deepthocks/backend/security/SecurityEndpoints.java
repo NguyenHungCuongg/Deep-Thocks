@@ -28,4 +28,10 @@ public class SecurityEndpoints {
             "/api/upload/images/**",
             "/api/upload/**",
     };
+
+    public static final String[] ADMIN_DELETE_ENDPOINTS = {
+            "/api/products/**",
+            "/api/products/",
+            "/api/products/{productId}",
+    };
 }

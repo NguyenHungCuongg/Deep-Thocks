@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../components/Pagination";
 import AddProductDialog from "../../components/AddProductDialog";
+import toast from "react-hot-toast";
 
 function ProductManagementForm() {
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const [products, setProducts] = useState([]);
   const [showAddProductDialog, setShowAddProductDialog] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -19,19 +20,31 @@ function ProductManagementForm() {
   const firstPageIndex = lastPageIndex - itemsPerPage;
   const currentProductListPage = filteredProducts.slice(firstPageIndex, lastPageIndex);
 
-  const endpoint = "/api/products";
-
   useEffect(() => {
-    const url = backendURL + endpoint;
     axios
-      .get(url)
+      .get(`${backendURL}/api/products`)
       .then((response) => {
         setProducts(response.data || []);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [endpoint]);
+  }, []);
+
+  const handleDeleteProduct = async (productId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(`${backendURL}/api/products/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.status === 200) {
+        toast.success("Xóa sản phẩm thành công!");
+      }
+    } catch (error) {
+      toast.error("Xóa sản phẩm thất bại! Vui lòng thử lại.");
+      console.error("Error deleting product:", error);
+    }
+  };
 
   return (
     <div className="bg-[var(--light-white)] rounded-xl h-full flex flex-col">
@@ -116,6 +129,7 @@ function ProductManagementForm() {
                         Sửa
                       </button>
                       <button
+                        onClick={() => handleDeleteProduct(product.productId)}
                         type="button"
                         class="w-[50%] px-2 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium border border-current outline-none bg-red-700 hover:bg-red-800 active:bg-red-700"
                       >

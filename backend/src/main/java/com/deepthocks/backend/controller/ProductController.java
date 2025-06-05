@@ -94,5 +94,18 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping("/products/{productId}")
+    public ResponseEntity<?> deleteProduct(
+            @PathVariable int productId
+    ){
+        try{
+            String result = productService.deleteProductById(productId);
+            return ResponseEntity.ok(result);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(500).body("Error occurred while deleting product: " + e.getMessage());
+        }
+    }
+
 
 }

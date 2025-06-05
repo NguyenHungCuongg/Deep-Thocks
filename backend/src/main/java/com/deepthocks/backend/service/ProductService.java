@@ -124,4 +124,14 @@ public class ProductService {
         }
         return "Thêm sản phẩm thành công!";
     }
+
+    public String deleteProductById(int productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        if(product == null) {
+            return "Không tìm thấy sản phẩm!";
+        }
+        productImageRepository.deleteAll(productImageRepository.findByProduct_ProductId(productId));
+        productRepository.delete(product);
+        return "Xóa sản phẩm thành công";
+    }
 }
