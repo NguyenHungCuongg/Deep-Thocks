@@ -1,6 +1,7 @@
 package com.deepthocks.backend.controller;
 
 import com.deepthocks.backend.dto.CartItemDTO;
+import com.deepthocks.backend.dto.OrderDTO;
 import com.deepthocks.backend.dto.OrderRequestDTO;
 import com.deepthocks.backend.dto.OrderResponseDTO;
 import com.deepthocks.backend.service.OrderService;
@@ -18,17 +19,29 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllOrders(){
+        try{
+            List<OrderDTO> orderList = orderService.getOrders();
+            return ResponseEntity.ok(orderList);
+        }
+        catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
     @GetMapping
-    public ResponseEntity<?> getOrders(){
+    public ResponseEntity<?> getUserOrders(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         try{
-            List<OrderResponseDTO> orderList = orderService.getOrders(username);
+            List<OrderResponseDTO> orderList = orderService.getOrdersByUsername(username);
             return ResponseEntity.ok(orderList);
         }
         catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {

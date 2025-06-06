@@ -31,7 +31,7 @@ function UserManagementForm() {
       })
       .then((response) => {
         console.log("User API response:", response.data);
-        setUsers(response.data._embedded.users || []);
+        setUsers(response.data || []);
       })
       .catch((error) => {
         console.error("Error fetching users:", error);

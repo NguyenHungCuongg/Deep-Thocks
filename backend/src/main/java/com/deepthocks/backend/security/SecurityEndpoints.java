@@ -19,6 +19,7 @@ public class SecurityEndpoints {
     public static final String[] ADMIN_GET_ENDPOINS = {
             "api/users",
             "api/users/**",
+            "api/orders/all",
     };
 
     public static final String[] ADMIN_POST_ENDPOINTS = {

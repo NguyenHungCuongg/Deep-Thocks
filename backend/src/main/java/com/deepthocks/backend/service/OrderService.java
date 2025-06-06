@@ -1,6 +1,7 @@
 package com.deepthocks.backend.service;
 
 import com.deepthocks.backend.dto.CartItemDTO;
+import com.deepthocks.backend.dto.OrderDTO;
 import com.deepthocks.backend.dto.OrderRequestDTO;
 import com.deepthocks.backend.dto.OrderResponseDTO;
 import com.deepthocks.backend.entity.*;
@@ -37,7 +38,7 @@ public class OrderService {
     private AddressRepository addressRepository;
 
     @Transactional
-    public List<OrderResponseDTO> getOrders(String username){
+    public List<OrderResponseDTO> getOrdersByUsername(String username){
         User user = userRepository.findByUsername(username);
         if(user == null) throw new RuntimeException("Người dùng không tồn tại, vui lòng thử lại!");
         List<Order> orderList = orderRepository.findByUser(user);
@@ -50,6 +51,19 @@ public class OrderService {
                 order.getCreatedAt()
         )).toList();
         return orderResponseDTOList;
+    }
+
+    @Transactional
+    public List<OrderDTO> getOrders(){
+        List<Order> orders = orderRepository.findAll();
+        List<OrderDTO> orderDTOs = orders.stream().map(order -> new OrderDTO(
+                order.getOrderId(),
+                order.getUser().getFullname(),
+                order.getCreatedAt(),
+                order.getStatus(),
+                order.getTotalAmount()
+        )).toList();
+        return orderDTOs;
     }
 
     @Transactional
