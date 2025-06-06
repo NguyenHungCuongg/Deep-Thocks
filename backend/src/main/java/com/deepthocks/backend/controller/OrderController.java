@@ -1,6 +1,5 @@
 package com.deepthocks.backend.controller;
 
-import com.deepthocks.backend.dto.CartItemDTO;
 import com.deepthocks.backend.dto.OrderDTO;
 import com.deepthocks.backend.dto.OrderRequestDTO;
 import com.deepthocks.backend.dto.OrderResponseDTO;

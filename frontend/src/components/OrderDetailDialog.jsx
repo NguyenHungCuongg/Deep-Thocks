@@ -30,7 +30,7 @@ function OrderDetailDialog(props) {
       <DialogTitle id="alert-dialog-title">Chi tiết hóa đơn</DialogTitle>
 
       <DialogContent>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-4">
           <div className="mt-6">
             <h1 className="font-semibold text-xl text-[var(--primary-color)] flex justify-center">
               Thông tin khách hàng
@@ -76,6 +76,7 @@ function OrderDetailDialog(props) {
               </div>
             </div>
           </div>
+          <hr class="border-t border-gray-300 my-8" />
           <div className="mt-6">
             <h1 className="font-semibold text-xl text-[var(--primary-color)] flex justify-center">Địa chỉ giao hàng</h1>
             <div className="flex gap-4 mt-4">
@@ -119,6 +120,7 @@ function OrderDetailDialog(props) {
               required
             />
           </div>
+          <hr class="border-t border-gray-300 my-8" />
           <div className="mt-6">
             <h1 className="font-semibold text-xl text-[var(--primary-color)] flex justify-center">
               Danh sách các đơn hàng
@@ -162,6 +164,13 @@ function OrderDetailDialog(props) {
                 </tbody>
               </table>
             </div>
+          </div>
+          <hr class="border-t border-gray-300 my-8" />
+          <div className="mt-6 flex justify-between">
+            <p className="font-semibold text-xl text-[var(--dark-black)]">Tổng tiền:</p>
+            <p className="font-semibold text-xl text-[var(--primary-color)]">
+              {props.order.totalAmount.toLocaleString()} VND
+            </p>
           </div>
         </div>
       </DialogContent>
