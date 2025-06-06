@@ -60,6 +60,7 @@ public class OrderService {
                 order.getOrderId(),
                 order.getUser().getFullname(),
                 order.getCreatedAt(),
+                order.getPaymentMethod(),
                 order.getStatus(),
                 order.getTotalAmount()
         )).toList();

@@ -11,6 +11,7 @@ public class OrderDTO {
     private int orderId;
     private String fullname;
     private LocalDateTime createdAt;
+    private String paymentMethod;
     private String status;
     private double totalAmount;
 }

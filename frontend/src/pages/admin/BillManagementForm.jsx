@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../components/Pagination";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import Button from "@mui/material/Button";
+import StatusIndicator from "../../components/StatusIndicator";
 
 function BillManagementForm() {
   const [orders, setOrders] = useState([]);
@@ -13,7 +16,7 @@ function BillManagementForm() {
     return (
       order.fullname.toLowerCase().includes(keyword) ||
       order.status.toLowerCase().includes(keyword) ||
-      order.orderId.toLowerCase().includes(keyword)
+      String(order.orderId).includes(keyword)
     );
   });
   const lastPageIndex = currentPage * itemsPerPage;
@@ -78,6 +81,9 @@ function BillManagementForm() {
                 Thời điểm tạo hóa đơn
               </th>
               <th scope="col" class="px-6 py-3">
+                Phuương thức thanh toán
+              </th>
+              <th scope="col" class="px-6 py-3">
                 Trạng thái
               </th>
               <th scope="col" class="px-6 py-3">
@@ -98,8 +104,16 @@ function BillManagementForm() {
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">
                     {order.createdAt ? new Date(order.createdAt).toLocaleString() : ""}
                   </td>
-                  <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.status}</td>
+                  <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.paymentMethod.toUpperCase()}</td>
+                  <td class="px-4 py-4 text-sm text-slate-600 font-medium">
+                    <StatusIndicator type={order.status === "pending" ? "warning" : "success"} content={order.status} />
+                  </td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount.toLocaleString()} VND</td>
+                  <td class="px-4 py-4 text-sm text-slate-600 font-medium flex justify-center">
+                    <Button>
+                      <RemoveRedEyeOutlinedIcon />
+                    </Button>
+                  </td>
                 </tr>
               ))
             ) : (
