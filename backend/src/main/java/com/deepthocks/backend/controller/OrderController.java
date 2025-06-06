@@ -31,8 +31,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getUserOrders(){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    public ResponseEntity<?> getUserOrders(@RequestParam String username){
         try{
             List<OrderResponseDTO> orderList = orderService.getOrdersByUsername(username);
             return ResponseEntity.ok(orderList);

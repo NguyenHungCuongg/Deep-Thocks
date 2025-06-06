@@ -34,7 +34,7 @@ function Profile() {
     const fetchOrderHistory = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendURL}/api/orders`, {
+        const response = await axios.get(`${backendURL}/api/orders?username=${user.username}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

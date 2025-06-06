@@ -1,9 +1,6 @@
 package com.deepthocks.backend.service;
 
-import com.deepthocks.backend.dto.CartItemDTO;
-import com.deepthocks.backend.dto.OrderDTO;
-import com.deepthocks.backend.dto.OrderRequestDTO;
-import com.deepthocks.backend.dto.OrderResponseDTO;
+import com.deepthocks.backend.dto.*;
 import com.deepthocks.backend.entity.*;
 import com.deepthocks.backend.repository.*;
 import jakarta.transaction.Transactional;
@@ -59,9 +56,23 @@ public class OrderService {
         List<OrderDTO> orderDTOs = orders.stream().map(order -> new OrderDTO(
                 order.getOrderId(),
                 order.getUser().getFullname(),
+                order.getUser().getUsername(),
+                order.getUser().getEmail(),
+                order.getUser().getPhone(),
+                order.getAddress().getCity(),
+                order.getAddress().getDistrict(),
+                order.getAddress().getWard(),
+                order.getAddress().getStreet(),
                 order.getCreatedAt(),
                 order.getPaymentMethod(),
                 order.getStatus(),
+                order.getOrderItemList().stream()
+                        .map(item -> new OrderItemDTO(
+                                item.getOrderItemId(),
+                                item.getProduct().getProductName(),
+                                item.getQuantity(),
+                                item.getUnitPrice()
+                        )).toList(),
                 order.getTotalAmount()
         )).toList();
         return orderDTOs;

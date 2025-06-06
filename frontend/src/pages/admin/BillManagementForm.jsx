@@ -4,10 +4,12 @@ import Pagination from "../../components/Pagination";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Button from "@mui/material/Button";
 import StatusIndicator from "../../components/StatusIndicator";
+import OrderDetailDialog from "../../components/OrderDetailDialog";
 
 function BillManagementForm() {
   const [orders, setOrders] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [orderDetail, setOrderDetail] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
@@ -110,7 +112,7 @@ function BillManagementForm() {
                   </td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount.toLocaleString()} VND</td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium flex justify-center">
-                    <Button>
+                    <Button onClick={() => setOrderDetail(order)}>
                       <RemoveRedEyeOutlinedIcon />
                     </Button>
                   </td>
@@ -121,6 +123,12 @@ function BillManagementForm() {
             )}
           </tbody>
         </table>
+        <OrderDetailDialog
+          order={orderDetail}
+          open={!!orderDetail}
+          onClose={() => setOrderDetail(null)}
+          onConfirm={() => setOrderDetail(null)}
+        />
       </div>
     </div>
   );
