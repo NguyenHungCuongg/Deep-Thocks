@@ -27,7 +27,7 @@ function OrderDetailDialog(props) {
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle id="alert-dialog-title">Chi tiết hóa đơn</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Chi tiết hóa đơn (mã hóa đơn: {props.order.orderId})</DialogTitle>
 
       <DialogContent>
         <div className="flex flex-col gap-4 px-4">

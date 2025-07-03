@@ -1,39 +1,46 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Radio from "@mui/material/Radio";
+import { useFilter } from "../context/FilterContext";
 
 function SidebarFilter() {
-  const [priceRange, setPriceRange] = useState(0);
-  const [sortByDate, setSortByDate] = useState("newest");
-  const [categories, setCategories] = useState({
-    kit: false,
-    keycap: false,
-    switch: false,
-    others: false,
-  });
+  const { filters, updateFilter, resetFilters } = useFilter();
 
   const handlePriceChange = (event) => {
-    setPriceRange(Number(event.target.value));
+    updateFilter("priceRange", Number(event.target.value));
   };
 
   const handleSortByDateChange = (event) => {
-    setSortByDate(event.target.value);
+    updateFilter("sortByDate", event.target.value);
   };
 
   const handleCategoryChange = (name) => (event) => {
-    setCategories({ ...categories, [name]: event.target.checked });
+    updateFilter("categories", {
+      ...filters.categories,
+      [name]: event.target.checked,
+    });
   };
 
   const handleResetFilters = () => {
-    setPriceRange(0);
-    setSortByDate("newest");
-    setCategories({
-      kit: false,
-      keycap: false,
-      switch: false,
-      others: false,
-    });
+    resetFilters();
   };
+
+  // Đếm số filter đang được áp dụng
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+
+    // Đếm categories
+    const selectedCategories = Object.values(filters.categories).filter(Boolean).length;
+    count += selectedCategories;
+
+    // Đếm price range
+    if (filters.priceRange > 0) count += 1;
+
+    // Đếm sort (không tính "newest" vì đó là default)
+    if (filters.sortByDate !== "newest") count += 1;
+
+    return count;
+  }, [filters]);
 
   const customCheckboxStyle = {
     color: "#2f2f2f",
@@ -44,20 +51,29 @@ function SidebarFilter() {
 
   return (
     <aside className="w-full max-w-xs p-6 bg-white">
-      <h3 className="text-2xl font-bold font-title mb-6">Bộ lọc</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-2xl font-bold font-title">Bộ lọc</h3>
+        {activeFiltersCount > 0 && (
+          <span className="bg-[#c3a07e] text-white text-xs px-2 py-1 rounded-full">{activeFiltersCount}</span>
+        )}
+      </div>
       <div className="mb-8">
         <h4 className="font-semibold mb-4 text-gray-700 font-title">Danh mục</h4>
         <ul className="flex flex-col">
           <li>
             <label className="flex items-center gap-2">
-              <Checkbox checked={categories.kit} onChange={handleCategoryChange("kit")} sx={customCheckboxStyle} />
+              <Checkbox
+                checked={filters.categories.kit}
+                onChange={handleCategoryChange("kit")}
+                sx={customCheckboxStyle}
+              />
               <span>Kit bàn phím</span>
             </label>
           </li>
           <li>
             <label className="flex items-center gap-2">
               <Checkbox
-                checked={categories.keycap}
+                checked={filters.categories.keycap}
                 onChange={handleCategoryChange("keycap")}
                 sx={customCheckboxStyle}
               />
@@ -67,7 +83,7 @@ function SidebarFilter() {
           <li>
             <label className="flex items-center gap-2">
               <Checkbox
-                checked={categories.switch}
+                checked={filters.categories.switch}
                 onChange={handleCategoryChange("switch")}
                 sx={customCheckboxStyle}
               />
@@ -77,7 +93,7 @@ function SidebarFilter() {
           <li>
             <label className="flex items-center gap-2">
               <Checkbox
-                checked={categories.others}
+                checked={filters.categories.others}
                 onChange={handleCategoryChange("others")}
                 sx={customCheckboxStyle}
               />
@@ -92,7 +108,7 @@ function SidebarFilter() {
         <div className="flex flex-col">
           <label className="flex items-center gap-2">
             <Radio
-              checked={priceRange === 0}
+              checked={filters.priceRange === 0}
               onChange={handlePriceChange}
               value={0}
               name="price-range"
@@ -102,7 +118,7 @@ function SidebarFilter() {
           </label>
           <label className="flex items-center gap-2">
             <Radio
-              checked={priceRange === 1}
+              checked={filters.priceRange === 1}
               onChange={handlePriceChange}
               value={1}
               name="price-range"
@@ -112,7 +128,7 @@ function SidebarFilter() {
           </label>
           <label className="flex items-center gap-2">
             <Radio
-              checked={priceRange === 2}
+              checked={filters.priceRange === 2}
               onChange={handlePriceChange}
               value={2}
               name="price-range"
@@ -122,7 +138,7 @@ function SidebarFilter() {
           </label>
           <label className="flex items-center gap-2">
             <Radio
-              checked={priceRange === 3}
+              checked={filters.priceRange === 3}
               onChange={handlePriceChange}
               value={3}
               name="price-range"
@@ -138,7 +154,7 @@ function SidebarFilter() {
         <div className="flex flex-col">
           <label className="flex items-center gap-2">
             <Radio
-              checked={sortByDate === "newest"}
+              checked={filters.sortByDate === "newest"}
               onChange={handleSortByDateChange}
               value="newest"
               name="sort-date"
@@ -148,7 +164,7 @@ function SidebarFilter() {
           </label>
           <label className="flex items-center gap-2">
             <Radio
-              checked={sortByDate === "oldest"}
+              checked={filters.sortByDate === "oldest"}
               onChange={handleSortByDateChange}
               value="oldest"
               name="sort-date"
@@ -161,17 +177,15 @@ function SidebarFilter() {
 
       {/* Reset Button */}
       <button
-        className="mt-6 w-full bg-[var(--dark-black)] text-white py-2 rounded-lg hover:bg-[var(--light-black)] active:bg-[var(--dark-black)] 
-          active:scale-98 transition-all 
-          duration-100 
-          ease-in-out
-          transform
-          focus:ring-2 
-          focus:ring-[var(--light-black)] 
-          focus:ring-opacity-50"
+        className={`mt-6 w-full py-2 rounded-lg transition-all duration-100 ease-in-out transform focus:ring-2 focus:ring-opacity-50 ${
+          activeFiltersCount > 0
+            ? "bg-[#2f2f2f] text-white hover:bg-[#444] active:bg-[#2f2f2f] active:scale-98 focus:ring-[#444]"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
         onClick={handleResetFilters}
+        disabled={activeFiltersCount === 0}
       >
-        Đặt lại bộ lọc
+        Đặt lại bộ lọc {activeFiltersCount > 0 && `(${activeFiltersCount})`}
       </button>
     </aside>
   );
