@@ -8,7 +8,37 @@
 
   /*Custom color*/
   --primary-color: #c3a07e;
-  --light-primary-color: #d6b285;
+  --secondary-color: #3c5f81;
+  --green-color: #7ec47e;
+  --dark-green-color: #71b071;
+  --blue-color: #7ea1c4;
+  --dark-blue-color: #7191b0;
+  --purple-color: #c47ec4;
+  --dark-purple-color: #b071b0;
+  --red-color: #ff8a80;
+  --dark-red-color: #e57373;
+  --orange-color: #ffd180;
+  --dark-orange-color: #ffb74d;
+  --yellow-color: #fff59d;
+  --dark-yellow-color: #fff176;
+  --lime-color: #dcedc8;
+  --dark-lime-color: #aed581;
+  --teal-color: #80cbc4;
+  --dark-teal-color: #4db6ac;
+  --cyan-color: #84ffff;
+  --dark-cyan-color: #18ffff;
+  --indigo-color: #b3b8fd;
+  --dark-indigo-color: #7986cb;
+  --pink-color: #f8bbd0;
+  --dark-pink-color: #f06292;
+  --brown-color: #bcaaa4;
+  --dark-brown-color: #a1887f;
+  --grey-color: #e0e0e0;
+  --dark-grey-color: #bdbdbd;
+  --amber-color: #ffe082;
+  --dark-amber-color: #ffd54f;
+  --deep-orange-color: #ffab91;
+  --dark-deep-orange-color: #ff8a65;
   --light-white: #ffffff;
   --dark-white: #f0f0f0;
   --light-black: #2f2f2f;
