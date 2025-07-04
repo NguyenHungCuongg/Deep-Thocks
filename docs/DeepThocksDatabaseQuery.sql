@@ -124,6 +124,14 @@ CREATE TABLE revenue(
 	outcome DECIMAL(12,2) DEFAULT 0
 );
 
+
+CREATE TABLE expenses (
+    expense_id SERIAL PRIMARY KEY,
+    expense_month INT NOT NULL,
+    expense_year INT NOT NULL,
+    expense_amount DECIMAL(12,2) NOT NULL
+);
+
 --------------------- Thêm dữ liệu ------------------------
 -- Thêm các Roles
 INSERT INTO roles(role_name)
