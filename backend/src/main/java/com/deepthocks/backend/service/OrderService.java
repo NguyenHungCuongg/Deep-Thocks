@@ -34,6 +34,11 @@ public class OrderService {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Autowired
+    private ExpenseService expenseService;
+    @Autowired
+    private RevenueService revenueService;
+
     @Transactional
     public List<OrderResponseDTO> getOrdersByUsername(String username){
         User user = userRepository.findByUsername(username);
@@ -190,8 +195,22 @@ public class OrderService {
     public String changeStatusToPaid(int orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         if (order == null) {throw new RuntimeException("Không tìm thấy hóa đơn! vui lòng thử lại!");}
-        order.setStatus("paid");
-        orderRepository.save(order);
+        if (!"paid".equals(order.getStatus())) {
+            order.setStatus("paid");
+            orderRepository.save(order);
+            revenueService.addIncome(order.getTotalAmount(), order.getCreatedAt());
+        }
+        return "Đã thay đổi trạng thái hóa đơn!";
+    }
+
+    public String changeStatusToPending(int orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order == null) throw new RuntimeException("Không tìm thấy hóa đơn!");
+        if ("paid".equals(order.getStatus())) {
+            order.setStatus("pending");
+            orderRepository.save(order);
+            revenueService.subtractIncome(order.getTotalAmount(), order.getCreatedAt());
+        }
         return "Đã thay đổi trạng thái hóa đơn!";
     }
 }

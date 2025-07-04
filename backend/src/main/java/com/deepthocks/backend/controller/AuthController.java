@@ -29,7 +29,6 @@ public class AuthController {
             String jwtToken = authService.loginUser(loginUserDTO);
             return ResponseEntity.ok(jwtToken);
         } catch (Exception e) {
-
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

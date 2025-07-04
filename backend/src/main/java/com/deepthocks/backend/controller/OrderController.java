@@ -65,4 +65,16 @@ public class OrderController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/pending")
+    public  ResponseEntity<?> pendingOrder(@RequestBody Map<String, Integer> body) {
+        int orderId = body.get("orderId");
+        try{
+            String result = orderService.changeStatusToPending(orderId);
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
