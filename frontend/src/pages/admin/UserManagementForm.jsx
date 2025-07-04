@@ -39,7 +39,7 @@ function UserManagementForm() {
   }, []);
 
   return (
-    <div className="bg-[var(--light-white)] rounded-xl h-full flex flex-col">
+    <div className="bg-[var(--light-white)] h-full rounded-2xl border border-gray-300 pb-5 pt-5 sm:px-6 sm:pt-5 flex flex-col">
       <div
         id="table-header"
         className="flex gap-2 px-5 py-4 mb-4 flex-col md:flex-row md:items-center md:justify-between md:px-6"

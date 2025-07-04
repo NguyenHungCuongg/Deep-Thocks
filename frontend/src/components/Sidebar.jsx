@@ -48,7 +48,7 @@ function Sidebar(props) {
       )}
 
       {isSideBarOpen && (
-        <nav className="bg-white shadow-md border-r border-gray-200 h-screen block max-w-[10%] top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+        <nav className="bg-[var(--light-white)] border border-gray-300 h-screen block max-w-[10%] top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <ul>
             <li>
               <button
