@@ -47,7 +47,7 @@ function Profile() {
       }
     };
     if (authState.isAuthenticated) fetchOrderHistory();
-  }, [authState.isAuthenticated]);
+  }, [authState.isAuthenticated, user]);
 
   return (
     <div className="py-12 px-6 sm:px-6 lg:px-8">

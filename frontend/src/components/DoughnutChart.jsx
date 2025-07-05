@@ -42,10 +42,15 @@ const borderColorVars = [
 const backgroundColors = colorVars.map(getColor);
 const borderColors = borderColorVars.map(getColor);
 
-// Dữ liệu doanh thu từng tháng (copy từ LineChart)
-const revenueData = [650000, 590000, 800000, 810000, 560000, 550000, 400000, 650000, 800000, 780000, 850000, 920000];
+function DoughnutChart({ revenueData }) {
+  // Tạo mảng 12 tháng, nếu thiếu dữ liệu thì điền 0
+  const incomeArr = Array(12).fill(0);
+  revenueData.forEach((item) => {
+    if (item.revenueMonth >= 1 && item.revenueMonth <= 12) {
+      incomeArr[item.revenueMonth - 1] = item.income;
+    }
+  });
 
-function DoughnutChart() {
   const data = {
     labels: [
       "Tháng 1",
@@ -64,7 +69,7 @@ function DoughnutChart() {
     datasets: [
       {
         label: "Tỉ lệ doanh thu từng tháng",
-        data: revenueData,
+        data: incomeArr,
         backgroundColor: backgroundColors,
         borderColor: borderColors,
         borderWidth: 2,
@@ -76,7 +81,7 @@ function DoughnutChart() {
     responsive: true,
     plugins: {
       legend: { position: "right" },
-      title: { display: true, text: "Tỉ lệ doanh thu từng tháng trong năm" },
+      title: { display: true, text: "Tỉ lệ doanh thu theo tháng trong năm 2025" },
       tooltip: {
         callbacks: {
           label: function (context) {

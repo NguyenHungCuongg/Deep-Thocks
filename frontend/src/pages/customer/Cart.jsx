@@ -62,6 +62,11 @@ function Cart() {
                   quantity={item.quantity}
                   thumbnailUrl={item.productThumbnail}
                   onDelete={() => setCartItems(cartItems.filter((ci) => ci.productId !== item.productId))}
+                  onQuantityChange={(newQuantity) => {
+                    setCartItems(
+                      cartItems.map((ci) => (ci.productId === item.productId ? { ...ci, quantity: newQuantity } : ci))
+                    );
+                  }}
                 />
               ))
             : null}

@@ -58,7 +58,7 @@ function CartItem(props) {
           sx={{ fontSize: 24 }}
           className="hover:text-[var(--primary-color)] hover:scale-110 active:scale-98 cursor-pointer transition-colors duration-200 ease-in-out"
         />
-        <QuantityInputSpinner quantity={props.quantity} />
+        <QuantityInputSpinner quantity={props.quantity} onQuantityChange={props.onQuantityChange} />
       </div>
     </div>
   );

@@ -84,7 +84,7 @@ function ProductManagementForm() {
           <button
             type="button"
             onClick={() => setShowAddProductDialog(true)}
-            class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium outline-none bg-[var(--primary-color)] hover:ring-1 hover:bg-[var(--light-primary-color)] active:bg-[var(--primary-color)]"
+            class="flex-shrink-0 shadow-sm px-4 py-2 rounded-lg cursor-pointer text-white text-sm tracking-wider font-medium outline-none bg-[var(--light-black)] hover:ring-1 hover:bg-[var(--dark-black)] active:bg-[var(--light-black)]"
           >
             Thêm sản phẩm
           </button>

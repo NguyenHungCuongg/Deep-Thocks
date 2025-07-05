@@ -8,7 +8,17 @@ const darkBlueColor = getComputedStyle(document.documentElement).getPropertyValu
 const purpleColor = getComputedStyle(document.documentElement).getPropertyValue("--purple-color").trim();
 const darkPurpleColor = getComputedStyle(document.documentElement).getPropertyValue("--dark-purple-color").trim();
 
-function LineChart() {
+function LineChart({ revenueData }) {
+  // Tạo mảng 12 tháng, nếu thiếu dữ liệu thì điền 0
+  const incomeArr = Array(12).fill(0);
+  const outcomeArr = Array(12).fill(0);
+  revenueData.forEach((item) => {
+    if (item.revenueMonth >= 1 && item.revenueMonth <= 12) {
+      incomeArr[item.revenueMonth - 1] = item.income;
+      outcomeArr[item.revenueMonth - 1] = item.outcome;
+    }
+  });
+
   const data = {
     labels: [
       "Tháng 1",
@@ -27,7 +37,7 @@ function LineChart() {
     datasets: [
       {
         label: "Doanh thu",
-        data: [650000, 590000, 800000, 810000, 560000, 550000, 400000, 650000, 800000, 780000, 850000, 920000, 1000000],
+        data: incomeArr,
         fill: false,
         backgroundColor: purpleColor,
         borderColor: darkPurpleColor,
@@ -35,7 +45,7 @@ function LineChart() {
       },
       {
         label: "Chi phí",
-        data: [280000, 480000, 400000, 190000, 860000, 270000, 900000, 650000, 700000, 750000, 800000, 900000, 1000000],
+        data: outcomeArr,
         fill: false,
         backgroundColor: blueColor,
         borderColor: darkBlueColor,

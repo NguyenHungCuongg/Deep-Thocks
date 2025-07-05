@@ -364,3 +364,20 @@ VALUES
 (51,'/images/keyboards/keyboards-yunzii-al68-4.png','keyboards-yunzii-al68-4',4)
 
 
+-- Dữ liệu dummy cho bảng revenue từ tháng 1 đến tháng 6 năm 2025
+INSERT INTO revenue (revenue_month, revenue_year, income, outcome) VALUES
+(1, 2025, 3200000, 1280000),
+(2, 2025, 1590000, 1480000),
+(3, 2025, 1800000, 1400000),
+(4, 2025, 2810000, 1190000),
+(5, 2025, 2560000, 1860000),
+(6, 2025, 1550000, 1270000);
+
+-- Dữ liệu dummy cho bảng expenses từ tháng 1 đến tháng 6 năm 2025
+INSERT INTO expenses (expense_month, expense_year, expense_amount) VALUES
+(1, 2025, 280000),
+(2, 2025, 480000),
+(3, 2025, 400000),
+(4, 2025, 190000),
+(5, 2025, 860000),
+(6, 2025, 270000);
