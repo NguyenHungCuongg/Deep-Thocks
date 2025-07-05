@@ -64,9 +64,9 @@ function LineChart({ revenueData }) {
       y: {
         beginAtZero: true,
         min: 0,
-        max: 3500000,
+        max: 35000000,
         ticks: {
-          stepSize: 500000,
+          stepSize: 5000000,
           callback: function (value) {
             return value.toLocaleString("vi-VN", {
               style: "currency",
