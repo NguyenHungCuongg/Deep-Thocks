@@ -111,7 +111,7 @@ function Sidebar(props) {
             <ul className="mt-2 space-y-1">
               <li>
                 <button className="text-[var(--dark-black)] font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
-                  Tài khoản cá nhân
+                  <a href="/profile">Tài khoản cá nhân</a>
                 </button>
               </li>
               <li>

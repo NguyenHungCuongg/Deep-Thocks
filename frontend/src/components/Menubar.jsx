@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 import ProductsDropDown from "./ProductsDropDown";
 
+// Hàm decode JWT để lấy payload
+function parseJwt(token) {
+  if (!token) return null;
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  } catch (err) {
+    console.error("Invalid token format", err);
+    return null;
+  }
+}
+
 function Menubar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropDownOpen, setIsProductsDropDownOpen] = useState(false);
@@ -14,6 +35,20 @@ function Menubar() {
     //Nếu dropdown đang mở thì đóng lại, nếu không thì mở ra
     setIsProductsDropDownOpen((prev) => !prev);
   };
+
+  // Lấy token từ localStorage
+  const token = localStorage.getItem("token");
+  const payload = parseJwt(token);
+  let userRole = null;
+  if (payload?.role) {
+    userRole = typeof payload.role === "string" ? payload.role.toLowerCase() : payload.role;
+  } else if (payload?.roles) {
+    userRole = Array.isArray(payload.roles)
+      ? payload.roles.map((r) => r.toLowerCase())
+      : typeof payload.roles === "string"
+      ? payload.roles.toLowerCase()
+      : payload.roles;
+  }
 
   return (
     <div className="relative">
@@ -101,6 +136,17 @@ function Menubar() {
                 Liên hệ
               </a>
             </li>
+            {/* Thêm mục Dashboard nếu là admin */}
+            {(userRole === "admin" || (Array.isArray(userRole) && userRole.includes("admin"))) && (
+              <li>
+                <a
+                  href="http://localhost:5173/admin/dashboard"
+                  className="nav-link nav-link-ltr block font-semibold py-2 px-3 text-[var(--primary-color)] rounded-sm md:hover:bg-transparent md:hover:text-[var(--lighter-primary-color)] md:p-0"
+                >
+                  Quản lý
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
