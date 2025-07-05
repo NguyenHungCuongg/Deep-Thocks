@@ -24,6 +24,8 @@ function AddExpenseDialog(props) {
     },
   };
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
   // State cho các input tiền tệ
   const [costOfGoods, setCostOfGoods] = useState("");
   const [platformCost, setPlatformCost] = useState("");
@@ -32,6 +34,10 @@ function AddExpenseDialog(props) {
   const [legalCost, setLegalCost] = useState("");
   const [otherCost, setOtherCost] = useState("");
   const [totalCost, setTotalCost] = useState(0);
+
+  // State cho tháng/năm
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
 
   // Hàm định dạng số với dấu chấm
   const formatNumber = (value) => {
@@ -65,12 +71,68 @@ function AddExpenseDialog(props) {
     setLegalCost("");
     setOtherCost("");
     setTotalCost(0);
+    setMonth("");
+    setYear("");
   };
 
   // Khi nhấn Hủy, reset các trường và gọi props.onClose
   const handleCancel = () => {
     resetFields();
     if (props.onClose) props.onClose();
+  };
+
+  // Xử lý submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (
+      !month ||
+      !year ||
+      !costOfGoods ||
+      !platformCost ||
+      !shippingCost ||
+      !operatingCost ||
+      !legalCost ||
+      !otherCost
+    ) {
+      toast.error("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+    if (isNaN(Number(month)) || isNaN(Number(year))) {
+      toast.error("Tháng và năm phải là số!");
+      return;
+    }
+    if (Number(month) < 1 || Number(month) > 12) {
+      toast.error("Tháng phải từ 1 đến 12!");
+      return;
+    }
+    if (Number(year) < 2000) {
+      toast.error("Năm không hợp lệ!");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${backendURL}/api/expenses`,
+        {
+          expenseMonth: Number(month),
+          expenseYear: Number(year),
+          expenseAmount: totalCost,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Thêm chi phí thành công!");
+      resetFields();
+      if (props.onClose) props.onClose();
+      if (props.onExpenseAdded) props.onExpenseAdded();
+    } catch (err) {
+      toast.error("Thêm chi phí thất bại: " + err.message);
+    }
   };
 
   return (
@@ -83,32 +145,40 @@ function AddExpenseDialog(props) {
       fullWidth
     >
       <DialogTitle id="alert-dialog-title">Thêm chi phí</DialogTitle>
-      <form>
+      <form onSubmit={handleSubmit}>
         <DialogContent>
           <div className="flex flex-col gap-4">
             <div>
-              <label class="block mb-2 text-sm font-medium text-[var(--dark-black)]">Thời gian</label>
+              <label className="block mb-2 text-sm font-medium text-[var(--dark-black)]">Thời gian</label>
               <div className="flex gap-4">
                 <input
                   id="month"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Tháng"
                   required
+                  value={month}
+                  onChange={(e) => setMonth(e.target.value.replace(/\D/g, ""))}
+                  inputMode="numeric"
+                  autoComplete="off"
                 />
                 <input
                   id="year"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Năm"
                   required
+                  value={year}
+                  onChange={(e) => setYear(e.target.value.replace(/\D/g, ""))}
+                  inputMode="numeric"
+                  autoComplete="off"
                 />
               </div>
             </div>
             <div>
-              <label class="block mb-2 text-sm font-medium text-[var(--dark-black)]">Các khoản chi phí</label>
+              <label className="block mb-2 text-sm font-medium text-[var(--dark-black)]">Các khoản chi phí</label>
               <div className="flex gap-4">
                 <input
                   id="cost-of-goods"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí nhập hàng (VNĐ)"
                   required
                   value={costOfGoods}
@@ -118,7 +188,7 @@ function AddExpenseDialog(props) {
                 />
                 <input
                   id="platform-cost"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí nền tảng (VNĐ)"
                   required
                   value={platformCost}
@@ -130,7 +200,7 @@ function AddExpenseDialog(props) {
               <div className="flex gap-4 mt-4">
                 <input
                   id="shipping-cost"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí vận chuyển (VNĐ)"
                   required
                   value={shippingCost}
@@ -140,7 +210,7 @@ function AddExpenseDialog(props) {
                 />
                 <input
                   id="operating-cost"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí vận hành và nhân sự (VNĐ)"
                   required
                   value={operatingCost}
@@ -152,7 +222,7 @@ function AddExpenseDialog(props) {
               <div className="flex gap-4 mt-4">
                 <input
                   id="legal-cost"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí pháp lý và thuế (VNĐ)"
                   required
                   value={legalCost}
@@ -162,7 +232,7 @@ function AddExpenseDialog(props) {
                 />
                 <input
                   id="other-cost"
-                  class="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
+                  className="bg-gray-50 border border-gray-300 text-[var(--dark-black)] text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-2.5"
                   placeholder="Chi phí khác (VNĐ)"
                   required
                   value={otherCost}
@@ -173,7 +243,7 @@ function AddExpenseDialog(props) {
               </div>
             </div>
           </div>
-          <hr class="border-t border-gray-300 my-8" />
+          <hr className="border-t border-gray-300 my-8" />
           <div className="mt-6 flex justify-between">
             <p className="font-semibold text-xl text-[var(--dark-black)]">Tổng chi phí:</p>
             <p className="font-semibold text-xl text-[var(--primary-color)]">{totalCost.toLocaleString()} VND</p>
@@ -183,7 +253,7 @@ function AddExpenseDialog(props) {
           <Button sx={customCancelButtonStyle} onClick={handleCancel}>
             Hủy
           </Button>
-          <Button type="submit" sx={customConfirmButtonStyle} onClick={props.onConfirm} autoFocus>
+          <Button type="submit" sx={customConfirmButtonStyle} autoFocus>
             Thêm chi phí
           </Button>
         </DialogActions>

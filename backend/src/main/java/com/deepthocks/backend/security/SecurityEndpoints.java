@@ -20,6 +20,10 @@ public class SecurityEndpoints {
             "api/users",
             "api/users/**",
             "api/orders/all",
+            "/api/revenue",
+            "/api/revenue/**",
+            "/api/expenses",
+            "/api/expenses/**",
     };
 
     public static final String[] ADMIN_POST_ENDPOINTS = {
@@ -28,6 +32,10 @@ public class SecurityEndpoints {
             "/api/upload/images",
             "/api/upload/images/**",
             "/api/upload/**",
+            "/api/revenue",
+            "/api/revenue/**",
+            "/api/expenses",
+            "/api/expenses/**",
     };
 
     public static final String[] ADMIN_DELETE_ENDPOINTS = {
