@@ -181,6 +181,11 @@ public class OrderService {
         //Xóa các CartItem trong Cart hiện tại
         cartItemRepository.deleteAll(cartItems);
 
+        // Nếu đơn hàng là paid (không phải COD), cập nhật revenue
+        if (!paymentMethod.equals("cod")) {
+            revenueService.addIncome(order.getTotalAmount(), order.getCreatedAt());
+        }
+
         //Trả về
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setOrderId(order.getOrderId());
