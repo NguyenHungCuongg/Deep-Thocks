@@ -19,7 +19,7 @@ function Sidebar(props) {
   return (
     <div className="relative">
       {!isSideBarOpen && (
-        <div id="hamburger-menu-section" className="flex justify-start p-2 h-screen">
+        <div id="hamburger-menu-section" className="flex justify-start p-2 h-full">
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
@@ -48,7 +48,7 @@ function Sidebar(props) {
       )}
 
       {isSideBarOpen && (
-        <nav className="bg-[var(--light-white)] border border-gray-300 h-screen block max-w-[10%] top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+        <nav className="bg-[var(--light-white)] border border-gray-300 min-h-screen h-full flex flex-col max-w-[10%] top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <ul>
             <li>
               <button

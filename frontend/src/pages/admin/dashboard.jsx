@@ -36,7 +36,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="bg-[var(--dark-white)] flex">
+    <div className="bg-[var(--dark-white)] flex min-h-screen h-auto">
       <Sidebar setSelectedForm={setSelectedForm} />
       <div id="dashboard-content" className="bg-[var(--dark-white)] p-4 w-full">
         {content}

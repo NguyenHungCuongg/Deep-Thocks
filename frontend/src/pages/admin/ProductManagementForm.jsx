@@ -96,7 +96,7 @@ function ProductManagementForm() {
         </div>
       </div>
 
-      <div class="relative overflow-x-auto shadow-md">
+      <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead class="text-xs text-[var(--dark-black)] bg-[var(--light-white)] border-y border-[var(--grey)]">
             <tr>
