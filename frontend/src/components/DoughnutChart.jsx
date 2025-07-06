@@ -79,6 +79,7 @@ function DoughnutChart({ revenueData }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Thêm dòng này
     plugins: {
       legend: { position: "right" },
       title: { display: true, text: "Tỉ lệ doanh thu theo tháng trong năm 2025" },
@@ -95,7 +96,11 @@ function DoughnutChart({ revenueData }) {
     },
   };
 
-  return <Doughnut data={data} options={options} />;
+  return (
+    <div style={{ height: 400 }}>
+      <Doughnut data={data} options={options} />
+    </div>
+  );
 }
 
 export default DoughnutChart;

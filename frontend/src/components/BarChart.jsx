@@ -66,6 +66,7 @@ function BarChart({ revenueData }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Thêm dòng này
     plugins: {
       legend: { position: "bottom" },
       title: { display: true, text: "So sánh doanh thu, chi phí, lợi nhuận năm 2025" },
@@ -88,7 +89,11 @@ function BarChart({ revenueData }) {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <div style={{ height: 400 }}>
+      <Bar data={data} options={options} />
+    </div>
+  );
 }
 
 export default BarChart;

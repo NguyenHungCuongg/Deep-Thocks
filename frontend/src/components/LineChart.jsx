@@ -56,6 +56,7 @@ function LineChart({ revenueData }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Thêm dòng này
     plugins: {
       legend: { position: "bottom" },
       title: { display: true, text: "Xu hướng doanh thu và chi phí năm 2025" },
@@ -78,7 +79,11 @@ function LineChart({ revenueData }) {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div style={{ height: 400 }}>
+      <Line data={data} options={options} />
+    </div>
+  );
 }
 
 export default LineChart;
