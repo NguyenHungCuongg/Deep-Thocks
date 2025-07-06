@@ -5,7 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ProductCreateDTO {
     private String productName;

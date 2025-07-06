@@ -5,7 +5,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ProductImageDTO {
     private String url;

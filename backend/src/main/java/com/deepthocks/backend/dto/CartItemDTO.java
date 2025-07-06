@@ -2,8 +2,15 @@ package com.deepthocks.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class CartItemDTO {
   private int productId;

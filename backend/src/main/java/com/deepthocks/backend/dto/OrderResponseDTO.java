@@ -6,9 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class OrderResponseDTO {
     private int orderId;
     private double shippingFee;

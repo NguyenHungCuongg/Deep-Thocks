@@ -1,9 +1,12 @@
 package com.deepthocks.backend.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderItemDTO {
     private int orderItemId;

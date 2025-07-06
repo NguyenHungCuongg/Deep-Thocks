@@ -6,7 +6,12 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class RegisterUserDTO {
     private String email;
