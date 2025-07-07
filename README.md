@@ -11,6 +11,7 @@ Một ứng dụng E-commerce chuyên bán bàn phím cơ, được phát triể
 - [Yêu cầu hệ thống](#yêu-cầu-hệ-thống)
 - [Hướng dẫn cài đặt và chạy ứng dụng](#hướng-dẫn-cài-đặt-và-chạy-ứng-dụng)
 - [Thông tin tài khoản](#thông-tin-tài-khoản)
+- [Giao diện](#giao-diện)
 - [Đóng góp](#đóng-góp)
 - [Liên hệ](#liên-hệ)
 
@@ -86,6 +87,43 @@ docker-compose down
 - **Password**: `123`
 
 **Lưu ý**: Tài khoản này dùng để quản trị hệ thống. Bạn có thể tạo thêm tài khoản khách hàng (`CUSTOMER`) thông qua API hoặc giao diện quản trị.
+
+## Giao diện
+### Trang chủ
+![Homepage](screenshots/home_page.png)
+
+### Trang sản phẩm
+![Products page](screenshots/product_page.png)
+
+### Trang giới thiệu
+![About page](screenshots/about_page.png)
+
+### Trang liên hệ
+![Contact page](screenshots/contact_page.png)
+
+### Trang đăng nhập
+![Login page](screenshots/login_page.png)
+
+### Trang giỏ hàng
+![Cart page](screenshots/cart_page.png)
+
+### Trang thanh toán hóa đơn
+![Payment page](screenshots/payment_page.png)
+
+### Trang hồ sơ
+![Profile page](screenshots/profile_page.png)
+
+### Trang quản lý doanh thu (dành cho admin)
+![Revenue page](screenshots/revenue_page.png)
+
+### Trang quản lý sản phẩm (dành cho admin)
+![Product Management page](screenshots/product_management_page.png)
+
+### Trang quản lý hóa đơn (dành cho admin)
+![Bill Management page](screenshots/bill_management_page.png)
+
+### Trang quản lý người dùng (dành cho admin)
+![User Management page](screenshots/user_management_page.png)
 
 ## Đóng góp
 
