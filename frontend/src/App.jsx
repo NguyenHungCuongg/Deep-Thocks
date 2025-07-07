@@ -16,6 +16,7 @@ import Dashboard from "./pages/admin/Dashboard"; // Giả sử bạn có trang D
 import { AuthContext } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import AdminRoute from "./context/AdminRoute"; // Giả sử bạn có một component AdminRoute để bảo vệ các route dành cho quản trị viên
+import OAuth2Redirect from "./pages/customer/OAuth2Redirect";
 
 function App() {
   const authState = useContext(AuthContext);
@@ -50,7 +51,9 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
       </Routes>
+
       {!isAdmin && <Footer />}
     </div>
   );

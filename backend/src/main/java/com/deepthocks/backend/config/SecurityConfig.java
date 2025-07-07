@@ -1,5 +1,7 @@
 package com.deepthocks.backend.config;
 
+import com.deepthocks.backend.security.OAuth2AuthenticationSuccessHandler;
+import com.deepthocks.backend.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,16 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CustomOAuth2UserService customOAuth2UserService() {
+        return new CustomOAuth2UserService();
+    }
+
+    @Bean
+    public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
+        return new OAuth2AuthenticationSuccessHandler();
+    }
+
+    @Bean
     public SecurityFilterChain customSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
@@ -43,15 +55,19 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, SecurityEndpoints.ADMIN_GET_ENDPOINS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,SecurityEndpoints.ADMIN_POST_ENDPOINTS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,SecurityEndpoints.ADMIN_DELETE_ENDPOINTS).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT,SecurityEndpoints.ADMIN_PUT_ENDPOINTS).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, SecurityEndpoints.ADMIN_PUT_ENDPOINTS).hasRole("ADMIN")
+                        .requestMatchers("/oauth2/**" , "/login/oauth2/**").permitAll() //Cho phép các endpoint liên quan đến OAuth2 được truy cập mà không cần xác thực
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFitler, UsernamePasswordAuthenticationFilter.class) //Thêm filter JwtAuthenticationFilter vào trước filter UsernamePasswordAuthenticationFilter
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//                .formLogin(Customizer.withDefaults())
-//                .logout(Customizer.withDefaults());
-
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService()) // custom service xử lý user Google
+                        )
+                        .successHandler(oAuth2AuthenticationSuccessHandler())
+                );
         return http.build();
     }
 

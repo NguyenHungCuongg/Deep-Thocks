@@ -43,7 +43,7 @@ public class User {
     @JsonIgnore
     private Cart cart;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(
             name = "user_role",

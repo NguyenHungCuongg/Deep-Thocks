@@ -37,7 +37,9 @@ function GoogleAuthOption() {
           />
         </svg>
       </button>
-      <a className="cursor-pointer hover:underline ml-1">Xác thực bằng tài khoản Google</a>
+      <a href="http://localhost:8080/oauth2/authorization/google" className="cursor-pointer hover:underline ml-1">
+        Xác thực bằng tài khoản Google
+      </a>
     </div>
   );
 }
