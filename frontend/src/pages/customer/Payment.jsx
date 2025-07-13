@@ -32,6 +32,8 @@ const Payment = () => {
                 setStreet={setStreet}
                 paymentMethod={paymentMethod}
                 setPaymentMethod={setPaymentMethod}
+                subTotal={totalPrice}
+                shippingFee={selectedCity === "" || selectedCity === "Đà Nẵng" ? 0 : 34000}
               />
             </div>
             <div className="flex-[2] w-full">

@@ -17,6 +17,7 @@ import { AuthContext } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import AdminRoute from "./context/AdminRoute"; // Giả sử bạn có một component AdminRoute để bảo vệ các route dành cho quản trị viên
 import OAuth2Redirect from "./pages/customer/OAuth2Redirect";
+import VnpayRedirect from "./pages/customer/VnpayRedirect"; // Trang xử lý redirect từ VNPay
 
 function App() {
   const authState = useContext(AuthContext);
@@ -52,6 +53,7 @@ function App() {
           }
         />
         <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
+        <Route path="/payment/vnpay-return" element={<VnpayRedirect />} />
       </Routes>
 
       {!isAdmin && <Footer />}
