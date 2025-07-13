@@ -37,6 +37,9 @@ function GoogleAuthOption() {
           />
         </svg>
       </button>
+      {/* /oauth2/authorization/google là Endpoint xác thực Google do thư viện Spring Security OAuth2 Client cung cấp
+        giúp người dùng chuyển hướng đến trang xác thực của Google.
+       */}
       <a href="http://localhost:8080/oauth2/authorization/google" className="cursor-pointer hover:underline ml-1">
         Xác thực bằng tài khoản Google
       </a>

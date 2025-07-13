@@ -136,33 +136,17 @@ function PaymentInputForm(props) {
             type="button"
             class="flex-1 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-2 focus:outline-none focus:ring-[var(--primary-color)] font-medium rounded-lg text-sm px-5 py-5 text-left inline-flex items-center me-2 mb-2"
           >
-            Thanh toán khi nhận hàng
+            <p className="mx-2">Thanh toán khi nhận hàng</p>
             <img src={assets.cod_icon} alt="cod" className="hidden sm:block w-10 object-contain" />
           </button>
           <button
-            onClick={() => handlePaymentMethodSelect("momo")}
+            onClick={() => handlePaymentMethodSelect("vnpay")}
             type="button"
             class="flex-1 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-2 focus:outline-none focus:ring-[var(--primary-color)] font-medium rounded-lg text-sm px-5 py-5 text-left inline-flex items-center me-2 mb-2"
           >
-            Thanh toán bằng ví Momo
-            <img src={assets.momo_icon} alt="momo" className="hidden sm:block w-10 object-contain" />
+            <p className="mx-2">Thanh toán bằng VNPay</p>
+            <img src={assets.vnpay_icon} alt="vnpay" className="hidden sm:block w-10 object-contain" />
           </button>
-          <button
-            onClick={() => handlePaymentMethodSelect("napas")}
-            type="button"
-            class="flex-1 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-2 focus:outline-none focus:ring-[var(--primary-color)] font-medium rounded-lg text-sm px-5 py-5 text-left inline-flex items-center me-2 mb-2"
-          >
-            Thanh toán bằng thẻ Napas
-            <img src={assets.napas_icon} alt="napas" className="hidden sm:block w-10 object-contain border rounded" />
-          </button>
-        </div>
-        <div className="col-span-3 lg:col-span-3 flex w-full">
-          {paymentMethod === "momo" && (
-            <img src={assets.momo_qr} alt="momo" className="hidden sm:block w-full object-contain" />
-          )}
-          {paymentMethod === "napas" && (
-            <img src={assets.napas_qr} alt="napas" className="hidden sm:block w-full object-contain" />
-          )}
         </div>
       </div>
 
