@@ -32,7 +32,7 @@ function BuyNowForm(props) {
 
       <div className="mt-5 flex flex-wrap justify-center gap-4">
         <img src={assets.momo_icon} alt="card1" className="w-10 object-contain" />
-        <img src={assets.napas_icon} alt="card2" className="w-10 object-contain border rounded" />
+        <img src={assets.vnpay_icon} alt="card2" className="w-10 object-contain border rounded p-1" />
       </div>
     </div>
   );
