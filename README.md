@@ -36,8 +36,8 @@ Deep Thocks được xây dựng với các công nghệ hiện đại:
   - **Java Spring Boot**: Framework Java để xây dựng API RESTful mạnh mẽ và bảo mật.
   - **PostgreSQL**: Cơ sở dữ liệu quan hệ để lưu trữ thông tin người dùng, sản phẩm, và đơn hàng.
 - **API bên thứ 3**:
-  - **OAuth2 Google**: Xác thực bằng tài khoản Google
-  - **VNpay**: Hỗ trợ thanh toán trực tuyến bằng VNpay   
+  - **OAuth2 Google**: Xác thực bằng tài khoản Google.
+  - **VNpay**: Hỗ trợ thanh toán trực tuyến bằng VNpay.   
 
 - **Triển khai**:
   - **Docker**: Container hóa ứng dụng để dễ dàng triển khai và quản lý.
