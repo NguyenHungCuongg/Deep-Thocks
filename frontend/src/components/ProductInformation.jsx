@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import QuantityInputSpinner from "./QuantityInputSpinner";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"; // thêm import
 
 function ProductInformation(props) {
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate(); // thêm hook
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -37,6 +39,22 @@ function ProductInformation(props) {
       toast.error("Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng, vui lòng thử lại");
       console.error("Error adding product to cart:", error);
     }
+  };
+
+  // Thêm hàm xử lý "Mua ngay"
+  const handleBuyNow = () => {
+    // Điều hướng đến trang thanh toán với sản phẩm hiện tại
+    const cartItems = [
+      {
+        productId: props.productId,
+        productName: props.currentProduct.productName,
+        price: props.currentProduct.salePrice || props.currentProduct.basePrice,
+        quantity: quantity,
+        productThumbnail: props.currentProduct.productThumbnail || "",
+      },
+    ];
+    const totalPrice = cartItems[0].price * cartItems[0].quantity;
+    navigate("/payment", { state: { cartItems, totalPrice } });
   };
 
   return (
@@ -91,6 +109,7 @@ function ProductInformation(props) {
           Thêm vào giỏ hàng
         </button>
         <button
+          onClick={handleBuyNow} // thêm onClick
           type="button"
           className="w-full px-4 py-2.5 cursor-pointer border border-slate-800 bg-[var(--light-black)] hover:bg-[var(--dark-black)] text-[var(--primary-color)] active:bg-[var(--light-black)] text-sm font-medium rounded-md"
         >

@@ -93,7 +93,7 @@ CREATE TABLE orders (
     total_amount DECIMAL(12, 2) NOT NULL,
     status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'paid')) DEFAULT 'pending',
     payment_method VARCHAR(100) NOT NULL CHECK (payment_method IN ('cod','vnpay')) DEFAULT 'cod'
-);
+); 
 
 -- Bảng Order_Items
 CREATE TABLE order_items (
