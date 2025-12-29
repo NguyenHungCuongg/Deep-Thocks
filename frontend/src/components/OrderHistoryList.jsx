@@ -1,38 +1,6 @@
-import React, { useState } from "react";
-import ConfirmDialog from "./ConfirmDialog";
-import axios from "axios";
-import toast from "react-hot-toast";
+import React from "react";
 
 function OrderHistoryList(props) {
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  const handleOrderStatusChange = async (orderId) => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(
-        `${backendURL}/api/orders/paid`,
-        { orderId: orderId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Cập nhật trạng thái hóa đơn thành công");
-        props.setOrders((prevOrders) =>
-          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order))
-        );
-      } else {
-        toast.error("Cập nhật trạng thái hóa đơn thất bại");
-      }
-    } catch (error) {
-      console.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn:", error);
-      toast.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn");
-    }
-  };
-
   return (
     <div className="overflow-x-auto md:max-w-4xl max-w-lg mx-auto">
       <div className="flex flex-col justify-between items-start py-12">
@@ -69,26 +37,13 @@ function OrderHistoryList(props) {
               <td className="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount.toLocaleString()} VND</td>
               <td className="px-4 py-4 text-sm">
                 {order.status === "pending" ? (
-                  <div>
-                    <button
-                      onClick={() => setShowConfirmDialog(true)}
-                      className="cursor-pointer text-[var(--light-white)] p-2 shadow rounded bg-[var(--primary-color)] font-medium"
-                    >
-                      Chưa thanh toán
-                    </button>
-                    <ConfirmDialog
-                      title="Xác nhận hóa đơn"
-                      content="Bạn có muốn xác nhận đã thanh toán hóa đơn này không?"
-                      open={showConfirmDialog}
-                      onClose={() => setShowConfirmDialog(false)}
-                      onConfirm={() => {
-                        handleOrderStatusChange(order.orderId);
-                        setShowConfirmDialog(false);
-                      }}
-                    />
-                  </div>
+                  <span className="inline-block px-3 py-1 text-xs font-medium text-orange-600 bg-orange-100 rounded-full">
+                    Chưa thanh toán
+                  </span>
                 ) : (
-                  <p className="text-green-600 font-medium">Đã thanh toán</p>
+                  <span className="inline-block px-3 py-1 text-xs font-medium text-green-600 bg-green-100 rounded-full">
+                    Đã thanh toán
+                  </span>
                 )}
               </td>
             </tr>

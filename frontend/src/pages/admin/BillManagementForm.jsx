@@ -5,12 +5,16 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Button from "@mui/material/Button";
 import StatusIndicator from "../../components/StatusIndicator";
 import OrderDetailDialog from "../../components/OrderDetailDialog";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import toast from "react-hot-toast";
 
 function BillManagementForm() {
   const [orders, setOrders] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [orderDetail, setOrderDetail] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const itemsPerPage = 6;
   const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const fileterOrders = orders.filter((order) => {
@@ -41,6 +45,32 @@ function BillManagementForm() {
         console.error("Error fetching orders:", error);
       });
   }, []);
+
+  const handleOrderStatusChange = async (orderId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `${backendURL}/api/orders/paid`,
+        { orderId: orderId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Cập nhật trạng thái hóa đơn thành công");
+        setOrders((prevOrders) =>
+          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order))
+        );
+      } else {
+        toast.error("Cập nhật trạng thái hóa đơn thất bại");
+      }
+    } catch (error) {
+      console.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn:", error);
+      toast.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn");
+    }
+  };
 
   return (
     <div className="bg-[var(--light-white)] h-full rounded-2xl border border-gray-300 pb-5 pt-5 sm:px-6 sm:pt-5 flex flex-col">
@@ -108,7 +138,19 @@ function BillManagementForm() {
                   </td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.paymentMethod.toUpperCase()}</td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">
-                    <StatusIndicator type={order.status === "pending" ? "warning" : "success"} content={order.status} />
+                    {order.status === "pending" ? (
+                      <button
+                        onClick={() => {
+                          setSelectedOrderId(order.orderId);
+                          setShowConfirmDialog(true);
+                        }}
+                        className="cursor-pointer text-white px-3 py-1.5 rounded text-xs font-medium bg-orange-500 hover:bg-orange-600"
+                      >
+                        Chưa thanh toán
+                      </button>
+                    ) : (
+                      <StatusIndicator type="success" content={order.status} />
+                    )}
                   </td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium">{order.totalAmount.toLocaleString()} VND</td>
                   <td class="px-4 py-4 text-sm text-slate-600 font-medium flex justify-center">
@@ -119,7 +161,11 @@ function BillManagementForm() {
                 </tr>
               ))
             ) : (
-              <div className="flex justify-center items-center h-64 w-full text-gray-500">Không có hóa đơn nào</div>
+              <tr>
+                <td colSpan="7" className="px-4 py-16 text-center text-gray-500">
+                  Không có hóa đơn nào
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
@@ -128,6 +174,31 @@ function BillManagementForm() {
           open={!!orderDetail}
           onClose={() => setOrderDetail(null)}
           onConfirm={() => setOrderDetail(null)}
+        />
+        <ConfirmDialog
+          title="Xác nhận thanh toán"
+          content="Bạn có muốn xác nhận hóa đơn này đã được thanh toán không?"
+          open={showConfirmDialog}
+          onClose={() => {
+            setShowConfirmDialog(false);
+            setSelectedOrderId(null);
+          }}
+          onConfirm={() => {
+            if (selectedOrderId) {
+              handleOrderStatusChange(selectedOrderId);
+            }
+            setShowConfirmDialog(false);
+            setSelectedOrderId(null);
+          }}
+        />
+      </div>
+
+      <div className="flex justify-center mt-4 px-5">
+        <Pagination
+          totalItems={fileterOrders.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </div>
     </div>
