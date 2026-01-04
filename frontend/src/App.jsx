@@ -12,51 +12,72 @@ import Products from "./pages/customer/Products";
 import Payment from "./pages/customer/Payment";
 import ProductView from "./components/ProductView";
 import Profile from "./pages/customer/Profile";
-import Dashboard from "./pages/admin/Dashboard"; // Giả sử bạn có trang Dashboard cho quản trị viên
+import Dashboard from "./pages/admin/Dashboard";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminLayout from "./components/AdminLayout";
+import BillManagementForm from "./pages/admin/BillManagementForm";
+import UserManagementForm from "./pages/admin/UserManagementForm";
+import SaleManagementForm from "./pages/admin/SaleManagementForm";
+import ProductManagementForm from "./pages/admin/ProductManagementForm";
+import IncomeManagementForm from "./pages/admin/IncomeManagementForm";
 import { AuthContext } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
-import AdminRoute from "./context/AdminRoute"; // Giả sử bạn có một component AdminRoute để bảo vệ các route dành cho quản trị viên
+import AdminRoute from "./context/AdminRoute";
 import OAuth2Redirect from "./pages/customer/OAuth2Redirect";
-import VnpayRedirect from "./pages/customer/VnpayRedirect"; // Trang xử lý redirect từ VNPay
+import VnpayRedirect from "./pages/customer/VnpayRedirect";
 
 function App() {
   const authState = useContext(AuthContext);
 
-  const isAdmin = authState.role?.includes("ADMIN");
-
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-      {!isAdmin && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductView />} />
-        {/*Sử dụng dấu ":" để tạo các tham số động -> về sau sẽ truy xuất các tham số này bằng useParams()*/}
-        {/*Hiển thị sản phẩm theo 1 level category*/}
-        <Route path="/categories/:categorySlug/products" element={<Products />} />
-        {/*Hiển thị sản phẩm theo 2 level category (parent → child)*/}
-        <Route path="/categories/:parentSlug/:childSlug/products" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/account/login" element={<Login />} />
-        <Route path="/account/register" element={<Register />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* Customer Routes */}
         <Route
-          path="/admin/dashboard"
+          path="/*"
           element={
-            <AdminRoute>
-              <Dashboard />
-            </AdminRoute>
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductView />} />
+                <Route path="/categories/:categorySlug/products" element={<Products />} />
+                <Route path="/categories/:parentSlug/:childSlug/products" element={<Products />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/account/login" element={<Login />} />
+                <Route path="/account/register" element={<Register />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
+                <Route path="/payment/vnpay-return" element={<VnpayRedirect />} />
+              </Routes>
+              <Footer />
+            </>
           }
         />
-        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
-        <Route path="/payment/vnpay-return" element={<VnpayRedirect />} />
-      </Routes>
 
-      {!isAdmin && <Footer />}
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<ProductManagementForm />} />
+          <Route path="orders" element={<BillManagementForm />} />
+          <Route path="users" element={<UserManagementForm />} />
+          <Route path="revenue" element={<IncomeManagementForm />} />
+          <Route path="expenses" element={<SaleManagementForm />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
