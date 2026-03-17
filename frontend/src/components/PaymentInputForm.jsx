@@ -52,12 +52,8 @@ function PaymentInputForm(props) {
       paymentMethod: paymentMethod,
       discountCode: "",
     };
-    const paymentRequestDTO = {
-      amount: props.subTotal + props.shippingFee,
-    };
     if (paymentMethod === "vnpay") {
       try {
-        // Tạo hóa đơn trước
         const orderResponse = await axios.post(`${backendURL}/api/orders`, orderRequestDTO, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,9 +61,10 @@ function PaymentInputForm(props) {
           },
         });
         if (orderResponse.status === 200 && orderResponse.data?.orderId) {
-          // Lưu orderId để xử lý sau khi thanh toán thành công
           localStorage.setItem("lastOrderId", orderResponse.data.orderId);
-          // Sau khi tạo hóa đơn, gọi sang VNPay
+          const paymentRequestDTO = {
+            orderId: orderResponse.data.orderId,
+          };
           const response = await axios.post(`${backendURL}/api/payment/vnpay`, paymentRequestDTO, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -76,7 +73,7 @@ function PaymentInputForm(props) {
             typeof response.data?.data === "string" &&
             response.data.data.startsWith("https://")
           ) {
-            window.location.href = response.data.data; // Redirect to VNPay
+            window.location.href = response.data.data;
           } else {
             toast.error("Không nhận được URL thanh toán hợp lệ từ VNPay.");
             console.error("VNPay response:", response.data);

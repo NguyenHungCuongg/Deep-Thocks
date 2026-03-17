@@ -3,6 +3,8 @@ package com.deepthocks.backend.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 import lombok.*;
 
 @Getter
@@ -15,8 +17,8 @@ public class ProductDTO {
     private String productName;
     private String productDescription;
     private int stockQuantity;
-    private double basePrice;
-    private double salePrice;
+    private BigDecimal basePrice;
+    private BigDecimal salePrice;
     private String thumbnailUrl;
 
     public String getThumbnailUrl() {

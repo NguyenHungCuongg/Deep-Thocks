@@ -8,7 +8,8 @@ public class SecurityEndpoints {
             "/api/products/**",
             "/api/categories/{parentSlug}/{childSlug}/products",
             "/api/categories/{categorySlug}/products",
-            "/api/products/search/**"
+            "/api/products/search/**",
+            "/api/payment/vnpay-return"
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
@@ -17,9 +18,9 @@ public class SecurityEndpoints {
     };
 
     public static final String[] ADMIN_GET_ENDPOINS = {
-            "api/users",
-            "api/users/**",
-            "api/orders/all",
+            "/api/users",
+            "/api/users/**",
+            "/api/orders/all",
             "/api/revenue",
             "/api/revenue/**",
             "/api/expenses",
@@ -32,6 +33,8 @@ public class SecurityEndpoints {
             "/api/upload/images",
             "/api/upload/images/**",
             "/api/upload/**",
+            "/api/orders/paid",
+            "/api/orders/pending",
             "/api/revenue",
             "/api/revenue/**",
             "/api/expenses",

@@ -3,6 +3,7 @@ package com.deepthocks.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -24,11 +25,11 @@ public class Discount {
     @Column(name = "discount_type")
     private String discountType;
 
-    @Column(name = "discount_value")
-    private double discountValue;
+    @Column(name = "discount_value", precision = 19, scale = 2)
+    private BigDecimal discountValue;
 
-    @Column(name = "min_order_amount")
-    private double minOrderAmount;
+    @Column(name = "min_order_amount", precision = 19, scale = 2)
+    private BigDecimal minOrderAmount;
 
     @Column(name = "remain_uses")
     private int remainUses;

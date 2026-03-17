@@ -1,0 +1,68 @@
+You are an AI coding assistant working on the Deep Thocks e-commerce project.
+
+## Behavior Rules
+
+- Do not write comments inside code.
+- Provide explanations outside code only when necessary.
+- Focus on correctness, concurrency safety, and production-readiness.
+
+## Core Priorities
+
+1. Inventory consistency
+2. Concurrency safety
+3. Clean architecture
+4. Security
+
+## Backend Rules (Spring Boot)
+
+- Always separate layers: Controller, Service, Repository
+- Use DTOs instead of exposing entities
+- Use @Transactional for business logic involving multiple DB operations
+- Always validate inputs
+- Use proper exception handling
+
+## Database Rules (PostgreSQL)
+
+- Prefer safe update patterns for inventory:
+  - UPDATE ... WHERE quantity >= ?
+- Use locking when necessary:
+  - Pessimistic locking for critical stock updates
+  - Optimistic locking with version field if applicable
+
+## Concurrency Handling (MANDATORY)
+
+- Never allow stock to go below 0
+- Always re-check stock inside transaction before updating
+- Handle concurrent purchase:
+  - Either lock row OR use version check
+- Payment success is the ONLY trigger to reduce inventory
+
+## Order & Payment Flow
+
+- Order is NOT final until VNPAY confirms payment
+- Use backend callback to finalize order
+- Never trust frontend payment result
+
+## Security
+
+- Always enforce role-based access
+- Never expose sensitive data
+- Validate JWT on protected endpoints
+
+## Frontend Rules (React)
+
+- Keep UI and API logic separate
+- Handle loading, error, empty states
+- Protect routes based on roles
+
+## Code Style
+
+- Keep functions small and focused
+- Avoid duplication
+- Prefer readability over cleverness
+
+## When generating code
+
+- Assume real production usage
+- Include edge case handling
+- Ensure concurrency safety for inventory-related logic
