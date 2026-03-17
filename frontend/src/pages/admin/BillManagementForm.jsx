@@ -38,8 +38,8 @@ function BillManagementForm() {
         },
       })
       .then((response) => {
-        console.log("Order API response:", response.data);
-        setOrders(response.data || []);
+        const sorted = (response.data || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setOrders(sorted);
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
@@ -56,19 +56,20 @@ function BillManagementForm() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         toast.success("Cập nhật trạng thái hóa đơn thành công");
         setOrders((prevOrders) =>
-          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order))
+          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order)),
         );
       } else {
         toast.error("Cập nhật trạng thái hóa đơn thất bại");
       }
     } catch (error) {
-      console.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn:", error);
-      toast.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn");
+      const errorMessage = error.response?.data || error.message || "Đã xảy ra lỗi không xác định";
+      console.error("Chi tiết lỗi:", errorMessage);
+      toast.error(`Lỗi: ${errorMessage}`);
     }
   };
 

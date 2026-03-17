@@ -32,8 +32,8 @@ public class Product {
     private int stockQuantity;
 
     @Version
-    @Column(name = "version")
-    private Long version;
+    @Column(name = "version", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
+    private long version;
 
     @Column(name = "base_price", precision = 19, scale = 2)
     private BigDecimal basePrice;
