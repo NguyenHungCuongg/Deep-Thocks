@@ -1,19 +1,49 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Menubar from "./Menubar";
 import SearchBarOverlay from "./SearchBarOverlay";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import Badge from "@mui/material/Badge";
 import ConfirmDialog from "./ConfirmDialog";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const { authState, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      if (!authState.isAuthenticated) {
+        setCartCount(0);
+        return;
+      }
+
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${backendUrl}/api/carts`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const totalQuantity = Array.isArray(response.data)
+          ? response.data.reduce((sum, item) => sum + Number(item.quantity || 0), 0)
+          : 0;
+        setCartCount(totalQuantity);
+      } catch (error) {
+        setCartCount(0);
+      }
+    };
+
+    fetchCartCount();
+  }, [authState.isAuthenticated, authState.user]);
 
   return (
     <div>
@@ -46,7 +76,9 @@ function Navbar() {
                 href="/cart"
                 className="flex md:gap-2 items-center font-semibold py-2 px-2 text-[var(--primary-color)] rounded-sm hover:bg-transparent hover:text-[var(--light-primary-color)] md:p-0"
               >
-                <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                <Badge badgeContent={cartCount} color="error" max={99}>
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                </Badge>
                 <span className="hidden md:block">Giỏ hàng</span>
               </a>
             ) : (
