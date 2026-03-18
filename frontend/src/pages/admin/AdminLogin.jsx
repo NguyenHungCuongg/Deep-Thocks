@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 
 function AdminLogin() {
@@ -15,43 +16,38 @@ function AdminLogin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+      const response = await axiosClient.post("/api/auth/login", { username, password }, { responseType: "text" });
+
+      const jwtToken = typeof response.data === "string" ? response.data : response.data?.token;
+
+      if (!jwtToken) {
+        toast.error("Không nhận được token hợp lệ từ máy chủ.");
+        return;
+      }
+
+      const payload = parseJwt(jwtToken);
+      const rawRoles = payload?.roles ?? payload?.role ?? payload?.authorities ?? [];
+      const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
+      const isAdmin = roles.some((role) => {
+        const normalizedRole = String(role || "").toUpperCase();
+        return normalizedRole === "ADMIN" || normalizedRole === "ROLE_ADMIN";
       });
 
-      if (response.ok) {
-        const jwtToken = await response.text(); // Backend trả về token trực tiếp dưới dạng string
-
-        // Decode token để kiểm tra role
-        const payload = parseJwt(jwtToken);
-        const userRole = payload?.roles;
-
-        // Kiểm tra xem có phải admin không
-        const isAdmin = Array.isArray(userRole) && userRole.some((r) => r === "ADMIN");
-
-        if (!isAdmin) {
-          toast.error("Bạn không có quyền truy cập trang quản trị!");
-          setIsLoading(false);
-          return;
-        }
-
-        // Lưu token và cập nhật context
-        localStorage.setItem("token", jwtToken);
-        login(username, jwtToken);
-
-        toast.success("Đăng nhập thành công!");
-        navigate("/admin/dashboard");
-      } else {
-        const errorMessage = await response.text();
-        toast.error(errorMessage || "Tên đăng nhập hoặc mật khẩu không chính xác!");
+      if (!isAdmin) {
+        toast.error("Bạn không có quyền truy cập trang quản trị!");
+        return;
       }
+
+      login(username, jwtToken);
+      toast.success("Đăng nhập thành công!");
+      navigate("/admin/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      const errorMessage =
+        typeof error?.response?.data === "string"
+          ? error.response.data
+          : error?.response?.data?.message || "Tên đăng nhập hoặc mật khẩu không chính xác!";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +65,7 @@ function AdminLogin() {
           .map(function (c) {
             return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join("")
+          .join(""),
       );
       return JSON.parse(jsonPayload);
     } catch (err) {

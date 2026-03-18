@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import GraphAndChartSection from "../../components/GraphAndChartSection";
 import AddExpenseDialog from "../../components/AddExpenseDialog";
 import RevenueTable from "../../components/RevenueTable";
@@ -9,12 +9,10 @@ function IncomeManagementForm() {
   const [revenueData, setRevenueData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios
-      .get(`${backendURL}/api/revenue`, {
+    axiosClient
+      .get(`/api/revenue`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,

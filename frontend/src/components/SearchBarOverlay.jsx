@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { useNavigate } from "react-router-dom";
 
 function SearchBarOverlay(props) {
   const [keyword, setKeyword] = React.useState("");
-  const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  // Đóng overlay khi nhấn phím ESC
+  const navigate = useNavigate();  // Đóng overlay khi nhấn phím ESC
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") props.onClose();
@@ -22,7 +19,7 @@ function SearchBarOverlay(props) {
   const hanleSearch = async (e) => {
     e.preventDefault(); // Ngăn chặn reload trang
     try {
-      const response = await axios.get(backendURL + "/api/products/search?keyword=" + keyword);
+      const response = await axiosClient.get("/api/products/search?keyword=" + keyword);
       if (response.status === 200) {
         navigate(`/products?keyword=${encodeURIComponent(keyword)}`);
         const data = response.data;

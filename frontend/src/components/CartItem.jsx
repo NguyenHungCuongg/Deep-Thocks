@@ -1,16 +1,13 @@
 import React from "react";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import QuantityInputSpinner from "./QuantityInputSpinner";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 
-function CartItem(props) {
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  const handleDelete = async () => {
+function CartItem(props) {  const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`${backendURL}/api/carts/${props.productId}`, {
+      const response = await axiosClient.delete(`/api/carts/${props.productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +32,7 @@ function CartItem(props) {
       <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
         <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
           <a href={`/products/${props.productId}`} class="cursor-pointer">
-            <img src={backendURL + props.thumbnailUrl} class="w-full h-full object-contain" />
+            <img src={props.thumbnailUrl} class="w-full h-full object-contain" />
           </a>
         </div>
         <div class="flex flex-col gap-4">

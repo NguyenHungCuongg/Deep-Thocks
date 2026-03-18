@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+﻿import React, { useState, useEffect } from "react";
+import axiosClient from "@/api/axiosClient";
 import Pagination from "../../components/Pagination";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Button from "@mui/material/Button";
@@ -16,7 +16,6 @@ function BillManagementForm() {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const itemsPerPage = 6;
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const fileterOrders = orders.filter((order) => {
     const keyword = searchKeyword.toLowerCase();
     return (
@@ -31,8 +30,8 @@ function BillManagementForm() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios
-      .get(`${backendURL}/api/orders/all`, {
+    axiosClient
+      .get(`/api/orders/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,8 +48,8 @@ function BillManagementForm() {
   const handleOrderStatusChange = async (orderId) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `${backendURL}/api/orders/paid`,
+      const response = await axiosClient.post(
+        `/api/orders/paid`,
         { orderId: orderId },
         {
           headers: {

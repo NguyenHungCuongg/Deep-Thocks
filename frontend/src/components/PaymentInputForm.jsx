@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AddressOptionForm from "./AddressOptionForm";
 import { cities, districts, wards } from "../data/locacations";
 import { assets } from "../assets/assets";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 
 function PaymentInputForm(props) {
@@ -19,10 +19,7 @@ function PaymentInputForm(props) {
     paymentMethod,
     setPaymentMethod,
   } = props;
-  const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  const handleCityChange = (e) => {
+  const navigate = useNavigate();  const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
     setSelectedDistrict("");
     setSelectedWard("");
@@ -54,7 +51,7 @@ function PaymentInputForm(props) {
     };
     if (paymentMethod === "vnpay") {
       try {
-        const orderResponse = await axios.post(`${backendURL}/api/orders`, orderRequestDTO, {
+        const orderResponse = await axiosClient.post(`/api/orders`, orderRequestDTO, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -65,7 +62,7 @@ function PaymentInputForm(props) {
           const paymentRequestDTO = {
             orderId: orderResponse.data.orderId,
           };
-          const response = await axios.post(`${backendURL}/api/payment/vnpay`, paymentRequestDTO, {
+          const response = await axiosClient.post(`/api/payment/vnpay`, paymentRequestDTO, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (
@@ -87,7 +84,7 @@ function PaymentInputForm(props) {
       }
     } else {
       try {
-        const response = await axios.post(`${backendURL}/api/orders`, orderRequestDTO, {
+        const response = await axiosClient.post(`/api/orders`, orderRequestDTO, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Menubar from "./Menubar";
@@ -17,7 +17,6 @@ function Navbar() {
   const [cartCount, setCartCount] = useState(0);
   const { authState, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
 
   useEffect(() => {
     const fetchCartCount = async () => {
@@ -28,7 +27,7 @@ function Navbar() {
 
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendUrl}/api/carts`, {
+        const response = await axiosClient.get(`/api/carts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

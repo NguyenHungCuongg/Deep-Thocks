@@ -5,7 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 
 function AddExpenseDialog(props) {
   const customCancelButtonStyle = {
@@ -22,11 +22,7 @@ function AddExpenseDialog(props) {
       backgroundColor: "var(--light-black)",
       color: "var(--light-white)",
     },
-  };
-
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-
-  // State cho các input tiền tệ
+  };  // State cho các input tiền tệ
   const [costOfGoods, setCostOfGoods] = useState("");
   const [platformCost, setPlatformCost] = useState("");
   const [shippingCost, setShippingCost] = useState("");
@@ -112,8 +108,8 @@ function AddExpenseDialog(props) {
     }
 
     try {
-      await axios.post(
-        `${backendURL}/api/expenses`,
+      await axiosClient.post(
+        `/api/expenses`,
         {
           expenseMonth: Number(month),
           expenseYear: Number(year),

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import Checkbox from "@mui/material/Checkbox";
 import InputBar from "../../components/InputBar";
 import toast from "react-hot-toast";
@@ -9,15 +9,13 @@ import GoogleAuthOption from "../../components/GoogleAuthOption";
 
 const Login = () => {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-  const { login } = useContext(AuthContext);
+  const [password, setPassword] = useState("");  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendURL}/api/auth/login`, {
+      const response = await axiosClient.post(`/api/auth/login`, {
         username: username,
         password: password,
       });

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import Pagination from "../../components/Pagination";
 
 function UserManagementForm() {
   const [users, setUsers] = useState([]);
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -23,8 +22,8 @@ function UserManagementForm() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios
-      .get(`${backendURL}/api/users`, {
+    axiosClient
+      .get(`/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { useParams } from "react-router-dom";
 import ProductInformation from "./ProductInformation";
 import ProductImageSlider from "./ProductImageSlider";
@@ -8,11 +8,9 @@ function ProductView() {
   const { id } = useParams();
   const [productImages, setProductImages] = useState([]);
   const [currentProduct, setCurrentProduct] = useState({});
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
   useEffect(() => {
-    axios
-      .get(backendURL + `/api/products/${id}/images`)
+    axiosClient
+      .get(`/api/products/${id}/images`)
       .then((response) => {
         setProductImages(response.data || []);
       })
@@ -22,12 +20,12 @@ function ProductView() {
   }, [id]);
 
   useEffect(() => {
-    axios
-      .get(backendURL + `/api/products/${id}`)
+    axiosClient
+      .get(`/api/products/${id}`)
       .then((response) => {
         console.log("Product details:", response.data);
         setCurrentProduct(
-          response.data || { salePrice: 0, basePrice: 0, productName: "", productDescription: "", stockQuantity: 0 }
+          response.data || { salePrice: 0, basePrice: 0, productName: "", productDescription: "", stockQuantity: 0 },
         );
       })
       .catch((error) => {

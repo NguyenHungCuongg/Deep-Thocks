@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CartItem from "../../components/CartItem";
 import BuyNowForm from "../../components/BuyNowForm";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -12,7 +12,6 @@ function Cart() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleBuyNow = () => {
     if (cartItems.length === 0) {
@@ -26,7 +25,7 @@ function Cart() {
     const fetchCartItems = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendUrl}/api/carts`, {
+        const response = await axiosClient.get(`/api/carts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -69,7 +68,7 @@ function Cart() {
                 onDelete={() => setCartItems(cartItems.filter((ci) => ci.productId !== item.productId))}
                 onQuantityChange={(newQuantity) => {
                   setCartItems(
-                    cartItems.map((ci) => (ci.productId === item.productId ? { ...ci, quantity: newQuantity } : ci))
+                    cartItems.map((ci) => (ci.productId === item.productId ? { ...ci, quantity: newQuantity } : ci)),
                   );
                 }}
               />

@@ -1,14 +1,12 @@
 import React from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 
-function ProductCard(props) {
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-  const handleAddToCart = async () => {
+function ProductCard(props) {  const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `${backendURL}/api/carts/add`,
+      const response = await axiosClient.post(
+        `/api/carts/add`,
         {
           productId: props.product.productId,
           quantity: 1,

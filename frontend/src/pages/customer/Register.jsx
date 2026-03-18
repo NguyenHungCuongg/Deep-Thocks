@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import InputBar from "../../components/InputBar";
 import GoogleAuthOption from "../../components/GoogleAuthOption";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -12,9 +12,7 @@ function Register() {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState("");  const navigate = useNavigate();
 
   const customCheckboxStyle = {
     color: "#2f2f2f",
@@ -31,7 +29,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post(`${backendURL}/api/auth/register`, {
+      const response = await axiosClient.post(`/api/auth/register`, {
         email: email,
         phone: phoneNumber,
         fullname: fullName,

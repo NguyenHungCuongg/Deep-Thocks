@@ -1,20 +1,17 @@
 import ProfileInformationSection from "../../components/ProfileInformationSection";
 import OrderHistoryList from "../../components/OrderHistoryList";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 function Profile() {
   const { authState } = useContext(AuthContext);
   const [user, setUser] = useState(null);
-  const [orderHistory, setOrderHistory] = useState([]);
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  useEffect(() => {
+  const [orderHistory, setOrderHistory] = useState([]);  useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendURL}/api/profile`, {
+        const response = await axiosClient.get(`/api/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +31,7 @@ function Profile() {
     const fetchOrderHistory = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${backendURL}/api/orders?username=${user.username}`, {
+        const response = await axiosClient.get(`/api/orders?username=${user.username}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
