@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import CategoryOptionForm from "./CategoryOptionForm";
 import Button from "@mui/material/Button";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { categories } from "../data/categories";
 
 function UpdateProductDialog(props) {
@@ -16,10 +16,7 @@ function UpdateProductDialog(props) {
   const [productCategoryId, setProductCategoryId] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [basePrice, setBasePrice] = useState("");
-  const [salePrice, setSalePrice] = useState("");
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-
-  useEffect(() => {
+  const [salePrice, setSalePrice] = useState("");  useEffect(() => {
     if (props.product) {
       setProductName(props.product.productName || "");
       setProductDescription(props.product.productDescription || "");
@@ -44,7 +41,7 @@ function UpdateProductDialog(props) {
       salePrice: parseFloat(salePrice),
     };
     try {
-      const response = await axios.put(`${backendURL}/api/products/${props.product.productId}`, productCreateDTO, {
+      const response = await axiosClient.put(`/api/products/${props.product.productId}`, productCreateDTO, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {

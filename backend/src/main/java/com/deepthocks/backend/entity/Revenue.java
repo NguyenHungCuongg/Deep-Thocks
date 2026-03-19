@@ -3,6 +3,8 @@ package com.deepthocks.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "revenue")
 @Getter
@@ -22,9 +24,9 @@ public class Revenue {
     @Column(name = "revenue_year")
     private int revenueYear;
 
-    @Column(name = "income")
-    private double income;
+    @Column(name = "income", precision = 19, scale = 2)
+    private BigDecimal income;
 
-    @Column(name = "outcome")
-    private double outcome;
+    @Column(name = "outcome", precision = 19, scale = 2)
+    private BigDecimal outcome;
 }

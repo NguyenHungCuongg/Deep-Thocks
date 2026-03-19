@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+﻿import React, { useState, useEffect } from "react";
+import axiosClient from "@/api/axiosClient";
 import Pagination from "../../components/Pagination";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Button from "@mui/material/Button";
@@ -16,7 +16,6 @@ function BillManagementForm() {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const itemsPerPage = 6;
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const fileterOrders = orders.filter((order) => {
     const keyword = searchKeyword.toLowerCase();
     return (
@@ -31,15 +30,15 @@ function BillManagementForm() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios
-      .get(`${backendURL}/api/orders/all`, {
+    axiosClient
+      .get(`/api/orders/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log("Order API response:", response.data);
-        setOrders(response.data || []);
+        const sorted = (response.data || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setOrders(sorted);
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
@@ -49,26 +48,27 @@ function BillManagementForm() {
   const handleOrderStatusChange = async (orderId) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `${backendURL}/api/orders/paid`,
+      const response = await axiosClient.post(
+        `/api/orders/paid`,
         { orderId: orderId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         toast.success("Cập nhật trạng thái hóa đơn thành công");
         setOrders((prevOrders) =>
-          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order))
+          prevOrders.map((order) => (order.orderId === orderId ? { ...order, status: "paid" } : order)),
         );
       } else {
         toast.error("Cập nhật trạng thái hóa đơn thất bại");
       }
     } catch (error) {
-      console.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn:", error);
-      toast.error("Đã xảy ra lỗi trong quá trình cập nhật trạng thái hóa đơn");
+      const errorMessage = error.response?.data || error.message || "Đã xảy ra lỗi không xác định";
+      console.error("Chi tiết lỗi:", errorMessage);
+      toast.error(`Lỗi: ${errorMessage}`);
     }
   };
 

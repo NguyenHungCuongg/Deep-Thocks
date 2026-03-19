@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import Pagination from "../../components/Pagination";
 import AddProductDialog from "../../components/AddProductDialog";
 import UpdateProductDialog from "../../components/UpdateProductDialog";
@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
 function ProductManagementForm() {
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
   const [products, setProducts] = useState([]);
   const [showAddProductDialog, setShowAddProductDialog] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -31,8 +30,8 @@ function ProductManagementForm() {
   const currentProductListPage = filteredProducts.slice(firstPageIndex, lastPageIndex);
 
   useEffect(() => {
-    axios
-      .get(`${backendURL}/api/products`)
+    axiosClient
+      .get(`/api/products`)
       .then((response) => {
         setProducts(response.data || []);
       })
@@ -44,7 +43,7 @@ function ProductManagementForm() {
   const handleDeleteProduct = async (productId) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.delete(`${backendURL}/api/products/${productId}`, {
+      const response = await axiosClient.delete(`/api/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {

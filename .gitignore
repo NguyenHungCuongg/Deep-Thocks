@@ -1,0 +1,70 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+.idea/
+*.iml
+.vscode/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Java / Spring Boot (backend)
+backend/target/
+backend/.mvn/
+
+# Node / Vite (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Test files and test artifacts
+# (requested: avoid pushing test-related files)
+backend/src/test/
+frontend/src/**/*.test.js
+frontend/src/**/*.test.jsx
+frontend/src/**/*.test.ts
+frontend/src/**/*.test.tsx
+frontend/src/**/*.spec.js
+frontend/src/**/*.spec.jsx
+frontend/src/**/*.spec.ts
+frontend/src/**/*.spec.tsx
+
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+**/surefire-reports/
+**/failsafe-reports/
+**/junit-reports/
+**/test-output/
+
+# AI-related files 
+.instructions.md
+.prompt.md
+.agent.md
+copilot-instructions.md
+.github/copilot-instructions.md
+AGENTS.md
+SKILL.md
+**/SKILL.md
+
+.cursor/
+.claude/
+.github/prompts/
+
+memories/
+.memories/

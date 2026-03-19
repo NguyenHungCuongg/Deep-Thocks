@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import QuantityInputSpinner from "./QuantityInputSpinner";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom"; // thêm import
 
@@ -10,15 +10,12 @@ function ProductInformation(props) {
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
-  };
-
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-  const handleAddToCart = async () => {
+  };  const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem("token");
       console.log("Quantity:", quantity);
-      const response = await axios.post(
-        `${backendURL}/api/carts/add`,
+      const response = await axiosClient.post(
+        `/api/carts/add`,
         {
           productId: props.productId,
           quantity: quantity,

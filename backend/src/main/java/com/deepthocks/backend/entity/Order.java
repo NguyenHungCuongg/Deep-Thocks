@@ -3,6 +3,7 @@ package com.deepthocks.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -30,14 +31,14 @@ public class Order {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "shipping_fee")
-    private double shippingFee;
+    @Column(name = "shipping_fee", precision = 19, scale = 2)
+    private BigDecimal shippingFee;
 
-    @Column(name = "discount_amount")
-    private double discountAmount;
+    @Column(name = "discount_amount", precision = 19, scale = 2)
+    private BigDecimal discountAmount;
 
-    @Column(name = "total_amount")
-    private double totalAmount;
+    @Column(name = "total_amount", precision = 19, scale = 2)
+    private BigDecimal totalAmount;
 
     @Column(name = "status")
     private String status;

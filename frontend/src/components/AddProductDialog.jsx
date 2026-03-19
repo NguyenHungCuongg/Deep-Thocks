@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import CategoryOptionForm from "./CategoryOptionForm";
 import Button from "@mui/material/Button";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import { categories } from "../data/categories";
 
 function AddProductDialog(props) {
@@ -17,10 +17,7 @@ function AddProductDialog(props) {
   const [stockQuantity, setStockQuantity] = useState("");
   const [basePrice, setBasePrice] = useState("");
   const [salePrice, setSalePrice] = useState("");
-  const [productImage, setProductImage] = useState([]);
-  const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-
-  //Hàm này sẽ được gọi khi người dùng chọn file ảnh
+  const [productImage, setProductImage] = useState([]);  //Hàm này sẽ được gọi khi người dùng chọn file ảnh
   //Nó sẽ upload từng file ảnh lên server và lưu lại URL của ảnh đã upload
   const handleImageFileChange = async (e) => {
     const token = localStorage.getItem("token");
@@ -30,7 +27,7 @@ function AddProductDialog(props) {
       const formData = new FormData();
       formData.append("file", files[i]); //Thêm từng file vào formData, Đặt tên cho trường của form-data là "file"
       //Từng file sẽ được gửi đi riêng lẻ -> mỗi ảnh sẽ là một request riêng
-      const response = await axios.post(`${backendURL}/api/upload/images`, formData, {
+      const response = await axiosClient.post(`/api/upload/images`, formData, {
         headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` },
       });
       uploadedImages.push({
@@ -55,7 +52,7 @@ function AddProductDialog(props) {
       images: productImage,
     };
     try {
-      const response = await axios.post(`${backendURL}/api/products`, productCreateDTO, {
+      const response = await axiosClient.post(`/api/products`, productCreateDTO, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AddressOptionForm from "./AddressOptionForm";
 import { cities, districts, wards } from "../data/locacations";
 import { assets } from "../assets/assets";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import toast from "react-hot-toast";
 
 function PaymentInputForm(props) {
@@ -19,10 +19,7 @@ function PaymentInputForm(props) {
     paymentMethod,
     setPaymentMethod,
   } = props;
-  const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
-  const handleCityChange = (e) => {
+  const navigate = useNavigate();  const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
     setSelectedDistrict("");
     setSelectedWard("");
@@ -52,23 +49,20 @@ function PaymentInputForm(props) {
       paymentMethod: paymentMethod,
       discountCode: "",
     };
-    const paymentRequestDTO = {
-      amount: props.subTotal + props.shippingFee,
-    };
     if (paymentMethod === "vnpay") {
       try {
-        // Tạo hóa đơn trước
-        const orderResponse = await axios.post(`${backendURL}/api/orders`, orderRequestDTO, {
+        const orderResponse = await axiosClient.post(`/api/orders`, orderRequestDTO, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
         if (orderResponse.status === 200 && orderResponse.data?.orderId) {
-          // Lưu orderId để xử lý sau khi thanh toán thành công
           localStorage.setItem("lastOrderId", orderResponse.data.orderId);
-          // Sau khi tạo hóa đơn, gọi sang VNPay
-          const response = await axios.post(`${backendURL}/api/payment/vnpay`, paymentRequestDTO, {
+          const paymentRequestDTO = {
+            orderId: orderResponse.data.orderId,
+          };
+          const response = await axiosClient.post(`/api/payment/vnpay`, paymentRequestDTO, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (
@@ -76,7 +70,7 @@ function PaymentInputForm(props) {
             typeof response.data?.data === "string" &&
             response.data.data.startsWith("https://")
           ) {
-            window.location.href = response.data.data; // Redirect to VNPay
+            window.location.href = response.data.data;
           } else {
             toast.error("Không nhận được URL thanh toán hợp lệ từ VNPay.");
             console.error("VNPay response:", response.data);
@@ -90,7 +84,7 @@ function PaymentInputForm(props) {
       }
     } else {
       try {
-        const response = await axios.post(`${backendURL}/api/orders`, orderRequestDTO, {
+        const response = await axiosClient.post(`/api/orders`, orderRequestDTO, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

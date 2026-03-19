@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,52 +20,50 @@ public class RevenueService {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-    // Tăng income khi đơn hàng paid
     @Transactional
-    public void addIncome(double amount, LocalDateTime date) {
+    public void addIncome(BigDecimal amount, LocalDateTime date) {
         int month = date.getMonthValue();
         int year = date.getYear();
         Revenue revenue = revenueRepository.findByRevenueMonthAndRevenueYear(month, year)
                 .orElse(Revenue.builder()
                         .revenueMonth(month)
                         .revenueYear(year)
-                        .income(0)
-                        .outcome(0)
+                        .income(BigDecimal.ZERO)
+                        .outcome(BigDecimal.ZERO)
                         .build());
-        revenue.setIncome(revenue.getIncome() + amount);
+        revenue.setIncome(revenue.getIncome().add(amount));
         revenueRepository.save(revenue);
     }
 
-    // Giảm income khi đơn hàng bị hủy hoặc chuyển về pending
     @Transactional
-    public void subtractIncome(double amount, LocalDateTime date) {
+    public void subtractIncome(BigDecimal amount, LocalDateTime date) {
         int month = date.getMonthValue();
         int year = date.getYear();
         Revenue revenue = revenueRepository.findByRevenueMonthAndRevenueYear(month, year)
                 .orElse(null);
         if (revenue != null) {
-            revenue.setIncome(Math.max(0, revenue.getIncome() - amount));
+            revenue.setIncome(revenue.getIncome().subtract(amount).max(BigDecimal.ZERO));
             revenueRepository.save(revenue);
         }
     }
 
-    // Cập nhật outcome khi thêm/sửa/xóa expense
     @Transactional
     public void updateOutcome(int month, int year) {
         List<Expense> expenses = expenseRepository.findByExpenseMonthAndExpenseYear(month, year);
-        double totalOutcome = expenses.stream().mapToDouble(Expense::getExpenseAmount).sum();
+        BigDecimal totalOutcome = expenses.stream()
+                .map(Expense::getExpenseAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
         Revenue revenue = revenueRepository.findByRevenueMonthAndRevenueYear(month, year)
                 .orElse(Revenue.builder()
                         .revenueMonth(month)
                         .revenueYear(year)
-                        .income(0)
-                        .outcome(0)
+                        .income(BigDecimal.ZERO)
+                        .outcome(BigDecimal.ZERO)
                         .build());
         revenue.setOutcome(totalOutcome);
         revenueRepository.save(revenue);
     }
 
-    // API lấy danh sách revenue (cho frontend)
     public List<Revenue> getAllRevenue() {
         return revenueRepository.findAll();
     }

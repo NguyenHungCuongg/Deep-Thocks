@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "@/api/axiosClient";
 import ProductList from "../../components/ProductList";
 import Pagination from "../../components/Pagination";
 import SidebarFilter from "../../components/SidebarFilter";
@@ -16,16 +16,14 @@ function ProductsContent() {
   const { categorySlug, parentSlug, childSlug } = useParams();
   const { filterProducts } = useFilter();
   const itemsPerPage = 9;
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
-
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("keyword");
 
   useEffect(() => {
     if (keyword) {
       setLoading(true);
-      axios
-        .get(`${backendURL}/api/products/search?keyword=${keyword}`)
+      axiosClient
+        .get(`/api/products/search?keyword=${keyword}`)
         .then((response) => {
           setProducts(response.data || []);
         })
@@ -36,7 +34,7 @@ function ProductsContent() {
           setLoading(false);
         });
     }
-  }, [keyword, backendURL]);
+  }, [keyword]);
 
   useEffect(() => {
     if (parentSlug && childSlug) {
@@ -50,8 +48,8 @@ function ProductsContent() {
 
   useEffect(() => {
     setLoading(true);
-    const url = backendURL + endpoint;
-    axios
+    const url = endpoint;
+    axiosClient
       .get(url)
       .then((response) => {
         setProducts(response.data || []);
@@ -62,7 +60,7 @@ function ProductsContent() {
       .finally(() => {
         setLoading(false);
       });
-  }, [endpoint, backendURL]);
+  }, [endpoint]);
 
   // Áp dụng filter cho products với useMemo để tối ưu performance
   const filteredProducts = useMemo(() => {

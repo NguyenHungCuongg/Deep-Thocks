@@ -3,6 +3,7 @@ package com.deepthocks.backend.dto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.*;
@@ -14,9 +15,9 @@ import lombok.*;
 @AllArgsConstructor
 public class OrderResponseDTO {
     private int orderId;
-    private double shippingFee;
-    private double discountAmount;
-    private double totalAmount;
+    private BigDecimal shippingFee;
+    private BigDecimal discountAmount;
+    private BigDecimal totalAmount;
     private String status;
     private LocalDateTime createdAt;
 }

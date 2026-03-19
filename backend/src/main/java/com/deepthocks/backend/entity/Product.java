@@ -2,6 +2,7 @@ package com.deepthocks.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
@@ -20,7 +21,7 @@ public class Product {
     @Column(name = "product_name")
     private String productName;
 
-    @Column(name = "product_description")
+    @Column(name = "product_description", columnDefinition = "TEXT")
     private String productDescription;
 
     @ManyToOne
@@ -30,11 +31,15 @@ public class Product {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @Column(name = "base_price")
-    private double basePrice;
+    @Version
+    @Column(name = "version", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
+    private long version;
 
-    @Column(name = "sale_price")
-    private double salePrice;
+    @Column(name = "base_price", precision = 19, scale = 2)
+    private BigDecimal basePrice;
+
+    @Column(name = "sale_price", precision = 19, scale = 2)
+    private BigDecimal salePrice;
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> imageList;
