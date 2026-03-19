@@ -26,18 +26,17 @@ Một ứng dụng E-commerce chuyên bán bàn phím cơ, được phát triể
 Deep Thocks được xây dựng với các công nghệ hiện đại:
 
 - **Frontend**:
-
   - **ReactJS**: Thư viện JavaScript để xây dựng giao diện người dùng.
   - **TailwindCSS**: Framework CSS để thiết kế giao diện responsive và hiện đại.
   - **Vite**: Công cụ build nhanh và hiệu quả cho frontend.
 
 - **Backend**:
-
   - **Java Spring Boot**: Framework Java để xây dựng API RESTful mạnh mẽ và bảo mật.
   - **PostgreSQL**: Cơ sở dữ liệu quan hệ để lưu trữ thông tin người dùng, sản phẩm, và đơn hàng.
+
 - **API bên thứ 3**:
   - **OAuth2 Google**: Xác thực bằng tài khoản Google.
-  - **VNpay**: Hỗ trợ thanh toán trực tuyến bằng VNpay.   
+  - **VNpay**: Hỗ trợ thanh toán trực tuyến bằng VNpay.
 
 - **Triển khai**:
   - **Docker**: Container hóa ứng dụng để dễ dàng triển khai và quản lý.
@@ -92,40 +91,58 @@ docker-compose down
 **Lưu ý**: Tài khoản này dùng để quản trị hệ thống. Bạn có thể tạo thêm tài khoản khách hàng (`CUSTOMER`) thông qua API hoặc giao diện quản trị.
 
 ## Giao diện
+
 ### Trang chủ
+
 ![Homepage](screenshots/home_page.png)
 
 ### Trang sản phẩm
+
 ![Products page](screenshots/product_page.png)
 
 ### Trang giới thiệu
+
 ![About page](screenshots/about_page.png)
 
 ### Trang liên hệ
+
 ![Contact page](screenshots/contact_page.png)
 
 ### Trang đăng nhập
+
 ![Login page](screenshots/login_page.png)
 
 ### Trang giỏ hàng
+
 ![Cart page](screenshots/cart_page.png)
 
 ### Trang thanh toán hóa đơn
+
 ![Payment page](screenshots/payment_page.png)
 
 ### Trang hồ sơ
+
 ![Profile page](screenshots/profile_page.png)
 
+### Trang dashboard (dành cho admin)
+
+![Dashboard page](screenshots/dashboard_page.png)
+
 ### Trang quản lý doanh thu (dành cho admin)
-![Revenue page](screenshots/revenue_page.png)
+
+![Revenue page](screenshots/revenue_page_1.png)
+![Revenue page](screenshots/revenue_page_2.png)
 
 ### Trang quản lý sản phẩm (dành cho admin)
+
 ![Product Management page](screenshots/product_management_page.png)
 
 ### Trang quản lý hóa đơn (dành cho admin)
+
 ![Bill Management page](screenshots/bill_management_page.png)
 
 ### Trang quản lý người dùng (dành cho admin)
+
 ![User Management page](screenshots/user_management_page.png)
 
 ## Đóng góp
