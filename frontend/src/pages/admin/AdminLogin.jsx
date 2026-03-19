@@ -192,7 +192,7 @@ function AdminLogin() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-6 text-gray-400 text-sm">© 2026 DeepThocks. All rights reserved.</div>
+        <div className="text-center mt-6 text-gray-400 text-sm">© 2025 DeepThocks. All rights reserved.</div>
       </div>
     </div>
   );

@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import PeopleIcon from "@mui/icons-material/People";
+import RevenueIcon from "@mui/icons-material/AttachMoney";
+import ExpenseIcon from "@mui/icons-material/MoneyOff";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
 
 function AdminSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -8,37 +16,37 @@ function AdminSidebar() {
   const menuItems = [
     {
       name: "Dashboard",
-      icon: "📊",
+      icon: <BarChartIcon />,
       path: "/admin/dashboard",
       description: "Tổng quan",
     },
     {
       name: "Sản phẩm",
-      icon: "📦",
+      icon: <KeyboardIcon />,
       path: "/admin/products",
       description: "Quản lý sản phẩm",
     },
     {
       name: "Đơn hàng",
-      icon: "🛒",
+      icon: <ShoppingCartIcon />,
       path: "/admin/orders",
       description: "Quản lý đơn hàng",
     },
     {
       name: "Người dùng",
-      icon: "👥",
+      icon: <PeopleIcon />,
       path: "/admin/users",
       description: "Quản lý người dùng",
     },
     {
       name: "Doanh thu",
-      icon: "💰",
+      icon: <RevenueIcon />,
       path: "/admin/revenue",
       description: "Quản lý doanh thu",
     },
     {
       name: "Chi phí",
-      icon: "💸",
+      icon: <ExpenseIcon />,
       path: "/admin/expenses",
       description: "Quản lý chi phí",
     },
@@ -60,9 +68,9 @@ function AdminSidebar() {
         {!isCollapsed && <h1 className="text-xl font-bold text-[var(--lighter-primary-color)]">Admin Panel</h1>}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
+          className="p-2 rounded-lg hover:bg-[#2f2f2f] transition-colors"
         >
-          {isCollapsed ? "→" : "←"}
+          <MenuIcon />
         </button>
       </div>
 
@@ -77,7 +85,7 @@ function AdminSidebar() {
                   `flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${
                     isActive
                       ? "bg-[var(--lighter-primary-color)] text-[var(--primary-color)] font-semibold"
-                      : "hover:bg-gray-700 hover:text-[var(--lighter-primary-color)]"
+                      : "hover:bg-[#2f2f2f] hover:text-[var(--lighter-primary-color)]"
                   }`
                 }
                 title={isCollapsed ? item.name : ""}
@@ -99,10 +107,12 @@ function AdminSidebar() {
       <div className="p-4 border-t border-gray-700">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-200"
+          className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-[#2f2f2f] hover:text-white transition-all duration-200"
           title={isCollapsed ? "Đăng xuất" : ""}
         >
-          <span className="text-2xl">🚪</span>
+          <span className="text-2xl">
+            <LogoutIcon />
+          </span>
           {!isCollapsed && <span className="font-medium">Đăng xuất</span>}
         </button>
       </div>
