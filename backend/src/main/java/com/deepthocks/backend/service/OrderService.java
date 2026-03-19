@@ -2,6 +2,7 @@ package com.deepthocks.backend.service;
 
 import com.deepthocks.backend.dto.*;
 import com.deepthocks.backend.entity.*;
+import com.deepthocks.backend.exception.InsufficientStockException;
 import com.deepthocks.backend.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +167,9 @@ public class OrderService {
         if (order == null) {
             throw new RuntimeException("Không tìm thấy hóa đơn! vui lòng thử lại!");
         }
+        if ("refund_pending".equalsIgnoreCase(order.getStatus())) {
+            throw new RuntimeException("Đơn hàng đang ở trạng thái bồi hoàn, không thể xác nhận thanh toán.");
+        }
         if (!"paid".equals(order.getStatus())) {
             try {
                 reduceInventoryForOrder(order);
@@ -200,26 +204,36 @@ public class OrderService {
         for (CartItem currentCartItem : cartItems) {
             Product currentProduct = currentCartItem.getProduct();
             if (currentProduct.getStockQuantity() < currentCartItem.getQuantity()) {
-                throw new RuntimeException("Sản phẩm " + currentProduct.getProductName() + " không đủ hàng");
+                throw new InsufficientStockException("Sản phẩm " + currentProduct.getProductName() + " không đủ hàng");
             }
         }
     }
 
     private void reduceInventoryForOrder(Order order) {
         for (OrderItem orderItem : order.getOrderItemList()) {
-            Product product = productRepository.findById(orderItem.getProduct().getProductId())
+            Product product = productRepository.findByIdForUpdate(orderItem.getProduct().getProductId())
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm để cập nhật tồn kho!"));
             if (product.getStockQuantity() < orderItem.getQuantity()) {
-                throw new RuntimeException("Sản phẩm " + product.getProductName() + " không đủ hàng để xác nhận thanh toán");
+                throw new InsufficientStockException("Sản phẩm " + product.getProductName() + " không đủ hàng để xác nhận thanh toán");
             }
             product.setStockQuantity(product.getStockQuantity() - orderItem.getQuantity());
             productRepository.saveAndFlush(product);
         }
     }
 
+    @Transactional
+    public void markOrderAsCompensationRequired(int orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy hóa đơn cần bồi hoàn."));
+        if (!"paid".equalsIgnoreCase(order.getStatus())) {
+            order.setStatus("refund_pending");
+            orderRepository.save(order);
+        }
+    }
+
     private void restoreInventoryForOrder(Order order) {
         for (OrderItem orderItem : order.getOrderItemList()) {
-            Product product = productRepository.findById(orderItem.getProduct().getProductId())
+            Product product = productRepository.findByIdForUpdate(orderItem.getProduct().getProductId())
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm để hoàn tồn kho!"));
             product.setStockQuantity(product.getStockQuantity() + orderItem.getQuantity());
             productRepository.saveAndFlush(product);

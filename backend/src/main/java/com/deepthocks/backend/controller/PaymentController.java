@@ -3,6 +3,7 @@ package com.deepthocks.backend.controller;
 import com.deepthocks.backend.dto.PaymentRequestDTO;
 import com.deepthocks.backend.entity.Order;
 import com.deepthocks.backend.entity.PaymentTransaction;
+import com.deepthocks.backend.exception.InsufficientStockException;
 import com.deepthocks.backend.repository.OrderRepository;
 import com.deepthocks.backend.repository.PaymentTransactionRepository;
 import com.deepthocks.backend.service.OrderService;
@@ -58,6 +59,9 @@ public class PaymentController {
         }
         if ("paid".equalsIgnoreCase(order.getStatus())) {
             return ResponseEntity.badRequest().body(Map.of("message", "Đơn hàng này đã được thanh toán."));
+        }
+        if ("refund_pending".equalsIgnoreCase(order.getStatus())) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Đơn hàng đang chờ bồi hoàn, không thể khởi tạo lại thanh toán VNPay."));
         }
 
         String vnp_TxnRef = generateTransactionRef();
@@ -150,6 +154,21 @@ public class PaymentController {
             return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Không tìm thấy giao dịch thanh toán cần đối soát."));
         }
 
+        if ("SUCCESS".equalsIgnoreCase(paymentTransaction.getStatus())) {
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Giao dịch VNPay đã được xác nhận trước đó.",
+                    "orderId", paymentTransaction.getOrder().getOrderId()
+            ));
+        }
+        if ("AUTO_REFUND_SIMULATED".equalsIgnoreCase(paymentTransaction.getStatus())) {
+            return ResponseEntity.ok(Map.of(
+                    "success", false,
+                    "message", "Giao dịch đã được đánh dấu bồi hoàn tự động trong môi trường sandbox.",
+                    "orderId", paymentTransaction.getOrder().getOrderId()
+            ));
+        }
+
         String computedHash = hmacSHA512("JR6SU3Q6T85SGBCY00CHJ9A54Z1ICO24", buildHashData(params));
         boolean validSignature = secureHash != null && secureHash.equalsIgnoreCase(computedHash);
 
@@ -175,6 +194,17 @@ public class PaymentController {
                         "message", "Thanh toán VNPay thành công.",
                         "orderId", paymentTransaction.getOrder().getOrderId()
                 ));
+            } catch (InsufficientStockException ex) {
+            paymentTransaction.setStatus("AUTO_REFUND_SIMULATED");
+            paymentTransaction.setResponsePayload(params + " | compensation=AUTO_REFUND_SIMULATED");
+            orderService.markOrderAsCompensationRequired(paymentTransaction.getOrder().getOrderId());
+            paymentTransactionRepository.save(paymentTransaction);
+            return ResponseEntity.ok(Map.of(
+                "success", false,
+                "message", "Thanh toán VNPay đã ghi nhận nhưng sản phẩm đã hết hàng. Hệ thống đã tự động đánh dấu bồi hoàn (sandbox).",
+                "orderId", paymentTransaction.getOrder().getOrderId(),
+                "compensationStatus", "AUTO_REFUND_SIMULATED"
+            ));
             } catch (RuntimeException ex) {
                 paymentTransaction.setStatus("RECONCILE_REQUIRED");
                 paymentTransactionRepository.save(paymentTransaction);
